@@ -24,8 +24,9 @@ class Department
      */
     public function handle($request, Closure $next)
     {
-        $department = \App\Department::keyword($request->segment(2))->first();
-
+       $department = app()->make('\App\Http\Controllers\ConferenceBaseController')->getDepartment();
+//        $department = \App\Department::keyword($request->segment(2))->first();
+//dd($department);
         if (!$department) {
             return redirect('/' . LaravelLocalization::setLocale());
         }
