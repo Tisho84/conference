@@ -2,7 +2,7 @@
 <html lang="en">
     @include('layouts.partials.head')
     <body>
-    <div id="page">
+    <div id="page" class="container-fluid">
         <div class="header container-fluid">
             <div class="row">
                 <div class="col-lg-1">
@@ -13,8 +13,12 @@
                                 <span class="glyphicon glyphicon-globe" aria-hidden="true"></span><span class="caret"></span>
                             </a>
                             <ul class="dropdown-menu">
-                                @foreach ($locales as $short => $locale)
-                                    <li>{!! HTML::link('/' . $short, $locale['name']) !!}</li>
+                                @foreach(LaravelLocalization::getSupportedLocales() as $localeCode => $properties)
+                                    <li>
+                                        <a rel="alternate" hreflang="{{$localeCode}}" href="{{ LaravelLocalization::getLocalizedURL($localeCode) }}">
+                                            {!! $properties['native'] !!}
+                                        </a>
+                                    </li>
                                 @endforeach
                             </ul>
                         </li>
@@ -50,12 +54,16 @@
         <div class="conference-departments container-fluid">
             <p>{{ trans('static.select-dept') }}</p>
             <div class="row row-department">
-            @foreach($departments as $k => $department)
+            @foreach ($departments as $k => $department)
                 <div class="col-lg-6">
-                    {!! HTML::image('img/picture.jpg') !!}
-                    {!! $department->name !!}
-                    {!! HTML::link($app->getLocale() . '/' . $department->keyword) !!}
+                    <p class="department-name">{!! $department->langs->first()['name'] !!}</p>
+                    <a href="{{ LaravelLocalization::setLocale() . '/' . $department->keyword }}">
+                        {!! HTML::image(asset('images/' . $department->image), $department->langs->first()['name'], ['class' => 'img-responsive']) !!}
+                    </a>
                 </div>
+                @if ($k % 2 == 1 && $k + 1 != count($departments))
+                    </div><div class="row row-department">
+                @endif
             @endforeach
             </div>
         </div>

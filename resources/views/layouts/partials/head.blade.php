@@ -8,10 +8,10 @@
     {{-- //load css --}}
     @section('css')
         {!! HTML::style('/css/app.css') !!}
-        <!-- Custom CSS -->
-        {!! HTML::style('/css/sb-admin/sb-admin.css') !!}
-        <!-- Custom Fonts -->
-        {!! HTML::style('/css/sb-admin/font-awesome.min.css') !!}
+        {{--<!-- Custom CSS -->--}}
+        {{--{!! HTML::style('/css/sb-admin/sb-admin.css') !!}--}}
+        {{--<!-- Custom Fonts -->--}}
+        {{--{!! HTML::style('/css/sb-admin/font-awesome.min.css') !!}--}}
     @show
     {{-- //load legacy scripts --}}
     @section('legacy')

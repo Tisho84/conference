@@ -53,7 +53,10 @@ return [
     */
 
     'locale' => 'en',
-    'locales' => ['en' => 'English', 'bg' => 'Bulgarian'],
+    'locales' => [
+        'en' => ['title' => 'English', 'id' => 1],
+        'bg' => ['title' => 'Bulgarian', 'id' => 2]
+    ],
 
     /*
     |--------------------------------------------------------------------------
@@ -149,6 +152,7 @@ return [
         Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider::class,
         Barryvdh\Debugbar\ServiceProvider::class,
         Mcamara\LaravelLocalization\LaravelLocalizationServiceProvider::class,
+        App\Providers\HelperServiceProvider::class,
 
     ],
 
