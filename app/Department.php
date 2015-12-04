@@ -23,4 +23,12 @@ class Department extends Model
     {
         return $query->orderBy('sort');
     }
+
+    /*
+     * RELATIONS !!!
+     */
+    public function langs()
+    {
+        return $this->hasMany('App\DepartmentLang');//->addEagerConstraints('App\DepartmentLang')->lists('title', 'lang_id');
+    }
 }

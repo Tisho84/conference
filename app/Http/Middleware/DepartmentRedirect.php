@@ -31,8 +31,8 @@ class DepartmentRedirect
             ->sort()
             ->get();
 
-        if (count($departments) == 1) {
-            return redirect($locale . '/' . $departments[0]['keyword']);
+        if (count($departments) == 1 && !$request->segment(2)) {
+            return redirect($locale . '/' . $departments->first()['keyword']);
         }
 
         Session::put('departments', $departments);

@@ -31,9 +31,12 @@ class HomeController extends Controller
                 ->get();
         }
 
+        $departments->load(['langs' => function ($query) {
+            $query->lang(dbTrans());
+        }]);
+
         return view('departments', [
             'departments' => $departments,
-            'app' => $this->app,
             'locales' => LaravelLocalization::getSupportedLocales()
         ]);
     }

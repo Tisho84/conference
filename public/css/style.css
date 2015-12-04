@@ -6,15 +6,23 @@
 }
 
 html, body {
-    min-height: 100%;
     margin: 0;
     padding: 0;
 }
 
+html {
+    height: 100%;
+}
+
 body {
-    font-family:  'Segoe UI Light', Tahoma, Verdana, Segoe, sans-serif !important;
+    min-height: 100%;
+    /*position: relative;*/
+    font-family: Tahoma, Verdana, Segoe, sans-serif !important;
     font-size: 14px;
+    background-color: #0f5586 !important;
     margin-bottom: 45px;
+    padding-bottom: 0 !important;
+    color: #F0F8FF !important;
 }
 
 .footer {
@@ -61,14 +69,18 @@ h1 {
 
 #page {
     display: block;
-    position: absolute;
-    height: auto;
-    bottom:0;
-    top:0;
-    left:0;
-    right:0;
-    color: #F0F8FF !important;
-    background-color: #0f5586;
+    height:100vh;
+    /*position: absolute;*/
+    /*min-height: 100%;*/
+    /*bottom:0;*/
+    /*top:0;*/
+    /*left:0;*/
+    /*right:0;*/
+    /*color: #F0F8FF !important;*/
+    /*background-color: #0f5586;*/
+}
+#page .row-department {
+    margin: 10px 0 15px 0;
 }
 
 #page .row-department div {
@@ -85,10 +97,20 @@ h1 {
     margin: 20px 0;
 }
 
-.conference-departments p {
+.conference-departments > p {
+    font-size: 1.7em;
+    text-align: center;
+}
+
+.conference-departments p.department-name {
     font-size: 1.5em;
     text-align: center;
 }
+
+.conference-departments img {
+    margin: 0 auto;
+}
+
 
 .language-dropdown a.dropdown-toggle {
     margin: 10px 0; /*TODO */
