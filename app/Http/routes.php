@@ -20,13 +20,8 @@ Route::group([
     Route::get('/', ['uses' => 'HomeController@index']);
 
     Route::group(['prefix' => '{department}', 'middleware' => [ 'department' ]], function () {
-        Route::get('/', function($department) {
-            return $department;
-        });
+        Route::get('/', ['as' => 'department', 'uses' => 'HomeController@department']);
 
-        Route::get('test', function() {
-            return View::make('test');
-        });
     });
 
     /** ---------- ADMIN ROUTES ---------- */

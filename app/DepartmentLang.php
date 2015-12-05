@@ -8,9 +8,11 @@ class DepartmentLang extends Model
 {
     protected $table = 'department_lang';
 
-
-    public function scopeLang($query, $id)
+    public function scopeLang($query,  $id = null)
     {
+        if ( !$id ) {
+            $id = dbTrans();
+        }
         return $query->where('lang_id', $id);
     }
 
