@@ -17,21 +17,27 @@ html {
 body {
     margin: 0;
     padding: 0;
+    height: 100%;
     min-height: 100%;
     position: relative;
     font-family: Tahoma, Verdana, Segoe, sans-serif !important;
     font-size: 14px;
-    background-color: #0f5586 !important;
     padding-bottom: 0 !important;
     color: #F0F8FF !important;
 }
 
-/* ----------------------- Home page -----------------------*/
-
 #container {
+    background-color: #0f5586;
     display: block;
     position: relative;
     min-height: 100%;
+}
+
+#container > div {
+    margin-right: auto;
+    margin-left: auto;
+    padding-left: 15px;
+    padding-right: 15px;
 }
 
 #header {
@@ -81,6 +87,31 @@ body {
     width: 80%;
 }
 
+.department {
+    color : #000000; !important;
+    background-color: #f8f8f8 !important;
+}
+
+.department #header {
+    padding: 0 15px;
+    min-height: 150px;
+    max-height: 200px;
+}
+
+.department #header img {
+    display: inline-block;
+    max-height: 190px;
+}
+
+.department h1 {
+    font-size: 25px;
+    text-align: left;
+}
+
+.department .navbar {
+    font-size: 16px;
+}
+
 h1 {
     text-align: center;
     font-weight: 300;
@@ -112,6 +143,7 @@ h1 {
 .conference-departments img {
     margin: 0 auto;
     display: inline-block;
+    max-height: 225px;
 }
 
 .language-dropdown a.dropdown-toggle {
@@ -120,8 +152,10 @@ h1 {
     color: #F0F8FF;
 }
 
-.nav.language-dropdown > li.dropdown > a { background-color: transparent; text-decoration: none; }
-/*.language-dropdown li.open { background-color: transparent; text-decoration: none; }*/
+.nav.language-dropdown > li.dropdown > a {
+    background-color: transparent;
+    text-decoration: none;
+}
 
 .nav.language-dropdown > li.dropdown.active.open > a,
 .nav.language-dropdown > li.dropdown.active.open > ul.dropdown-menu a:hover,
@@ -137,11 +171,28 @@ h1 {
     min-width: 125px;
 }
 
+.nav li span.glyphicon,
+.department-language-dropdown span.glyphicon-globe{
+    font-size: 1.65em;
+}
+
+.nav > li.li-glyphicon > a,
+.department-language-dropdown > li > a {
+    padding: 10px 0 !important;
+}
+
 span.glyphicon-globe {
     font-size: 1.75em;
 }
 
-/* ----------------------- Home page end ----------------------- */
 .nav span {
     margin-right: 10px;
+}
+
+.department #footer {
+    color: #000000;
+}
+
+.btn-theme {
+    margin: 0 10px;
 }

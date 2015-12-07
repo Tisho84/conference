@@ -1,171 +1,72 @@
+<!DOCTYPE html>
 <html lang="en">
-    @include('layouts.partials.head')
+    <head>
+        <title>@yield('title', $department->dbLangs->get(dbTrans())->title)</title>
+        @include('layouts.partials.head')
+        @include('layouts.partials.style')
+    </head>
     <body>
-        {{--<div class="sidebar">--}}
-            {{--@section('sidebar')--}}
-                {{--@include('layouts.partials.navigation')--}}
-            {{--@show--}}
-        {{--</div>--}}
-        {{--@include('partials.messages.success')--}}
-        {{--@include('partials.messages.errors')--}}
-        {{--@include('partials.messages.error')--}}
-        {{--<div class="container">--}}
-            {{--@yield('content')--}}
-        {{--</div>--}}
-
-        {{--@section('js')--}}
-            {{--@include('layouts.partials.js')--}}
-        {{--@show--}}
-        <div id="wrapper">
-            <!-- Navigation -->
-            <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
-                <!-- Brand and toggle get grouped for better mobile display -->
-                <div class="navbar-header">
-                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
-                        <span class="sr-only">Toggle navigation</span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </button>
-                    <a class="navbar-brand" href="index.html">SB Admin</a>
+        <div id="container" class="department container-fluid">
+            <div id="header">
+                <div class="row">
+                    <div class="col-lg-3 col-md-3">
+                        <a href="{{ getLangUrl($department->keyword) }}">
+                            {!! HTML::image(asset('images/' . $department->image), $department->dbLangs->get(dbTrans())->name, ['class' => 'img-responsive']) !!}
+                        </a>
+                    </div>
+                    <div class="col-lg-9 col-md-9">
+                        <h1>{!! $department->dbLangs->get(dbTrans())->title !!}</h1>
+                    </div>
                 </div>
-                <!-- Top Menu Items -->
-                <ul class="nav navbar-right top-nav">
-                    <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-envelope"></i> <b class="caret"></b>
-                        </a>
-                        <ul class="dropdown-menu message-dropdown">
-                            <li class="message-preview">
-                                <a href="#">
-                                    <div class="media">
-                                    <span class="pull-left">
-                                        <img class="media-object" src="http://placehold.it/50x50" alt="">
-                                    </span>
-                                        <div class="media-body">
-                                            <h5 class="media-heading"><strong>John Smith</strong>
-                                            </h5>
-                                            <p class="small text-muted"><i class="fa fa-clock-o"></i> Yesterday at 4:32 PM</p>
-                                            <p>Lorem ipsum dolor sit amet, consectetur...</p>
-                                        </div>
-                                    </div>
-                                </a>
-                            </li>
-                            <li class="message-preview">
-                                <a href="#">
-                                    <div class="media">
-                                    <span class="pull-left">
-                                        <img class="media-object" src="http://placehold.it/50x50" alt="">
-                                    </span>
-                                        <div class="media-body">
-                                            <h5 class="media-heading"><strong>John Smith</strong>
-                                            </h5>
-                                            <p class="small text-muted"><i class="fa fa-clock-o"></i> Yesterday at 4:32 PM</p>
-                                            <p>Lorem ipsum dolor sit amet, consectetur...</p>
-                                        </div>
-                                    </div>
-                                </a>
-                            </li>
-                            <li class="message-preview">
-                                <a href="#">
-                                    <div class="media">
-                                    <span class="pull-left">
-                                        <img class="media-object" src="http://placehold.it/50x50" alt="">
-                                    </span>
-                                        <div class="media-body">
-                                            <h5 class="media-heading"><strong>John Smith</strong>
-                                            </h5>
-                                            <p class="small text-muted"><i class="fa fa-clock-o"></i> Yesterday at 4:32 PM</p>
-                                            <p>Lorem ipsum dolor sit amet, consectetur...</p>
-                                        </div>
-                                    </div>
-                                </a>
-                            </li>
-                            <li class="message-footer">
-                                <a href="#">Read All New Messages</a>
-                            </li>
-                        </ul>
-                    </li>
-                    <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-bell"></i> <b class="caret"></b>
+            </div>
+            <div id="body">
+                <nav class="navbar navbar-default">
+                    <div class="container-fluid">
+                        <!-- Brand and toggle get grouped for better mobile display -->
+                        <div class="navbar-header">
+                            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                                <span class="sr-only">Toggle navigation</span>
+                                <span class="icon-bar"></span>
+                                <span class="icon-bar"></span>
+                                <span class="icon-bar"></span>
+                            </button>
+                        </div>
 
-                        </a>
-                        <ul class="dropdown-menu alert-dropdown">
-                            <li>
-                                <a href="#">Alert Name <span class="label label-default">Alert Badge</span></a>
-                            </li>
-                            <li class="divider"></li>
-                            <li>
-                                <a href="#">View All</a>
-                            </li>
-                        </ul>
-                    </li>
-                    <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i> John Smith <b class="caret"></b></a>
-                        <ul class="dropdown-menu">
-                            <li>
-                                <a href="#"><i class="fa fa-fw fa-user"></i> Profile</a>
-                            </li>
-                            <li>
-                                <a href="#"><i class="fa fa-fw fa-envelope"></i> Inbox</a>
-                            </li>
-                            <li>
-                                <a href="#"><i class="fa fa-fw fa-gear"></i> Settings</a>
-                            </li>
-                            <li class="divider"></li>
-                            <li>
-                                <a href="#"><i class="fa fa-fw fa-power-off"></i> Log Out</a>
-                            </li>
-                        </ul>
-                    </li>
-                </ul>
-                <!-- Sidebar Menu Items - These collapse to the responsive navigation menu on small screens -->
-                <div class="collapse navbar-collapse navbar-ex1-collapse">
-                    <ul class="nav navbar-nav side-nav">
-                        <li>
-                            <a href="forms.html"><span class="glyphicon glyphicon-home"></span>Home</a>
-                        </li>
-                        <li>
-                            <a href="javascript:;" data-toggle="collapse" data-target="#account-menu"><span class="glyphicon glyphicon-user"></span>Account <i class="fa fa-fw fa-caret-down"></i></a>
-                            <ul id="account-menu" class="collapse">
-                                <li>
-                                    <a href="#">Dropdown Item</a>
-                                </li>
-                                <li>
-                                    <a href="#">Dropdown Item</a>
-                                </li>
+                        <!-- Collect the nav links, forms, and other content for toggling -->
+                        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                            <ul class="nav navbar-nav">
+                                @if (count(Cache::get('departments')) > 1)
+                                    <li class="li-glyphicon">
+                                        <a href="{{ getLangUrl() }}"><span class="glyphicon glyphicon-menu-left" aria-hidden="true"></span></a>
+                                    </li>
+                                @endif
+                                <li><a href="{{ getLangUrl($department->keyword) }}">{{ trans('static.menu-home') }}</a></li>
+                                @if (Auth::guest())
+                                    @include('layouts.partials.menu_guest')
+                                @else
+                                    @include('layouts.partials.menu_user')
+                                @endif
+                            </ul>
+                            <ul class="nav navbar-nav department-language-dropdown navbar-right">
+                                @include('layouts.partials.language_dropdown')
                             </ul>
 
-                        </li>
-                        <li>
-                            <a href="forms.html"><span class="glyphicon glyphicon-book"></span>Papers</a>
-                        </li>
-                        <li>
-                            <a href="bootstrap-grid.html"><span class="glyphicon glyphicon-cog" aria-hidden="true"></span>Settings</a>
-                        </li>
-                        <li>
-
-                        </li>
-                    </ul>
+                        </div><!-- /.navbar-collapse -->
+                    </div><!-- /.container-fluid -->
+                </nav>
+                <div class="messages">
+                    @include('layouts.partials.messages.other')
                 </div>
-                <!-- /.navbar-collapse -->
-            </nav>
-            <div id="page-wrapper">
-                <div class="container-fluid">asad asd asd as das da das das dasa
-                    asad asd asd as das da das das dasaasad asd asd as das da das das dasaasad asd asd as das da das das dasaasad asd asd as das da das das dasa
-                    asad asd asd as das da das das dasaasad asd asd as das da das das dasaasad asd asd as das da das das dasaasad asd asd as das da das das dasa
-                    asad asd asd as das da das das dasaasad asd asd as das da das das dasaasad asd asd as das da das das dasaasad asd asd as das da das das dasa
-                    asad asd asd as das da das das dasaasad asd asd as das da das das dasaasad asd asd as das da das das dasaasad asd asd as das da das das dasa
-                    asad asd asd as das da das das dasaasad asd asd as das da das das dasaasad asd asd as das da das das dasaasad asd asd as das da das das dasa
-                    asad asd asd as das da das das dasaasad asd asd as das da das das dasaasad asd asd as das da das das dasaasad asd asd as das da das das dasa
-                    asad asd asd as das da das das dasaasad asd asd as das da das das dasaasad asd asd as das da das das dasaasad asd asd as das da das das dasa
-                    asad asd asd as das da das das dasaasad asd asd as das da das das dasaasad asd asd as das da das das dasaasad asd asd as das da das das dasaa
-
+                <div class="content">
+                    @yield('content')
                 </div>
-                <!-- /.container-fluid -->
             </div>
-            <!-- /#page-wrapper -->
+            <div id="footer">
+                <p>© {{ $department->dbLangs->get(dbTrans())->title }}</p>
+            </div>
         </div>
-        <!-- /#wrapper -->
+
+        @yield('javascript')
         {!! HTML::script('/js/all.js') !!}
         {!! HTML::script('/js/app.js') !!}
     </body>

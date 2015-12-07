@@ -5,7 +5,6 @@ namespace App\Http\Middleware;
 use Closure;
 use Illuminate\Http\Request;
 use Illuminate\Foundation\Application;
-use Illuminate\Support\Facades\Session;
 use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 
 class DepartmentRedirect
@@ -27,15 +26,11 @@ class DepartmentRedirect
     {
         $laravelLocale = LaravelLocalization::setLocale() ? : $this->app->config->get('app.fallback_locale');
         $locale = '/' . $laravelLocale;
-        $departments = \App\Department::active()
-            ->sort()
-            ->get();
-
+        $departments = app()->make('ConferenceBaseController')->getDepartments();
         if (count($departments) == 1 && !$request->segment(2)) {
             return redirect($locale . '/' . $departments->first()['keyword']);
         }
 
-        Session::put('departments', $departments);
         return $next($request);
     }
 }

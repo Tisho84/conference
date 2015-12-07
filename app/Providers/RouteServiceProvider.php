@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Department;
 use Illuminate\Routing\Router;
 use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvider;
 
@@ -27,6 +28,12 @@ class RouteServiceProvider extends ServiceProvider
         //
 
         parent::boot($router);
+
+        $router->bind('department', function () {
+            $department = app()->make('ConferenceBaseController')->getDepartment();
+            view()->share('department', $department);
+            return $department;
+        });
     }
 
     /**

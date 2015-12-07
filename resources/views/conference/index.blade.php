@@ -1,12 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
-    @include('...layouts.partials.head')
+    <head>
+        @include('layouts.partials.head')
+    </head>
     <body>
     <div id="container" class="container-fluid">
-        <div id="header" class="container-fluid">
+        <div id="header">
             <div class="row">
                 <div class="col-lg-1">
-                    @include('...layouts.partials.language_dropdown')
+                    <ul class="nav navbar-nav language-dropdown">
+                        @include('layouts.partials.language_dropdown')
+                    </ul>
                 </div>
                 <div class="col-lg-10">
                     <h1>{{ trans('static.title') }}</h1>
@@ -14,7 +18,7 @@
                 <div class="col-lg-1"></div>
             </div>
         </div>
-        <div id="body" class="conference-slider container-fluid">
+        <div id="body" class="conference-slider">
             <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
                 <!-- Wrapper for slides -->
                 <div class="carousel-inner" role="listbox">
@@ -37,9 +41,9 @@
                 <div class="row row-department">
                     @foreach ($departments as $k => $department)
                         <div class="col-lg-6">
-                            <p class="department-name">{!! $department->langs->first()['name'] !!}</p>
-                            <a href="{{ LaravelLocalization::setLocale() . '/' . $department->keyword }}">
-                                {!! HTML::image(asset('images/' . $department->image), $department->langs->first()['name'], ['class' => 'img-responsive']) !!}
+                            <p class="department-name">{!! $department->dbLangs->get(dbTrans())->name !!}</p>
+                            <a href="{{ getLangUrl($department->keyword)  }}">
+                                {!! HTML::image(asset('images/' . $department->image), $department->dbLangs->get(dbTrans())->name, ['class' => 'img-responsive']) !!}
                             </a>
                         </div>
                         @if ($k % 2 == 1 && $k + 1 != count($departments))
@@ -49,11 +53,10 @@
                 </div>
             </div>
         </div>
-        <div id="footer" class="container-fluid">
+        <div id="footer">
             <p>{{ trans('static.footer') }}</p>
         </div>
     </div>
-
     {!! HTML::script('/js/all.js') !!}
     <script type="text/javascript">
         $(function(){

@@ -12,6 +12,8 @@ class DepartmentLang extends Model
     {
         if ( !$id ) {
             $id = dbTrans();
+        } else {
+            $id = is_numeric($id) ? $id : dbTrans($id);
         }
         return $query->where('lang_id', $id);
     }
