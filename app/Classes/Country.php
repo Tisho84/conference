@@ -14,7 +14,7 @@ use App\Interfaces\ILanguage;
 class Country implements ILanguage
 {
     private $countries = [
-        "Choose country",
+        null => "Choose country",
         "Abu Dhabi (United Arab Emirates)",
         "Admiralty Islands (Papua New Guinea)",
         "Afghanistan",

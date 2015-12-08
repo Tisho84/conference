@@ -29,6 +29,11 @@ class Department extends Model
      */
     public function langs()
     {
-        return $this->hasMany('App\DepartmentLang');//->addEagerConstraints('App\DepartmentLang')->lists('title', 'lang_id');
+        return $this->hasMany('App\DepartmentLang');
+    }
+
+    public function users()
+    {
+        return $this->hasMany('App\User');
     }
 }

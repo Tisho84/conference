@@ -47,14 +47,20 @@ class AuthController extends ConferenceBaseController
      * @param  array  $data
      * @return \Illuminate\Contracts\Validation\Validator
      */
-    protected function validator(array $data)
+    public function validator(array $data)
     {
         $rank = new Rank();
+        $country = new Country();
         return Validator::make($data, [
             'rank_id' => 'in:' . implode(',', array_keys($rank->getRanks())),
             'name' => 'required|max:255|min:4',
+            'phone' => 'max:30|min:5',
+            'address' => 'required|max:255|min:4',
+            'institution' => 'required|max:100|min:4',
+            'country_id' => 'required|in:' . implode(',', array_keys($country->getCountries())),
             'email' => 'required|email|max:255|unique:users',
-            'password' => 'required|confirmed|min:6',
+            'email2' => 'email|max:255',
+            'password' => 'required|confirmed|min:6'
         ]);
     }
 
@@ -68,9 +74,16 @@ class AuthController extends ConferenceBaseController
     {
         Session::flash('success', 'registered');
         return User::create([
+            'rank_id' => $data['rank_id'],
             'name' => $data['name'],
+            'phone' => $data['phone'],
+            'address' => $data['address'],
+            'institution' => $data['institution'],
+            'country_id' => $data['country_id'],
             'email' => $data['email'],
+            'email2' => $data['email2'],
             'password' => bcrypt($data['password']),
+            'department_id' => $this->getDepartment()->id
         ]);
     }
 
@@ -92,11 +105,19 @@ class AuthController extends ConferenceBaseController
         }
 
         $credentials = $this->getCredentials($request);
-
-        if (Auth::attempt($credentials, $request->has('remember'))) {
-            // if id != redirect too
-            Session::flash('success', 'login');
-            return $this->handleUserWasAuthenticated($request, $throttles);
+        $credentials['active'] = 1;
+        $credentialsSecond = [
+            'email2' => $credentials['email'],
+            'password' => $credentials['password'],
+            'active' => $credentials['active']
+        ];
+        if (Auth::attempt($credentials, $request->has('remember')) || Auth::attempt($credentialsSecond, $request->has('remember'))) {
+            if (auth()->user()->department_id != $this->getDepartment()->id) { #user is not from this department
+                auth()->logout();
+            } else {
+                Session::flash('success', 'login');
+                return $this->handleUserWasAuthenticated($request, $throttles);
+            }
         }
 
         // If the login attempt was unsuccessful we will increment the number of attempts

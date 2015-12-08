@@ -65,7 +65,6 @@
                                 </div>
                             </div>
                         </div>
-                    {!! Form::hidden('department_id', $department->id) !!}
                     {!! Form::close() !!}
                 </div>
             </div>
