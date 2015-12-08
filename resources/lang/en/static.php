@@ -26,7 +26,8 @@ return [
     'menu-about' => 'About',
     'menu-back' => 'Back',
     'clear' => 'Reset',
-    'email' => 'Email address',
+    'email' => 'Email address(primary)',
+    'email2' => 'Second email address',
     'username' => 'Username',
     'password' => 'Password',
     'login-title' => 'Please enter email and password',
@@ -38,5 +39,12 @@ return [
     'password-confirm' => 'Confirm Password',
     'register-title-author' => 'Author registration',
     'register-title-reviewer' => 'Reviewer registration',
+    'rank' => 'Rank',
+    'phone' => 'Phone',
+    'address' => 'Address',
+    'country' => 'Country',
+    'institution' => 'Institution',
+    'profile-information' => 'Profile information',
+    'personal-information' => 'Personal information'
 
 ];

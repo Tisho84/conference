@@ -23,7 +23,6 @@ body {
     font-family: Tahoma, Verdana, Segoe, sans-serif !important;
     font-size: 14px;
     padding-bottom: 0 !important;
-    color: #F0F8FF !important;
 }
 
 #container {
@@ -31,6 +30,10 @@ body {
     display: block;
     position: relative;
     min-height: 100%;
+}
+
+.home-page {
+    color: #F0F8FF !important;
 }
 
 #container > div {
@@ -195,4 +198,26 @@ span.glyphicon-globe {
 
 .btn-theme {
     margin: 0 10px;
+}
+
+span.glyphicon-asterisk {
+    font-size: 0.7em;
+    margin-left: 3px;
+    color: #ff2500;
+}
+
+.mt {
+    margin-top: 10px
+}
+
+.mb {
+    margin-bottom: 10px
+}
+
+.mr {
+    margin-right: 10px
+}
+
+.ml {
+    margin-left: 10px
 }

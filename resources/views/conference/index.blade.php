@@ -4,7 +4,7 @@
         @include('layouts.partials.head')
     </head>
     <body>
-    <div id="container" class="container-fluid">
+    <div id="container" class="home-page container-fluid">
         <div id="header">
             <div class="row">
                 <div class="col-lg-1">

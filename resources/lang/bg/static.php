@@ -26,7 +26,8 @@ return [
     'menu-about' => 'Информация',
     'menu-back' => 'Назад',
     'clear' => 'Изчисти',
-    'email' => 'Имейл адрес',
+    'email' => 'Имейл адрес(основен)',
+    'email2' => 'Втори имейл адрес',
     'username' => 'Потребителско име',
     'password' => 'Парола',
     'login-title' => 'Моля, въведете имейл адрес и парола',
@@ -38,4 +39,11 @@ return [
     'password-confirm' => 'Повтори парола',
     'register-title-author' => 'Регистрация автор',
     'register-title-reviewer' => 'Регистрация рецензент',
+    'rank' => 'Обръщение',
+    'phone' => 'Телефон',
+    'address' => 'Адрес',
+    'country' => 'Държава',
+    'institution' => 'Университет/Институция',
+    'profile-information' => 'Профилна информация',
+    'personal-information' => 'Персонална информация'
 ];

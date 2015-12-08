@@ -34,11 +34,14 @@ Route::group([
 
         Route::group(['as' => 'user::', 'middleware' => ['auth']], function () {
             Route::get('logout', ['as' => 'logout', 'uses' => 'Auth\AuthController@getLogout']);
-            Route::get('/test' , function(){
-                return 'test';
-            });
+
         });
 
+
+        Route::get('/test' , function(){
+            $app = new App\Classes\Rank();
+            dd($app->getRankName(1));
+        });
     });
 
     /** ---------- ADMIN ROUTES ---------- */

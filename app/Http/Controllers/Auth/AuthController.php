@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\Classes\Country;
+use App\Classes\Rank;
 use App\Http\Controllers\ConferenceBaseController;
 use App\Http\Requests\Request;
 use App\User;
@@ -47,8 +49,10 @@ class AuthController extends ConferenceBaseController
      */
     protected function validator(array $data)
     {
+        $rank = new Rank();
         return Validator::make($data, [
-            'name' => 'required|max:255',
+            'rank_id' => 'in:' . implode(',', array_keys($rank->getRanks())),
+            'name' => 'required|max:255|min:4',
             'email' => 'required|email|max:255|unique:users',
             'password' => 'required|confirmed|min:6',
         ]);
@@ -114,5 +118,10 @@ class AuthController extends ConferenceBaseController
         Session::flash('success', 'logout');
         Auth::logout();
         return redirect(property_exists($this, 'redirectAfterLogout') ? $this->redirectAfterLogout : '/');
+    }
+
+    public function getRegister(Rank $rank, Country $country)
+    {
+        return view('auth.register', ['ranks' => $rank->getRanks(), 'countries' => $country->getCountries()]);
     }
 }

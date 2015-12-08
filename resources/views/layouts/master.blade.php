@@ -4,6 +4,9 @@
         <title>@yield('title', $department->dbLangs->get(dbTrans())->title)</title>
         @include('layouts.partials.head')
         @include('layouts.partials.style')
+        {!! HTML::style('/css/select2.css') !!}
+        {!! HTML::script('/js/all.js') !!}
+        {!! HTML::script('/js/select2.js') !!}
     </head>
     <body>
         <div id="container" class="department container-fluid">
@@ -67,7 +70,6 @@
         </div>
 
         @yield('javascript')
-        {!! HTML::script('/js/all.js') !!}
         {!! HTML::script('/js/app.js') !!}
     </body>
 </html>
