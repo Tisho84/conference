@@ -13,17 +13,6 @@ class Department extends Model
         return $query->active()
             ->where('keyword', $keyword);
     }
-
-    public function scopeActive($query)
-    {
-        return $query->where('active', 1);
-    }
-
-    public function scopeSort($query)
-    {
-        return $query->orderBy('sort');
-    }
-
     /*
      * RELATIONS !!!
      */
@@ -35,5 +24,11 @@ class Department extends Model
     public function users()
     {
         return $this->hasMany('App\User');
+    }
+
+    public function categories()
+    {
+        return $this->hasMany('App\Category');
+
     }
 }

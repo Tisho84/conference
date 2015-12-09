@@ -2,21 +2,11 @@
 
 namespace App;
 
-use Illuminate\Database\Eloquent\Model;
+use App\Interfaces\ILanguageModel;
 
-class DepartmentLang extends Model
+class DepartmentLang extends BaseModel implements ILanguageModel
 {
     protected $table = 'department_lang';
-
-    public function scopeLang($query,  $id = null)
-    {
-        if ( !$id ) {
-            $id = dbTrans();
-        } else {
-            $id = is_numeric($id) ? $id : dbTrans($id);
-        }
-        return $query->where('lang_id', $id);
-    }
 
     public function department()
     {

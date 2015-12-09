@@ -33,6 +33,7 @@ Route::group([
         });
 
         Route::group(['as' => 'user::', 'middleware' => ['auth']], function () {
+            Route::get('profile', ['as' => 'profile', 'uses' => 'UsersController@profile']);
             Route::get('logout', ['as' => 'logout', 'uses' => 'Auth\AuthController@getLogout']);
 
         });

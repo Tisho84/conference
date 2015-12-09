@@ -105,7 +105,8 @@ return [
     */
 
     'attributes' => [
-        'email2' => 'Second email address'
+        'email2' => 'Second email address',
+        'categories' => 'competences',
     ],
 
 ];

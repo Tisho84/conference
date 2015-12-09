@@ -13,7 +13,7 @@
                                 <label>{{ trans('static.personal-information') }}</label>
                             </div>
                             <div class="form-group">
-                                <label for="inputRank">{{ trans('static.rank') }}</label>
+                                <label>{{ trans('static.rank') }}</label>
                                 {!! Form::select('rank_id', $ranks, old('rank_id'), ['class' => 'form-control']) !!}
                             </div>
                             <div class="form-group">
@@ -36,6 +36,12 @@
                                 <label for="inputCountry">{{ trans('static.country') }}<span class="glyphicon glyphicon-asterisk" aria-hidden="true"></span></label>
                                 {!! Form::select('country_id', $countries, old('country_id'), ['class' => 'form-control']) !!}
                             </div>
+                            @if (request('reviewer'))
+                                <div class="form-group">
+                                    <label for="inputCategories">{{ trans('static.country') }}<span class="glyphicon glyphicon-asterisk" aria-hidden="true"></span></label>
+                                    {!! Form::select('categories', $categories, old('categories'), ['class' => 'form-control', 'multiple' => 'multiple']) !!}
+                                </div>
+                            @endif
                         </div>
                         <hr>
                         <div class="mt text-center">

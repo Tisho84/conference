@@ -1,0 +1,22 @@
+<?php
+
+namespace App;
+
+use Illuminate\Database\Eloquent\Model;
+
+class Category extends Model
+{
+    protected $table = 'category';
+    /*
+     * RELATIONS !!!
+     */
+    public function langs()
+    {
+        return $this->hasMany('App\CategoryLang');
+    }
+
+    public function department()
+    {
+        return $this->belongsTo('App\Department');
+    }
+}

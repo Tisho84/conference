@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\Category;
 use App\Classes\Country;
 use App\Classes\Rank;
+use App\Department;
 use App\Http\Controllers\ConferenceBaseController;
 use App\Http\Requests\Request;
 use App\User;
@@ -141,8 +143,15 @@ class AuthController extends ConferenceBaseController
         return redirect(property_exists($this, 'redirectAfterLogout') ? $this->redirectAfterLogout : '/');
     }
 
-    public function getRegister(Rank $rank, Country $country)
+    public function getRegister(Rank $rank, Country $country, Department $department)
     {
-        return view('auth.register', ['ranks' => $rank->getRanks(), 'countries' => $country->getCountries()]);
+//        $department->with(['categories' => function($query) {
+//            $query->lang();
+//        }])->get();
+        $cats = $department->categories()->with(['langs' => function($query) {
+            $query->lang();
+        }])->get();
+//        dd($cats);
+        return view('auth.register', ['ranks' => $rank->getRanks(), 'countries' => $country->getCountries(), 'categories' => []]);
     }
 }
