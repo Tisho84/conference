@@ -2,9 +2,8 @@
 
 namespace App;
 
-use App\Interfaces\ILanguageModel;
 
-class CategoryLang extends BaseModel implements  ILanguageModel
+class CategoryLang extends LanguageModel
 {
     protected $table = 'category_lang';
 

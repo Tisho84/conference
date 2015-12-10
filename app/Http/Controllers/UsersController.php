@@ -11,7 +11,7 @@ class UsersController extends Controller
 {
     public function profile()
     {
-        echo 'here'; exit;
+        return view('conference.profile');
     }
 
     /**

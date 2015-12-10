@@ -2,9 +2,7 @@
 
 namespace App;
 
-use Illuminate\Database\Eloquent\Model;
-
-class Category extends Model
+class Category extends ConferenceBaseModel
 {
     protected $table = 'category';
     /*
@@ -18,5 +16,10 @@ class Category extends Model
     public function department()
     {
         return $this->belongsTo('App\Department');
+    }
+
+    public function users()
+    {
+        return $this->belongsToMany('App\User', 'user_category', 'category_id', 'user_id');
     }
 }

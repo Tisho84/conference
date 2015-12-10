@@ -12,12 +12,12 @@
         <div id="container" class="department container-fluid">
             <div id="header">
                 <div class="row">
-                    <div class="col-lg-3 col-md-3">
+                    <div class="col-sm-3">
                         <a href="{{ getLangUrl($department->keyword) }}">
                             {!! HTML::image(asset('images/' . $department->image), $department->dbLangs->get(dbTrans())->name, ['class' => 'img-responsive']) !!}
                         </a>
                     </div>
-                    <div class="col-lg-9 col-md-9">
+                    <div class="col-sm-9">
                         <h1>{!! $department->dbLangs->get(dbTrans())->title !!}</h1>
                     </div>
                 </div>

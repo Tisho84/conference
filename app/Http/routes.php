@@ -40,8 +40,7 @@ Route::group([
 
 
         Route::get('/test' , function(){
-            $app = new App\Classes\Rank();
-            dd($app->getRankName(1));
+            \App\User::first()->categories()->attach(1);
         });
     });
 

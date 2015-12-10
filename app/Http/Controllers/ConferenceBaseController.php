@@ -43,4 +43,14 @@ class ConferenceBaseController extends Controller
         }
         return $departments;
     }
+
+    public function getCategories()
+    {
+        return $this->getDepartment()
+            ->categories()
+            ->with(['langs' => function($query) {
+                $query->lang();
+            }])->get();
+    }
+
 }

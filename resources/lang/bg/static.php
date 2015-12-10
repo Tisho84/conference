@@ -45,5 +45,6 @@ return [
     'country' => 'Държава',
     'institution' => 'Университет/Институция',
     'profile-information' => 'Профилна информация',
-    'personal-information' => 'Персонална информация'
+    'personal-information' => 'Персонална информация',
+    'categories' => 'Научни интереси'
 ];

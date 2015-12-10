@@ -2,9 +2,7 @@
 
 namespace App;
 
-use App\Interfaces\ILanguageModel;
-
-class DepartmentLang extends BaseModel implements ILanguageModel
+class DepartmentLang extends ConferenceBaseModel
 {
     protected $table = 'department_lang';
 

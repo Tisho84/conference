@@ -43,6 +43,11 @@ class User extends Model implements AuthenticatableContract,
 
     public function department()
     {
-        $this->belongsTo('App\Department');
+        return $this->belongsTo('App\Department');
+    }
+
+    public function categories()
+    {
+        return $this->belongsToMany('App\Category', 'user_category', 'user_id', 'category_id');
     }
 }

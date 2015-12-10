@@ -33,4 +33,8 @@
         background-color: {!! $department->theme_background_color  !!};
         color: {!! $department->theme_color  !!} !important;
     }
+
+    #sidebar li {
+        {{--border: 0 {!! $department->theme_background_color !!} solid !important;--}}
+    }
 </style>

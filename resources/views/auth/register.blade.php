@@ -6,7 +6,7 @@
             <div class="col-md-8 col-md-offset-2">
                 <div class="panel panel-default">
                     <div class="panel-heading">{{ trans('static.menu-register') }}</div>
-                    {!! Form::open(['method' => 'post', 'url' => route('department::auth::register', [$department->keyword])]) !!}
+                    {!! Form::open(['method' => 'post', 'url' => route('department::auth::register', [$department->keyword, 'reviewer' => request('reviewer')])]) !!}
                         <div class="panel-body">
                             @include('layouts.partials.messages.errors')
                             <div class="mt text-center">
@@ -38,8 +38,8 @@
                             </div>
                             @if (request('reviewer'))
                                 <div class="form-group">
-                                    <label for="inputCategories">{{ trans('static.country') }}<span class="glyphicon glyphicon-asterisk" aria-hidden="true"></span></label>
-                                    {!! Form::select('categories', $categories, old('categories'), ['class' => 'form-control', 'multiple' => 'multiple']) !!}
+                                    <label for="inputCategories">{{ trans('static.categories') }}<span class="glyphicon glyphicon-asterisk" aria-hidden="true"></span></label>
+                                    {!! Form::select('categories[]', $categories, old('categories'), ['class' => 'form-control', 'multiple' => 'multiple']) !!}
                                 </div>
                             @endif
                         </div>

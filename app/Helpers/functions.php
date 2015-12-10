@@ -18,3 +18,14 @@ function getLangUrl($url = '') {
     $fullUrl .= $url ? '/' . $url : '';
     return $fullUrl;
 }
+
+/*
+ * function that builds nomenclature for select
+ */
+function getNomenclatureSelect($collection) {
+    $array = [];
+    foreach ($collection as $element) {
+        $array[$element['id']] = $element->langs->first()->name;
+    }
+    return $array;
+}

@@ -45,6 +45,6 @@ return [
     'country' => 'Country',
     'institution' => 'Institution',
     'profile-information' => 'Profile information',
-    'personal-information' => 'Personal information'
-
+    'personal-information' => 'Personal information',
+    'categories' => 'Competences'
 ];

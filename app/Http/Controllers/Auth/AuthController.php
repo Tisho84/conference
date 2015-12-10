@@ -10,6 +10,7 @@ use App\Http\Controllers\ConferenceBaseController;
 use App\Http\Requests\Request;
 use App\User;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Session;
 use Validator;
 use App\Http\Controllers\Controller;
@@ -56,13 +57,14 @@ class AuthController extends ConferenceBaseController
         return Validator::make($data, [
             'rank_id' => 'in:' . implode(',', array_keys($rank->getRanks())),
             'name' => 'required|max:255|min:4',
-            'phone' => 'max:30|min:5',
+            'phone' => 'max:30|min:5|regex:/^\+?\d{1}[\d\ \-]{3,16}\d{1}$/',
             'address' => 'required|max:255|min:4',
             'institution' => 'required|max:100|min:4',
             'country_id' => 'required|in:' . implode(',', array_keys($country->getCountries())),
             'email' => 'required|email|max:255|unique:users',
             'email2' => 'email|max:255',
-            'password' => 'required|confirmed|min:6'
+            'password' => 'required|confirmed|min:6',
+            'categories' => request('reviewer') ? 'required|exists:category,id' : ''
         ]);
     }
 
@@ -75,7 +77,7 @@ class AuthController extends ConferenceBaseController
     protected function create(array $data)
     {
         Session::flash('success', 'registered');
-        return User::create([
+        $user = User::create([
             'rank_id' => $data['rank_id'],
             'name' => $data['name'],
             'phone' => $data['phone'],
@@ -87,6 +89,12 @@ class AuthController extends ConferenceBaseController
             'password' => bcrypt($data['password']),
             'department_id' => $this->getDepartment()->id
         ]);
+
+        if (request('reviewer')) {
+            $user->categories()->attach($data['categories']);
+        }
+
+        return $user;
     }
 
 
@@ -143,15 +151,12 @@ class AuthController extends ConferenceBaseController
         return redirect(property_exists($this, 'redirectAfterLogout') ? $this->redirectAfterLogout : '/');
     }
 
-    public function getRegister(Rank $rank, Country $country, Department $department)
+    public function getRegister(Rank $rank, Country $country)
     {
-//        $department->with(['categories' => function($query) {
-//            $query->lang();
-//        }])->get();
-        $cats = $department->categories()->with(['langs' => function($query) {
-            $query->lang();
-        }])->get();
-//        dd($cats);
-        return view('auth.register', ['ranks' => $rank->getRanks(), 'countries' => $country->getCountries(), 'categories' => []]);
+        return view('auth.register', [
+            'ranks' => $rank->getRanks(),
+            'countries' => $country->getCountries(),
+            'categories' => getNomenclatureSelect($this->getCategories())
+        ]);
     }
 }
