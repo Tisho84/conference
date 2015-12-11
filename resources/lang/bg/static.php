@@ -48,4 +48,5 @@ return [
     'personal-information' => 'Персонална информация',
     'categories' => 'Научни интереси',
     'save' => 'Запази',
+    'select-categories' => 'Избери научни интереси'
 ];

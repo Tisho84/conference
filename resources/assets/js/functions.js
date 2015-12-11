@@ -1,3 +1,6 @@
-/**
- * Created by Tihomir on 29.11.2015 г..
- */
+$(function() {
+    $(".select2").select2();
+    $(".select2-simple").select2({
+        minimumResultsForSearch: Infinity
+    });
+});

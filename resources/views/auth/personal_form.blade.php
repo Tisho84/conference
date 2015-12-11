@@ -1,6 +1,6 @@
 <div class="form-group">
     <label>{{ trans('static.rank') }}</label>
-    {!! Form::select('rank_id', $ranks, old('rank_id'), ['class' => 'form-control']) !!}
+    {!! Form::select('rank_id', $ranks, old('rank_id'), ['class' => 'form-control select2-simple']) !!}
 </div>
 <div class="form-group">
     <label for="inputName">{{ trans('static.name') }}<span class="glyphicon glyphicon-asterisk" aria-hidden="true"></span></label>
@@ -22,9 +22,9 @@
     <label for="inputCountry">{{ trans('static.country') }}<span class="glyphicon glyphicon-asterisk" aria-hidden="true"></span></label>
     {!! Form::select('country_id', $countries, old('country_id'), ['class' => 'form-control']) !!}
 </div>
-@if (request('reviewer'))
+@if (request('reviewer') || auth()->user()->is_reviewer)
     <div class="form-group">
         <label for="inputCategories">{{ trans('static.categories') }}<span class="glyphicon glyphicon-asterisk" aria-hidden="true"></span></label>
-        {!! Form::select('categories[]', $categories, old('categories'), ['class' => 'form-control', 'multiple' => 'multiple']) !!}
+        {!! Form::select('categories[]', $categories, old('categories'), ['class' => 'form-control select2', 'multiple' => 'multiple']) !!}
     </div>
 @endif

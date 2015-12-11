@@ -48,4 +48,5 @@ return [
     'personal-information' => 'Personal information',
     'categories' => 'Competences',
     'save' => 'Save',
+    'select-categories' => 'Select competences'
 ];

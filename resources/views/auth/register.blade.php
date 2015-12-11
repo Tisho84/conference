@@ -48,7 +48,3 @@
         </div>
     </div>
 @endsection
-
-@section('javascript')
-    {{--todo multiseclt--}}
-@endsection

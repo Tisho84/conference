@@ -31,7 +31,7 @@ class User extends Model implements AuthenticatableContract,
     protected $fillable = [
         'department_id', 'user_type_id', 'rank_id', 'country_id',
         'phone', 'address', 'institution', 'active',
-        'name', 'email', 'email2', 'password'
+        'name', 'email', 'email2', 'password', 'is_reviewer'
     ];
 
     /**

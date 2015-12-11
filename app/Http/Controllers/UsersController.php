@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Category;
 use App\Classes\Country;
 use App\Classes\Rank;
 use Illuminate\Http\Request;
@@ -10,11 +11,15 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Session;
 
-class UsersController extends Controller
+class UsersController extends ConferenceBaseController
 {
     public function getProfile(Rank $rank, Country $country)
     {
-        return view('conference.profile', ['ranks' => $rank->getRanks(), 'countries' => $country->getCountries()]);
+        return view('conference.profile', [
+            'ranks' => $rank->getRanks(),
+            'countries' => $country->getCountries(),
+            'categories' => getNomenclatureSelect($this->getCategories())
+        ]);
     }
 
     public function postProfile(Requests\ProfileUpdateRequest $request)
