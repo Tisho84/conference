@@ -46,5 +46,6 @@ return [
     'institution' => 'Университет/Институция',
     'profile-information' => 'Профилна информация',
     'personal-information' => 'Персонална информация',
-    'categories' => 'Научни интереси'
+    'categories' => 'Научни интереси',
+    'save' => 'Запази',
 ];

@@ -12,36 +12,7 @@
                             <div class="mt text-center">
                                 <label>{{ trans('static.personal-information') }}</label>
                             </div>
-                            <div class="form-group">
-                                <label>{{ trans('static.rank') }}</label>
-                                {!! Form::select('rank_id', $ranks, old('rank_id'), ['class' => 'form-control']) !!}
-                            </div>
-                            <div class="form-group">
-                                <label for="inputName">{{ trans('static.name') }}<span class="glyphicon glyphicon-asterisk" aria-hidden="true"></span></label>
-                                <input name="name" type="text" class="form-control" id="inputName" placeholder="{{ trans('static.name') }}" value="{{ old('name') }}">
-                            </div>
-                            <div class="form-group">
-                                <label for="inputPhone">{{ trans('static.phone') }}</label>
-                                <input name="phone" type="text" class="form-control" id="inputPhone" placeholder="{{ trans('static.phone') }}" value="{{ old('phone') }}">
-                            </div>
-                            <div class="form-group">
-                                <label for="inputAddress">{{ trans('static.address') }}<span class="glyphicon glyphicon-asterisk" aria-hidden="true"></span></label>
-                                <textarea name="address" rows="4" class="form-control" id="inputAddress" placeholder="{{ trans('static.address') }}">{{ old('address') }}</textarea>
-                            </div>
-                            <div class="form-group">
-                                <label for="inputInstitution">{{ trans('static.institution') }}<span class="glyphicon glyphicon-asterisk" aria-hidden="true"></span></label>
-                                <input name="institution" type="text" class="form-control" id="inputInstitution" placeholder="{{ trans('static.institution') }}" value="{{ old('institution') }}">
-                            </div>
-                            <div class="form-group">
-                                <label for="inputCountry">{{ trans('static.country') }}<span class="glyphicon glyphicon-asterisk" aria-hidden="true"></span></label>
-                                {!! Form::select('country_id', $countries, old('country_id'), ['class' => 'form-control']) !!}
-                            </div>
-                            @if (request('reviewer'))
-                                <div class="form-group">
-                                    <label for="inputCategories">{{ trans('static.categories') }}<span class="glyphicon glyphicon-asterisk" aria-hidden="true"></span></label>
-                                    {!! Form::select('categories[]', $categories, old('categories'), ['class' => 'form-control', 'multiple' => 'multiple']) !!}
-                                </div>
-                            @endif
+                            @include('auth.personal_form')
                         </div>
                         <hr>
                         <div class="mt text-center">

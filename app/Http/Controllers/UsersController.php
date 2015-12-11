@@ -2,18 +2,27 @@
 
 namespace App\Http\Controllers;
 
+use App\Classes\Country;
+use App\Classes\Rank;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Session;
 
 class UsersController extends Controller
 {
-    public function profile()
+    public function getProfile(Rank $rank, Country $country)
     {
-        return view('conference.profile');
+        return view('conference.profile', ['ranks' => $rank->getRanks(), 'countries' => $country->getCountries()]);
     }
 
+    public function postProfile(Requests\ProfileUpdateRequest $request)
+    {
+        auth()->user()->update($request->all());
+        Session::flash('success', 'profile-updated');
+        return view('conference.department');
+    }
     /**
      * Display a listing of the resource.
      *

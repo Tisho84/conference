@@ -64,4 +64,8 @@ return [
         'expire' => 60,
     ],
 
+    'expressions' => [
+        'phone' => '/^\+?\d{1}[\d\ \-]{3,16}\d{1}$/'
+    ]
+
 ];

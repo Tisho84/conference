@@ -46,5 +46,6 @@ return [
     'institution' => 'Institution',
     'profile-information' => 'Profile information',
     'personal-information' => 'Personal information',
-    'categories' => 'Competences'
+    'categories' => 'Competences',
+    'save' => 'Save',
 ];

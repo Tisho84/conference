@@ -34,5 +34,6 @@ class Kernel extends HttpKernel
         'localeSessionRedirect' => \Mcamara\LaravelLocalization\Middleware\LocaleSessionRedirect::class,
         'department' => \App\Http\Middleware\Department::class,
         'departmentRedirect' => \App\Http\Middleware\DepartmentRedirect::class,
+        'userFromDepartment' => \App\Http\Middleware\UserFromDepartment::class,
     ];
 }

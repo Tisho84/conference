@@ -19,7 +19,7 @@ Route::group([
     /** ADD ALL LOCALIZED ROUTES INSIDE THIS GROUP **/
     Route::get('/', ['uses' => 'HomeController@index']);
 
-    Route::group(['prefix' => '{department}', 'as' => 'department::','middleware' => [ 'department' ]], function ($department) {
+    Route::group(['prefix' => '{department}', 'as' => 'department::','middleware' => [ 'department', 'userFromDepartment' ]], function () {
         Route::get('/', ['as' => 'index', 'uses' => 'HomeController@department']);
 
         Route::group(['prefix' => 'auth', 'as' => 'auth::', 'middleware' => ['guest']], function () {
@@ -33,8 +33,10 @@ Route::group([
         });
 
         Route::group(['as' => 'user::', 'middleware' => ['auth']], function () {
-            Route::get('profile', ['as' => 'profile', 'uses' => 'UsersController@profile']);
+            Route::get('profile', ['as' => 'profile', 'uses' => 'UsersController@getProfile']);
             Route::get('logout', ['as' => 'logout', 'uses' => 'Auth\AuthController@getLogout']);
+
+            Route::put('profile', ['as' => 'profile', 'uses' => 'UsersController@postProfile']);
 
         });
 
