@@ -33,7 +33,7 @@ class ProfileUpdateRequest extends Request
             'address' => 'required|max:255|min:4',
             'institution' => 'required|max:100|min:4',
             'country_id' => 'required|in:' . implode(',', array_keys($country->getCountries())),
-            'categories' => request('reviewer') ? 'required|exists:category,id' : ''
+            'categories' => auth()->user()->is_reviewer ? 'required|exists:category,id' : ''
         ];
     }
 }

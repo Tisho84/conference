@@ -225,37 +225,7 @@ span.glyphicon-asterisk {
 .text-center {
     padding-top: 20px;
 }
-.col-xs-12 {
-    background-color: #fff;
-}
-#sidebar {
-    height: 100%;
-    padding-right: 0;
-    padding-top: 20px;
-}
-#sidebar .nav {
-    width: 95%;
-}
-#sidebar li {
-    /*border:0 #f2f2f2 solid;*/
-    /*border-bottom-width: 1px;*/
-}
 
-.content .row-offcanvas {
-    margin: 0;
-}
+.content .inner-content {
 
-.content #sidebar {
-    padding-left: 0;
-}
-
-.content .login-sidepanel-right {
-    background-color: inherit;
-    padding-top: 10px;
-    padding-bottom: 10px;
-}
-
-.content .login-sidepanel-right > div {
-    width: 80%;
-    margin: 0 auto;
 }

@@ -9,22 +9,34 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
 
 class UsersController extends ConferenceBaseController
 {
     public function getProfile(Rank $rank, Country $country)
     {
-        return view('conference.profile', [
+        $data = [
             'ranks' => $rank->getRanks(),
             'countries' => $country->getCountries(),
-            'categories' => getNomenclatureSelect($this->getCategories())
-        ]);
+            'categories' => getNomenclatureSelect($this->getCategories()),
+        ];
+
+        if (auth()->user()->is_reviewer) {
+            $data['selectedCategories'] = auth()->user()->categories()->lists('id')->toArray();
+        }
+        return view('conference.profile', $data);
     }
 
     public function postProfile(Requests\ProfileUpdateRequest $request)
     {
-        auth()->user()->update($request->all());
+        DB::transaction(function () use ($request) {
+            auth()->user()->update($request->all());
+            if (auth()->user()->is_reviewer) {
+                auth()->user()->categories()->sync($request->get('categories'));
+            }
+
+        });
         Session::flash('success', 'profile-updated');
         return view('conference.department');
     }

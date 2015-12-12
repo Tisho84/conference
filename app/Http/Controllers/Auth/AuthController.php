@@ -117,11 +117,9 @@ class AuthController extends ConferenceBaseController
         }
 
         $credentials = $this->getCredentials($request);
-        $credentials['active'] = 1;
         $credentialsSecond = [
             'email2' => $credentials['email'],
             'password' => $credentials['password'],
-            'active' => $credentials['active']
         ];
         if (Auth::attempt($credentials, $request->has('remember')) || Auth::attempt($credentialsSecond, $request->has('remember'))) {
             if (auth()->user()->department_id != $this->getDepartment()->id) { #user is not from this department

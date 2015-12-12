@@ -26,7 +26,8 @@ return [
     'menu-about' => 'Информация',
     'menu-back' => 'Назад',
     'clear' => 'Изчисти',
-    'email' => 'Имейл адрес(основен)',
+    'email-primary' => 'Имейл адрес(основен)',
+    'email' => 'Имейл адрес',
     'email2' => 'Втори имейл адрес',
     'username' => 'Потребителско име',
     'password' => 'Парола',
@@ -48,5 +49,6 @@ return [
     'personal-information' => 'Персонална информация',
     'categories' => 'Научни интереси',
     'save' => 'Запази',
-    'select-categories' => 'Избери научни интереси'
+    'select-categories' => 'Избери научни интереси',
+    'change-password' => 'Смени парола'
 ];

@@ -20,8 +20,8 @@
                         </div>
                         <div class="panel-body">
                             <div class="form-group">
-                                <label for="inputEmail">{{ trans('static.email') }}<span class="glyphicon glyphicon-asterisk" aria-hidden="true"></span></label>
-                                <input name="email" type="email" class="form-control" id="inputEmail" placeholder="{{ trans('static.email') }}" value="{{ old('email') }}">
+                                <label for="inputEmail">{{ trans('static.email-primary') }}<span class="glyphicon glyphicon-asterisk" aria-hidden="true"></span></label>
+                                <input name="email" type="email" class="form-control" id="inputEmail" placeholder="{{ trans('static.email-primary') }}" value="{{ old('email') }}">
                             </div>
                             <div class="form-group">
                                 <label for="inputEmail2">{{ trans('static.email2') }}</label>

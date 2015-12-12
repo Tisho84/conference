@@ -26,7 +26,8 @@ return [
     'menu-about' => 'About',
     'menu-back' => 'Back',
     'clear' => 'Reset',
-    'email' => 'Email address(primary)',
+    'email-primary' => 'Email address(primary)',
+    'email' => 'Email address',
     'email2' => 'Second email address',
     'username' => 'Username',
     'password' => 'Password',
@@ -48,5 +49,6 @@ return [
     'personal-information' => 'Personal information',
     'categories' => 'Competences',
     'save' => 'Save',
-    'select-categories' => 'Select competences'
+    'select-categories' => 'Select competences',
+    'change-password' => 'Change password'
 ];

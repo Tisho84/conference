@@ -34,6 +34,7 @@ Route::group([
 
         Route::group(['as' => 'user::', 'middleware' => ['auth']], function () {
             Route::get('profile', ['as' => 'profile', 'uses' => 'UsersController@getProfile']);
+            Route::get('change', ['as' => 'change', 'uses' => 'UsersController@getChangePassword']);
             Route::get('logout', ['as' => 'logout', 'uses' => 'Auth\AuthController@getLogout']);
 
             Route::put('profile', ['as' => 'profile', 'uses' => 'UsersController@postProfile']);
