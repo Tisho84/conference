@@ -50,5 +50,9 @@ return [
     'categories' => 'Competences',
     'save' => 'Save',
     'select-categories' => 'Select competences',
-    'change-password' => 'Change password'
+    'change-password' => 'Change password',
+    'current-password' => 'Current password',
+    'new-password' => 'New password',
+    'new-password-confirm' => 'Confirm password',
+    'change-password-title' => 'Enter current password and new password two times'
 ];

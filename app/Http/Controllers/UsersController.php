@@ -40,6 +40,17 @@ class UsersController extends ConferenceBaseController
         Session::flash('success', 'profile-updated');
         return view('conference.department');
     }
+
+    public function getChangePassword()
+    {
+        return view('conference.change_password');
+    }
+
+    public function postChangePassword()
+    {
+        return 'here';
+    }
+
     /**
      * Display a listing of the resource.
      *

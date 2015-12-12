@@ -50,5 +50,9 @@ return [
     'categories' => 'Научни интереси',
     'save' => 'Запази',
     'select-categories' => 'Избери научни интереси',
-    'change-password' => 'Смени парола'
+    'change-password' => 'Смени парола',
+    'current-password' => 'Текуща парола',
+    'new-password' => 'Нова парола',
+    'new-password-confirm' => 'Повтори паролата',
+    'change-password-title' => 'Моля въведете текущата парола и новата парола два пъти'
 ];
