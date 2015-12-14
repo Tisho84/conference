@@ -39,4 +39,9 @@ class HomeController extends ConferenceBaseController
     {
         return view('conference.department');
     }
+
+    public function admin()
+    {
+        return view('admin.master');
+    }
 }

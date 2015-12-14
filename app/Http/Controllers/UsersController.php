@@ -10,6 +10,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Session;
 
 class UsersController extends ConferenceBaseController
@@ -37,8 +38,8 @@ class UsersController extends ConferenceBaseController
             }
 
         });
-        Session::flash('success', 'profile-updated');
-        return view('conference.department');
+
+        return redirect()->to(route('department::index', [$request->segment(2)]))->with('success', 'profile-updated');
     }
 
     public function getChangePassword()
@@ -46,9 +47,23 @@ class UsersController extends ConferenceBaseController
         return view('conference.change_password');
     }
 
-    public function postChangePassword()
+    public function postChangePassword(Request $request, $department)
     {
-        return 'here';
+        $this->validate($request, [
+            'password' => 'required',
+            'new-password' => 'required|confirmed|min:6',
+        ]);
+
+        if (!Hash::check($request->get('password'), auth()->user()->getAuthPassword())) {
+            return redirect()->back()->withErrors(trans('auth.password'));
+        }
+
+
+        auth()->user()->fill([
+            'password' => Hash::make($request->get('new-password'))
+        ])->save();
+
+        return redirect()->to(route('department::index', [$department->keyword]))->with('success', 'profile-updated');
     }
 
     /**

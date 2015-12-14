@@ -226,6 +226,14 @@ span.glyphicon-asterisk {
     padding-top: 10px;
 }
 
-.content .inner-content {
+.admin .navbar {
+    font-size: 1.5em;
+}
 
+.admin .navbar li {
+    /*margin: 10px 0;*/
+}
+
+.admin span.glyphicon-globe {
+    font-size: inherit !important;
 }

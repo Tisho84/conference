@@ -28,7 +28,7 @@ return [
         'array'   => ':attribute трябва да съдържа межу :min и :max елемента.',
     ],
     'boolean'              => 'Полето за :attribute трябва да бъде да или не.',
-    'confirmed'            => 'Полето за :attribute потвърждаване не съвпада.',
+    'confirmed'            => 'Полето за :attribute и потвърждаване не съвпадат.',
     'date'                 => 'Полето за :attribute не е валидна дата.',
     'date_format'          => 'Полето за :attribute не съвпада с формата:format.',
     'different'            => 'Полето за :attribute и :other трябва да са различни.',
@@ -115,6 +115,11 @@ return [
         'country_id' => 'Държава',
         'institution' => 'Университет/Институция',
         'categories' => 'Научни интереси',
+        'new-password' => 'нова парола',
+        'password_confirmed' => 'повтори парола',
+        'sort' => 'Подредба',
+        'name_bg' => 'Име(Български)',
+        'name_en' => 'Име(English)',
     ],
 
 ];

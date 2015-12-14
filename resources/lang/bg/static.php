@@ -54,5 +54,7 @@ return [
     'current-password' => 'Текуща парола',
     'new-password' => 'Нова парола',
     'new-password-confirm' => 'Повтори паролата',
-    'change-password-title' => 'Моля въведете текущата парола и новата парола два пъти'
+    'change-password-title' => 'Моля въведете текущата парола и новата парола',
+    'yes' => 'Да',
+    'no' => 'Не'
 ];

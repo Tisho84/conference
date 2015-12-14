@@ -24,7 +24,7 @@ class Department
      */
     public function handle($request, Closure $next)
     {
-        if (!app()->make('ConferenceBaseController')->getDepartment()) {
+        if (!app()->make('ConferenceBaseController')->getDepartment() && $request->segment(2) != 'admin') {
             return redirect('/' . LaravelLocalization::setLocale());
         }
 

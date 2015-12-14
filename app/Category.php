@@ -5,6 +5,14 @@ namespace App;
 class Category extends ConferenceBaseModel
 {
     protected $table = 'category';
+    protected $fillable = ['department_id', 'active', 'sort'];
+    protected $dates = ['created_at', 'updated_at'];
+
+    public function getActiveAttribute($value)
+    {
+        return $value ? trans('yes') : trans('no');
+    }
+
     /*
      * RELATIONS !!!
      */

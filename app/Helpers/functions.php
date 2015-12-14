@@ -11,6 +11,20 @@ function dbTrans($lang = null) {
 }
 
 /*
+ * #accepts id and return short
+ */
+function systemTrans($id) {
+    $locales = Config::get('app.locales');
+    $abbr = '';
+    foreach ($locales as $short => $locale) {
+        if ($locale['id'] == $id) {
+            $abbr = $short;
+            break;
+        }
+    }
+    return $abbr;
+}
+/*
  * function that return url with lang prefix
  */
 function getLangUrl($url = '') {
@@ -28,4 +42,30 @@ function getNomenclatureSelect($collection) {
         $array[$element['id']] = $element->langs->first()->name;
     }
     return $array;
+}
+
+/*
+ * function that build table headers based on languages
+ */
+
+function buildTh($title = '') {
+    $html = '';
+    foreach (LaravelLocalization::getSupportedLocales() as $localeCode => $properties) {
+        $html .= '<th>' . $properties['native'] . ' ' . $title . '</th>';
+    }
+    return $html;
+}
+
+/*
+ * function that build active select
+ */
+function buildActive() {
+    $html = '';
+    $html .= '<label for="active">' . trans('admin.active') . '</label>';
+    $html .= Form::select('active', [ 1 => trans('static.yes'), 0 => trans('static.no') ], null, ['class' => 'form-control select2-simple', 'style' => 'width: 100%;']);
+    return $html;
+}
+
+function calcSort($sort) {
+    return $sort + (100 - ($sort % 100));
 }

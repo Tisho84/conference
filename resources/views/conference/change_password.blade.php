@@ -14,11 +14,11 @@
             </div>
             <div class="form-group">
                 <label for="inputNewPassword">{{ trans('static.new-password') }}</label>
-                <input name="newPassword" type="password" class="form-control" id="inputNewPassword" placeholder="{{ trans('static.new-password') }}">
+                <input name="new-password" type="password" class="form-control" id="inputNewPassword" placeholder="{{ trans('static.new-password') }}">
             </div>
             <div class="form-group">
                 <label for="inputNewPasswordConfirm">{{ trans('static.new-password-confirm') }}</label>
-                <input name="newPasswordConfirm" type="password" class="form-control" id="inputNewPasswordConfirm" placeholder="{{ trans('static.new-password-confirm') }}">
+                <input name="new-password_confirmation" type="password" class="form-control" id="inputNewPasswordConfirm" placeholder="{{ trans('static.new-password-confirm') }}">
             </div>
             @include('layouts.partials.button', ['button' => trans('static.save') ])
         {!! Form::close() !!}

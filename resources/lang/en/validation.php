@@ -107,6 +107,11 @@ return [
     'attributes' => [
         'email2' => 'Second email address',
         'categories' => 'competences',
+        'new-password' => 'new password',
+        'password_confirmed' => 'confirm password',
+        'sort' => 'sort',
+        'name_en' => 'Name(English)',
+        'name_bg' => 'Name(Български)',
     ],
 
 ];

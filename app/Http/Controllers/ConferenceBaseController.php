@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Category;
 use App\Department;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -48,9 +49,27 @@ class ConferenceBaseController extends Controller
     {
         return $this->getDepartment()
             ->categories()
+            ->active()
             ->with(['langs' => function($query) {
                 $query->lang();
-            }])->get();
+            }])
+            ->sort()
+            ->get();
+    }
+
+    public function getCategoriesAdmin()
+    {
+        $categories = Category::active()
+            ->with('langs')
+            ->sort()
+            ->get();
+
+        $categories->each(function ($category) {
+            $category->dbLangs = $category->langs->keyBy('lang_id');
+            $category->addVisible('dbLangs');
+        });
+
+        return $categories;
     }
 
 }

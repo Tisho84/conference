@@ -54,5 +54,7 @@ return [
     'current-password' => 'Current password',
     'new-password' => 'New password',
     'new-password-confirm' => 'Confirm password',
-    'change-password-title' => 'Enter current password and new password two times'
+    'change-password-title' => 'Enter current password and new password',
+    'yes' => 'Yes',
+    'no' => 'No'
 ];
