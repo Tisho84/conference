@@ -7,6 +7,7 @@ return [
     'delete' => 'Delete',
     'details' => 'Details',
     'add-category' => 'Add new competence',
+    'update-category' => 'Update competence',
     'name' => 'Name',
     'id' => 'ID',
     'active' => 'Active',

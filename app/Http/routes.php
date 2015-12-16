@@ -22,8 +22,8 @@ Route::group([
     /** ---------- ADMIN ROUTES ---------- */
     Route::group(['prefix' => 'admin', 'namespace' => 'Admin'], function () {
         get('/', ['as' => 'admin-index', 'uses' => '\App\Http\Controllers\HomeController@admin']);
-        resource('department', 'DepartmentController');
-        resource('category', 'CategoryController');
+        resource('departments', 'DepartmentController');
+        resource('categories', 'CategoryController');
     });
 
     Route::group(['prefix' => '{department}', 'as' => 'department::', 'middleware' => [ 'department', 'userFromDepartment' ]], function () {

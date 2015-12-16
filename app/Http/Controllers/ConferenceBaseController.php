@@ -59,8 +59,8 @@ class ConferenceBaseController extends Controller
 
     public function getCategoriesAdmin()
     {
-        $categories = Category::active()
-            ->with('langs')
+        $categories = Category::with('langs')
+            //todo where department id when logged
             ->sort()
             ->get();
 

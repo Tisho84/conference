@@ -27,7 +27,7 @@ class CategoryRequest extends Request
         foreach (LaravelLocalization::getSupportedLocales() as $short => $locale) {
             $rules['name_' . $short] = 'required|min:2|max:100';
         }
-        $rules['sort'] = 'digits_between:1,';
+        $rules['sort'] = 'digits_between:1,100000';
 
         return $rules;
     }

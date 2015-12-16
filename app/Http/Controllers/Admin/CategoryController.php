@@ -83,13 +83,20 @@ class CategoryController extends ConferenceBaseController
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  \App\Http\Requests\CategoryRequest $request
+     * @param  \App\Category  $category
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Requests\CategoryRequest $request, Category $category)
     {
-        //
+        DB::transaction( function () use ($request, $category) {
+            $category->update(['sort' => $request->get('sort'), 'active' => $request->get('active')]);
+            foreach ($category->langs as $lang) {
+                $lang->update(['name' => $request->get('name_' . systemTrans($lang['lang_id']))]);
+            }
+        });
+
+        return redirect(action('Admin\CategoryController@index'))->with('success', 'updated');
     }
 
     /**

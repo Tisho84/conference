@@ -29,7 +29,7 @@ class RouteServiceProvider extends ServiceProvider
 
         parent::boot($router);
         $router->model('users', 'App\User');
-        $router->model('category', 'App\Category');
+        $router->model('categories', 'App\Category');
         $router->bind('department', function () {
             $department = app()->make('ConferenceBaseController')->getDepartment();
             view()->share('department', $department);

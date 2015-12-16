@@ -1,7 +1,7 @@
 <div class="panel-body">
     @include('layouts.partials.messages.errors')
     <div class="mt text-center">
-        <label>{{ trans('admin.add-category') }}</label>
+        <label>{{ trans($title) }}</label>
     </div>
     <div class="panel-body">
         @foreach (LaravelLocalization::getSupportedLocales() as $short => $locale)
