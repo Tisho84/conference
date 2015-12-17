@@ -12,4 +12,8 @@ return [
     'id' => 'ID',
     'active' => 'Active',
     'sort' => 'Sort',
+    'keyword' => 'Keyword',
+    'image' => 'Logo',
+    'main-color' => 'Main color',
+    'text-color' => 'Text color'
 ];

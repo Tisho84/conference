@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Department;
 use App\Http\Controllers\ConferenceBaseController;
 use Illuminate\Http\Request;
 
@@ -17,7 +18,12 @@ class DepartmentController extends ConferenceBaseController
      */
     public function index()
     {
-        return view('admin.department.index', ['departments' => $this->getDepartments()]);
+        $departments = Department::all();
+        return view('admin.department.index', [
+            'departments' => $departments,
+            'title' => trans('admin.departments'),
+            'url' => action('Admin\DepartmentController@create')
+        ]);
     }
 
     /**
