@@ -4,10 +4,13 @@ namespace App\Http\Controllers\Admin;
 
 use App\Department;
 use App\Http\Controllers\ConferenceBaseController;
+use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Storage;
 
 class DepartmentController extends ConferenceBaseController
 {
@@ -33,7 +36,7 @@ class DepartmentController extends ConferenceBaseController
      */
     public function create()
     {
-        //
+        return view('admin.department.create');
     }
 
     /**
@@ -50,12 +53,15 @@ class DepartmentController extends ConferenceBaseController
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  \App\Department  $department
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Department $department)
     {
-        //
+        $department->load('langs');
+        $department->dbLangs = $department->langs->keyBy('lang_id');
+        $department->addVisible('dbLangs');
+        return view('admin.department.show', ['department' => $department]);
     }
 
     /**
@@ -84,11 +90,20 @@ class DepartmentController extends ConferenceBaseController
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  Department  $department
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Department $department)
     {
-        //
+        try {
+            $department->delete();
+        }
+        catch (QueryException $e) {
+            return redirect()->back()->with('error', 'error-delete-department');
+        }
+
+        File::delete('images/' . $department->image);
+        return redirect(action('Admin\DepartmentController@index'))->with('success', 'deleted');
+
     }
 }

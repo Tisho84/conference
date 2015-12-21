@@ -9,11 +9,20 @@ return [
     'add-category' => 'Add new competence',
     'update-category' => 'Update competence',
     'name' => 'Name',
+    'title' => 'Title',
+    'description' => 'Description',
     'id' => 'ID',
     'active' => 'Active',
     'sort' => 'Sort',
     'keyword' => 'Keyword',
     'image' => 'Logo',
     'main-color' => 'Main color',
-    'text-color' => 'Text color'
+    'text-color' => 'Text color',
+    'information' => 'Information',
+    'url' => 'URL',
+    'created-at' => 'Created at',
+    'updated-at' => 'Updated at',
+    'yes' => 'Yes',
+    'no' => 'No',
+    'add-department' => 'Add new department'
 ];

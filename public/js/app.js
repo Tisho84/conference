@@ -3,6 +3,7 @@ $(function() {
     $(".select2-simple").select2({
         minimumResultsForSearch: Infinity
     });
+    $('.colorpicker').colorpicker();
 });
 
 //# sourceMappingURL=app.js.map

@@ -20,9 +20,9 @@
                 <td>{{ $department->active }}</td>
                 <td>{{ $department->sort }}</td>
                 <td>
-                    {!! Form::open(['url' => action('Admin\CategoryController@destroy', [$department->id]), 'method' => 'delete']) !!}
-                        <a href="{{ action('Admin\CategoryController@show', [$department->id]) }}" class="btn btn-xs btn-warning">{{ trans('admin.details') }}</a>
-                        <a href="{{ action('Admin\CategoryController@edit', [$department->id]) }}" class="btn btn-xs btn-success">{{ trans('admin.edit') }}</a>
+                    {!! Form::open(['url' => action('Admin\DepartmentController@destroy', [$department->id]), 'method' => 'delete']) !!}
+                        <a href="{{ action('Admin\DepartmentController@show', [$department->id]) }}" class="btn btn-xs btn-warning">{{ trans('admin.details') }}</a>
+                        <a href="{{ action('Admin\DepartmentController@edit', [$department->id]) }}" class="btn btn-xs btn-success">{{ trans('admin.edit') }}</a>
                         {!! Form::submit(trans('admin.delete'), ['class' => 'btn btn-danger btn-xs']) !!}
                     {!! Form::close() !!}
                 </td>

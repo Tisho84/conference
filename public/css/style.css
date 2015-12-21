@@ -237,3 +237,7 @@ span.glyphicon-asterisk {
 .admin span.glyphicon-globe {
     font-size: inherit !important;
 }
+
+.background {
+    padding: 5px 3px;
+}

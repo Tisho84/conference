@@ -7,4 +7,5 @@ return [
     'saved' => 'Record was saved successfully',
     'updated' => 'Record was updated successfully',
     'delete' => 'Record was deleted successfully',
+    'error-delete-department' => "The department can't be deleted, because there are users, competencies and/or papers in it(recommend make department inactive)",
 ];
