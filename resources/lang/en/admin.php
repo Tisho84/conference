@@ -24,5 +24,6 @@ return [
     'updated-at' => 'Updated at',
     'yes' => 'Yes',
     'no' => 'No',
-    'add-department' => 'Add new department'
+    'add-department' => 'Add new department',
+    'update-department' => 'Update department',
 ];

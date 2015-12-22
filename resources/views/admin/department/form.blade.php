@@ -18,19 +18,12 @@
         </div>
         <div class="form-group">
             <label for="mainColor">{{ trans('admin.main-color') }}<span class="glyphicon glyphicon-asterisk" aria-hidden="true"></span></label>
-            {!! Form::text("theme_background_color", null, ['class' => 'form-control', 'id' => 'mainColor', 'placeholder' => trans('admin.main-color')]) !!}
+            {!! Form::text("theme_background_color", null, ['class' => 'form-control colorpick', 'colorpicker' => 'hex', 'id' => 'mainColor', 'placeholder' => trans('admin.main-color')]) !!}
         </div>
         <div class="form-group">
             <label for="textColor">{{ trans('admin.text-color') }}<span class="glyphicon glyphicon-asterisk" aria-hidden="true"></span></label>
-            {!! Form::text("theme_color", null, ['class' => 'form-control colorpicker', 'id' => 'textColor', 'placeholder' => trans('admin.text-color')]) !!}
+            {!! Form::text("theme_color", null, ['class' => 'form-control colorpick', 'colorpicker' => 'hex', 'id' => 'textColor', 'placeholder' => trans('admin.text-color')]) !!}
         </div>
-
-        @foreach (LaravelLocalization::getSupportedLocales() as $short => $locale)
-            <div class="form-group">
-                <label for="{{ $short }}">{{ trans('admin.name') . '(' . $locale['native'] . ')' }}<span class="glyphicon glyphicon-asterisk" aria-hidden="true"></span></label>
-                {!! Form::text("name_" . $short, null, ['class' => 'form-control', 'id' => $short, 'placeholder' => trans('admin.name')]) !!}
-            </div>
-        @endforeach
         <div class="form-group">
             <label for="sort">{{  trans('admin.sort') }}</label>
             {!! Form::text('sort', null, ['class' => 'form-control', 'id' => 'sort', 'placeholder' => trans('admin.sort')]) !!}
@@ -38,6 +31,20 @@
         <div class="form-group">
             {!! buildActive() !!}
         </div>
+        @foreach (LaravelLocalization::getSupportedLocales() as $short => $locale)
+            <div class="form-group">
+                <label for="name{{ $short }}">{{ trans('admin.name') . '(' . $locale['native'] . ')' }}<span class="glyphicon glyphicon-asterisk" aria-hidden="true"></span></label>
+                {!! Form::text("name_" . $short, null, ['class' => 'form-control', 'id' => 'name' . $short, 'placeholder' => trans('admin.name')]) !!}
+            </div>
+            <div class="form-group">
+                <label for="title{{ $short }}">{{ trans('admin.title') . '(' . $locale['native'] . ')' }}<span class="glyphicon glyphicon-asterisk" aria-hidden="true"></span></label>
+                {!! Form::text("title_" . $short, null, ['class' => 'form-control', 'id' => 'title' . $short, 'placeholder' => trans('admin.title')]) !!}
+            </div>
+            <div class="form-group">
+                <label for="description{{ $short }}">{{ trans('admin.description') . '(' . $locale['native'] . ')' }}<span class="glyphicon glyphicon-asterisk" aria-hidden="true"></span></label>
+                {!! Form::textarea("description_" . $short, null, ['class' => 'form-control ', 'id' => 'description' . $short, 'placeholder' => trans('admin.description')]) !!}
+            </div>
+        @endforeach
         @include('layouts.partials.button', ['button' => trans('static.save') ])
     </div>
 </div>

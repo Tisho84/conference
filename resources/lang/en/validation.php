@@ -112,6 +112,15 @@ return [
         'sort' => 'sort',
         'name_en' => 'Name(English)',
         'name_bg' => 'Name(Български)',
+        'title_en' => 'Title(English)',
+        'title_bg' => 'Title(Български)',
+        'description_en' => 'Description(English)',
+        'description_bg' => 'Description(Български)',
+        'keyword' => 'Keyword',
+        'url' => 'URL',
+        'image' => 'Logo',
+        'theme_background_color' => 'Main color',
+        'theme_color' => 'Text color',
     ],
 
 ];

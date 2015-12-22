@@ -73,7 +73,7 @@ class CategoryController extends ConferenceBaseController
     public function edit(Category $category)
     {
         $category->load('langs');
-        foreach($category->langs as $lang) {
+        foreach ($category->langs as $lang) {
             $key = 'name_' . systemTrans($lang['lang_id']);
             $category->$key = $lang['name'];
         }

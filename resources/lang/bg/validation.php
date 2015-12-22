@@ -120,6 +120,15 @@ return [
         'sort' => 'Подредба',
         'name_bg' => 'Име(Български)',
         'name_en' => 'Име(English)',
+        'title_en' => 'Заглавие(English)',
+        'title_bg' => 'Заглавие(Български)',
+        'description_en' => 'Описание(English)',
+        'description_bg' => 'Описание(Български)',
+        'keyword' => 'Ключова дума',
+        'url' => 'Линк',
+        'image' => 'Лого',
+        'theme_background_color' => 'Основен цвят',
+        'theme_color' => 'Цвят на текста',
     ],
 
 ];

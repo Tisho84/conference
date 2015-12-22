@@ -5,6 +5,7 @@ namespace App;
 class Department extends ConferenceBaseModel
 {
     protected $table = 'department';
+    protected $fillable = ['keyword', 'url', 'theme_background_color', 'theme_color', 'image', 'active', 'sort'];
 
     public function scopeKeyword($query, $keyword)
     {

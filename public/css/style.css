@@ -241,3 +241,7 @@ span.glyphicon-asterisk {
 .background {
     padding: 5px 3px;
 }
+
+.colorpicker {
+    margin-top: -50px !important;
+}
