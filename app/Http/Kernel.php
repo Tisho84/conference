@@ -35,5 +35,6 @@ class Kernel extends HttpKernel
         'department' => \App\Http\Middleware\Department::class,
         'departmentRedirect' => \App\Http\Middleware\DepartmentRedirect::class,
         'userFromDepartment' => \App\Http\Middleware\UserFromDepartment::class,
+        'admin' => \App\Http\Middleware\Admin::class,
     ];
 }

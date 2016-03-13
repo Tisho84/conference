@@ -15,7 +15,10 @@ class CreateUserTypeTable extends Migration
         Schema::create('user_type', function (Blueprint $table) {
             $table->engine = 'InnoDB';
             $table->increments('id');
+            $table->string('title', 100);
+            $table->boolean('active')->default(1);
             $table->integer('sort')->default(1);
+            $table->boolean('is_default')->default(0);
         });
     }
 

@@ -15,4 +15,9 @@ class ConferenceBaseModel extends Model
     {
         return $query->orderBy('sort');
     }
+
+    public function getActiveAttribute($value)
+    {
+        return $value ? trans('yes') : trans('no');
+    }
 }

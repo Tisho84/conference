@@ -14,9 +14,12 @@ class CreateUserTypeAccessTable extends Migration
     {
         Schema::create('user_type_access', function (Blueprint $table) {
             $table->integer('user_type_id')->unsigned();
-            $table->integer('access_type_id');
+            $table->integer('access_id');
 
-            $table->foreign('user_type_id')->references('id')->on('user_type');
+            $table->foreign('user_type_id')
+                ->references('id')
+                ->on('user_type')
+                ->onDelete('cascade');
         });
     }
 

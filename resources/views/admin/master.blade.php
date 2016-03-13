@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html lang="en">
     <head>
         @include('layouts.partials.head')
@@ -41,7 +42,7 @@
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i> John Smith <b class="caret"></b></a>
                         <ul class="dropdown-menu">
                             <li>
-                                <a href="#"><i class="fa fa-fw fa-power-off"></i> Log Out</a>
+                                <a href="#"><i class="fa fa-fw fa-power-off"></i>{!! trans('static.menu-logout') !!}</a>
                             </li>
                         </ul>
                     </li>
@@ -50,6 +51,7 @@
                 <div class="collapse navbar-collapse navbar-ex1-collapse">
                     <ul class="nav navbar-nav side-nav">
                         <li>{!! HTML::link(action('Admin\DepartmentController@index'), trans('admin.departments')) !!}</li>
+                        <li>{!! HTML::link(action('Admin\UserTypesController@index'), trans('admin.user-types')) !!}</li>
                         <li>{!! HTML::link(action('Admin\CategoryController@index'), trans('admin.categories')) !!}</li>
                         <li>
                             <a href="javascript:;" data-toggle="collapse" data-target="#account-menu">Account <i class="fa fa-fw fa-caret-down"></i></a>

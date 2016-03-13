@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Category;
 use App\Department;
+use App\UserType;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 
@@ -24,6 +25,7 @@ class ConferenceBaseController extends Controller
                 break;
             }
         }
+
         return $department;
     }
 
@@ -34,14 +36,12 @@ class ConferenceBaseController extends Controller
                 ->sort()
                 ->with('langs')
                 ->get();
-            $departments->each(function ($department) {
-                $department->dbLangs = $department->langs->keyBy('lang_id');
-                $department->addVisible('dbLangs');
-            });
+            $departments = $this->loadLangs($departments);
             Cache::put('departments', $departments, Carbon::now()->addHour());
         } else {
             $departments = Cache::get('departments');
         }
+
         return $departments;
     }
 
@@ -50,9 +50,11 @@ class ConferenceBaseController extends Controller
         return $this->getDepartment()
             ->categories()
             ->active()
-            ->with(['langs' => function($query) {
-                $query->lang();
-            }])
+            ->with([
+                'langs' => function ($query) {
+                    $query->lang();
+                }
+            ])
             ->sort()
             ->get();
     }
@@ -64,12 +66,24 @@ class ConferenceBaseController extends Controller
             ->sort()
             ->get();
 
-        $categories->each(function ($category) {
-            $category->dbLangs = $category->langs->keyBy('lang_id');
-            $category->addVisible('dbLangs');
-        });
+        $categories = $this->loadLangs($categories);
 
         return $categories;
     }
 
+    public function loadLangs($obj)
+    {
+        $obj->each(function ($type) {
+            $type->dbLangs = $type->langs->keyBy('lang_id');
+            $type->addVisible('dbLangs');
+        });
+
+        return $obj;
+    }
+
+    public function getUserTypes($active = false)
+    {
+        $types = UserType::with('access')->sort();
+        return $active ? $types->active()->get() : $types->get();
+    }
 }

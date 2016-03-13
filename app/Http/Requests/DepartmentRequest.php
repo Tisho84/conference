@@ -25,10 +25,11 @@ class DepartmentRequest extends Request
      */
     public function rules()
     {
+        $imageMax = 500;
         $rules = [
             'keyword' => 'required|max:6|unique:department,keyword',
             'url'     => 'required',
-            'image'   => 'required|image|max:200',
+            'image'   => 'required|image|max:' . $imageMax,
             'theme_background_color' => 'required',
             'theme_color' => 'required',
             'sort'    => 'digits_between:1,100000'
@@ -40,8 +41,12 @@ class DepartmentRequest extends Request
             $rules['description_' . $short] = 'required|min:2|max:100';
         }
 
-        if ($this->request->get('_method') == 'PUT') {
-            echo "here"; exit;
+        $id = $this->request->get('id');
+        if ($id) { #update request
+            $rules['keyword'] .= ',' . $id;
+            if (!$this->request->get('image')) {
+                $rules['image'] = '';
+            }
         }
 
         return $rules;
@@ -50,7 +55,7 @@ class DepartmentRequest extends Request
     protected function formatErrors(Validator $validator)
     {
         if (count($validator->errors()->getMessages()) > 8) {
-            return [trans('messages.many-errors')];
+//            return [trans('messages.many-errors')];
         }
         return $validator->errors()->all();
     }

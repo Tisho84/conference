@@ -26,4 +26,23 @@ return [
     'no' => 'No',
     'add-department' => 'Add new department',
     'update-department' => 'Update department',
+    'users' => 'Users',
+    'email' => 'Email',
+    'email2' => 'Second email',
+    'rank' => 'Rank',
+    'phone' => 'Phone',
+    'address' => 'Address',
+    'country' => 'Country',
+    'institution' => 'Institution',
+    'user-type' => 'User type',
+    'user-types' => 'User types',
+    'add-user' => 'Add new user to department',
+    'update-user' => 'Update user to department',
+    'access' => 'Access',
+    'add-user-type' => 'Add new user type',
+    'update-user-type' => 'Update user type',
+    'admin-login-form' => 'Admin Panel Login Form',
+    'let-me-in' => 'Let me in.',
+    'admin-login-failed' => 'Access denied!'
+
 ];

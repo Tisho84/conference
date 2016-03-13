@@ -121,6 +121,9 @@ return [
         'image' => 'Logo',
         'theme_background_color' => 'Main color',
         'theme_color' => 'Text color',
+        'title' => 'Title',
+        'access' => 'Access',
+        'country_id' => 'country'
     ],
 
 ];

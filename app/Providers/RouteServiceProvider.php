@@ -31,6 +31,7 @@ class RouteServiceProvider extends ServiceProvider
         $router->model('users', 'App\User');
         $router->model('categories', 'App\Category');
         $router->model('departments', 'App\Department');
+        $router->model('types', 'App\UserType');
 
         $router->bind('department', function () {
             $department = app()->make('ConferenceBaseController')->getDepartment();

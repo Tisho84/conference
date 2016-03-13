@@ -15,22 +15,7 @@
             <label>{{ trans('static.profile-information') }}</label>
         </div>
         <div class="panel-body">
-            <div class="form-group">
-                <label for="inputEmail">{{ trans('static.email') }}<span class="glyphicon glyphicon-asterisk" aria-hidden="true"></span></label>
-                <input name="email" type="email" class="form-control" id="inputEmail" placeholder="{{ trans('static.email') }}" value="{{ old('email') }}">
-            </div>
-            <div class="form-group">
-                <label for="inputEmail2">{{ trans('static.email2') }}</label>
-                <input name="email2" type="email" class="form-control" id="inputEmail2" placeholder="{{ trans('static.email2') }}" value="{{ old('email2') }}">
-            </div>
-            <div class="form-group">
-                <label for="inputPassword">{{ trans('static.password') }}<span class="glyphicon glyphicon-asterisk" aria-hidden="true"></span></label>
-                <input name="password" type="password" class="form-control" id="inputPassword" placeholder="{{ trans('static.password') }}">
-            </div>
-            <div class="form-group">
-                <label for="inputPasswordConfirm">{{ trans('static.password-confirm') }}<span class="glyphicon glyphicon-asterisk" aria-hidden="true"></span></label>
-                <input name="password_confirmation" type="password" class="form-control" id="inputPasswordConfirm" placeholder="{{ trans('static.password-confirm') }}">
-            </div>
+            @include('auth.profile_form')
             @include('layouts.partials.button', ['button' => trans('static.save') ])
         </div>
     {!! Form::close() !!}

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Department;
 use App\Http\Controllers\ConferenceBaseController;
+use App\Http\Middleware\DepartmentRedirect;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
 
@@ -64,16 +65,7 @@ class DepartmentController extends ConferenceBaseController
                 'sort' => $sort,
                 'active' => $request->get('active'),
             ]);
-            $langs = [];
-            foreach (LaravelLocalization::getSupportedLocales() as $short => $locale) {
-                $langs[] = [
-                    'lang_id' => dbTrans($short),
-                    'name' => $request->get('name_' . $short),
-                    'title' => $request->get('title_' . $short),
-                    'description' => $request->get('description_' . $short),
-                ];
-            }
-            $department->langs()->createMany($langs);
+            $this->addDepartmentLangs($request, $department);
             $request->file('image')->move('images/', $request->file('image')->getClientOriginalName());
             Cache::forget('departments');
         });
@@ -120,8 +112,29 @@ class DepartmentController extends ConferenceBaseController
      */
     public function update(Requests\DepartmentRequest $request, Department $department)
     {
+        DB::transaction(function () use ($department, $request) {
+            $data = [
+                'keyword' => $request->get('keyword'),
+                'url' => $request->get('url'),
+                'theme_background_color' => $request->get('theme_background_color'),
+                'theme_color' => $request->get('theme_color'),
+                'sort' => $request->get('sort'),
+                'active' => $request->get('active'),
+            ];
+            if ($request->file('image')) {
+                $data['image'] = $request->file('image')->getClientOriginalName();
+                File::delete('images/' . $department->image);
+                $request->file('image')->move('images/', $request->file('image')->getClientOriginalName());
+            }
 
-        dd($request->all());
+            $department->update($data);
+            $department->langs()->delete();
+            $this->addDepartmentLangs($request, $department);
+
+            Cache::forget('departments');
+        });
+
+        return redirect(action('Admin\DepartmentController@index'))->with('success', 'updated');
     }
 
     /**
@@ -145,9 +158,24 @@ class DepartmentController extends ConferenceBaseController
 
     }
 
-    private function loadDepartmentLangs(Department $department) {
+    private function loadDepartmentLangs(Department $department)
+    {
         $department->load('langs');
         $department->dbLangs = $department->langs->keyBy('lang_id');
         $department->addVisible('dbLangs');
+    }
+
+    private function addDepartmentLangs(Requests\DepartmentRequest $request, Department $department)
+    {
+        $langs = [];
+        foreach (LaravelLocalization::getSupportedLocales() as $short => $locale) {
+            $langs[] = [
+                'lang_id' => dbTrans($short),
+                'name' => $request->get('name_' . $short),
+                'title' => $request->get('title_' . $short),
+                'description' => $request->get('description_' . $short),
+            ];
+        }
+        $department->langs()->createMany($langs);
     }
 }

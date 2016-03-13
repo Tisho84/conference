@@ -129,6 +129,8 @@ return [
         'image' => 'Лого',
         'theme_background_color' => 'Основен цвят',
         'theme_color' => 'Цвят на текста',
+        'title' => 'Заглавие',
+        'access' => 'Достъп'
     ],
 
 ];

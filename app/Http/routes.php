@@ -18,15 +18,18 @@ Route::group([
 ], function() {
     /** ADD ALL LOCALIZED ROUTES INSIDE THIS GROUP **/
     get('/', ['uses' => 'HomeController@index']);
-
     /** ---------- ADMIN ROUTES ---------- */
-    Route::group(['prefix' => 'admin', 'namespace' => 'Admin'], function () {
-        get('/', ['as' => 'admin-index', 'uses' => '\App\Http\Controllers\HomeController@admin']);
+    get('/admin/', ['as' => 'admin-index', 'uses' => 'HomeController@getLogin']);
+    post('/admin', ['uses' => 'HomeController@postLogin']);
+    Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'middleware' => ['admin']], function () {
+        get('/home', ['as' => 'admin-home', 'uses' => '\App\Http\Controllers\HomeController@admin']);
         resource('departments', 'DepartmentController');
+        resource('departments.users', 'DepartmentUsersController');
+        resource('types', 'UserTypesController');
         resource('categories', 'CategoryController');
     });
 
-    Route::group(['prefix' => '{department}', 'as' => 'department::', 'middleware' => [ 'department', 'userFromDepartment' ]], function () {
+    Route::group(['prefix' => '{department}', 'as' => 'department::', 'middleware' => ['department', 'userFromDepartment']], function () {
         get('/', ['as' => 'index', 'uses' => 'HomeController@department']);
 
         Route::group(['prefix' => 'auth', 'as' => 'auth::', 'middleware' => ['guest']], function () {
