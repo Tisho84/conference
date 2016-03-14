@@ -3,10 +3,8 @@
 namespace App\Http\Middleware;
 
 use Closure;
-use Illuminate\Auth\Guard;
-use Illuminate\Support\Facades\Auth;
 
-class Admin
+class SystemAdminAccess
 {
     /**
      * Handle an incoming request.
@@ -17,10 +15,11 @@ class Admin
      */
     public function handle($request, Closure $next)
     {
-        if (!adminAccess(9)) {
-            return redirect()->guest($request->segment(1) . '/admin/');
+        if (!adminAccess(100)) {
+            return redirect()
+                ->route('admin-home')
+                ->withErrors(trans('messages.access-denied'));
         }
-
         return $next($request);
     }
 }

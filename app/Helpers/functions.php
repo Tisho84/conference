@@ -69,3 +69,18 @@ function buildActive() {
 function calcSort($sort) {
     return $sort + (100 - ($sort % 100));
 }
+
+/*
+ * function that check user access type
+ */
+function adminAccess($access, $user = null) {
+    $user = $user ? : \Illuminate\Support\Facades\Auth::user();
+    if (
+        !$user ||
+        !$user->user_type_id ||
+        !in_array($access, $user->type->access->pluck('access_id')->toArray())
+    ) { #admin has access id
+        return false;
+    }
+    return true;
+}

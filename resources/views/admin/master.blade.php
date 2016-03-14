@@ -50,8 +50,12 @@
                 <!-- Sidebar Menu Items - These collapse to the responsive navigation menu on small screens -->
                 <div class="collapse navbar-collapse navbar-ex1-collapse">
                     <ul class="nav navbar-nav side-nav">
-                        <li>{!! HTML::link(action('Admin\DepartmentController@index'), trans('admin.departments')) !!}</li>
-                        <li>{!! HTML::link(action('Admin\UserTypesController@index'), trans('admin.user-types')) !!}</li>
+                        @if (adminAccess(10))
+                            <li>{!! HTML::link(action('Admin\DepartmentController@index'), trans('admin.departments')) !!}</li>
+                        @endif
+                        @if (adminAccess(100))
+                            <li>{!! HTML::link(action('Admin\UserTypesController@index'), trans('admin.user-types')) !!}</li>
+                        @endif
                         <li>{!! HTML::link(action('Admin\CategoryController@index'), trans('admin.categories')) !!}</li>
                         <li>
                             <a href="javascript:;" data-toggle="collapse" data-target="#account-menu">Account <i class="fa fa-fw fa-caret-down"></i></a>
@@ -76,6 +80,7 @@
                 <!-- /.navbar-collapse -->
             </nav>
             <div id="page-wrapper">
+                @include('layouts.partials.messages.errors')
                 <div class="messages">
                     @include('layouts.partials.messages.other')
                 </div>

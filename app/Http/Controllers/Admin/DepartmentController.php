@@ -10,6 +10,8 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File;
@@ -17,6 +19,22 @@ use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 
 class DepartmentController extends ConferenceBaseController
 {
+    private $systemAdmin = false;
+    /**
+     * Instantiate a new DepartmentController instance.
+     */
+    public function __construct()
+    {
+        $this->middleware('departmentAccess');
+        if (adminAccess(100)) { #can config all departments
+            $this->systemAdmin = true;
+        } else {
+            $this->middleware('userFromDepartment', ['except' => [
+                'index'
+            ]]);
+        }
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -24,7 +42,11 @@ class DepartmentController extends ConferenceBaseController
      */
     public function index()
     {
-        $departments = Department::all();
+        if ($this->systemAdmin) {
+            $departments = Department::all();
+        } else {
+            $departments = Collection::make([Auth::user()->department]);
+        }
         return view('admin.department.index', [
             'departments' => $departments,
             'title' => trans('admin.departments'),

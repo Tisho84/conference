@@ -15,9 +15,17 @@ class UserFromDepartment
      */
     public function handle($request, Closure $next)
     {
-        $department = app()->make('ConferenceBaseController')->getDepartment();
+        if ($request->segment(2) == 'admin') { #required for department admin and system admin check
+            $id = $request->segment(4);
+        } else {
+            $department = app()->make('ConferenceBaseController')->getDepartment();
+            $id = $department->id;
+        }
 
-        if (!auth()->guest() && $department->id != auth()->user()->department_id) { #if user is logged but not from that department logout him
+        if (!auth()->guest() && $id != auth()->user()->department_id) { #if user is logged but not from that department logout him
+            if ($request->segment(2) == 'admin') {
+                return redirect()->action('Admin\DepartmentController@index');
+            }
             auth()->logout();
         }
 

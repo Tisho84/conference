@@ -14,8 +14,12 @@ use App\Classes\Access;
 
 class UserTypesController extends ConferenceBaseController
 {
+    /**
+     * Instantiate a new UserTypesController instance.
+     */
     public function __construct()
     {
+        $this->middleware('systemAccess');
         $access = new Access();
         $this->access = $access->getAccess();
     }
