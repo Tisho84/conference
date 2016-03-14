@@ -15,7 +15,7 @@ use App\Http\Controllers\Controller;
 
 class DepartmentUsersController extends ConferenceBaseController
 {
-    
+
     public function __construct()
     {
         $this->middleware('userFromDepartment');

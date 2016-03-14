@@ -2,7 +2,6 @@
 
 namespace App;
 
-
 class CategoryLang extends LanguageModel
 {
     protected $table = 'category_lang';

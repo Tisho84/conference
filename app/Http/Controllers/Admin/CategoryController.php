@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Category;
 use App\CategoryLang;
+use App\Department;
 use App\Http\Controllers\ConferenceBaseController;
 use Illuminate\Http\Request;
 
@@ -14,6 +15,18 @@ use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 
 class CategoryController extends ConferenceBaseController
 {
+    private $systemAdmin;
+
+    public function __construct()
+    {
+        $this->systemAdmin = false;
+        $departments = [];
+        if (adminAccess(100)) {
+            $this->systemAdmin = true;
+            $departments = getNomenclatureSelect($this->getDepartmentsAdmin());
+        }
+        view()->share(['systemAdmin' => $this->systemAdmin, 'departments' => $departments]);
+    }
     /**
      * Display a listing of the resource.
      *
@@ -21,7 +34,7 @@ class CategoryController extends ConferenceBaseController
      */
     public function index()
     {
-        $categories = $this->getCategoriesAdmin();
+        $categories = $this->getCategoriesAdmin($this->systemAdmin ? null : auth()->user()->department_id);
         return view('admin.category.index', [
             'categories' => $categories,
             'title' => trans('admin.categories'),
@@ -52,8 +65,13 @@ class CategoryController extends ConferenceBaseController
             $sort = calcSort(Category::max('sort'));
         }
 
-        DB::transaction(function () use ($sort, $request) {
-            $category = Category::create(['department_id' => 1, 'sort' => $sort, 'active' => $request->get('active')]); //TODO conference remove hardcoded 1 with user->dep_id when logged
+        $departmentId = auth()->user()->department_id;
+        if ($request->has('department_id') && $this->systemAdmin) {
+            $departmentId = $request->get('department_id');
+        }
+
+        DB::transaction(function () use ($sort, $departmentId, $request) {
+            $category = Category::create(['department_id' => $departmentId, 'sort' => $sort, 'active' => $request->get('active')]);
             $langs = [];
             foreach (LaravelLocalization::getSupportedLocales() as $short => $locale) {
                 $langs[] = ['lang_id' => dbTrans($short), 'name' => $request->get('name_' . $short)];
@@ -77,7 +95,10 @@ class CategoryController extends ConferenceBaseController
             $key = 'name_' . systemTrans($lang['lang_id']);
             $category->$key = $lang['name'];
         }
-        return view('admin.category.edit', ['category' => $category]);
+
+        return view('admin.category.edit', [
+            'category' => $category
+        ]);
     }
 
     /**
@@ -90,7 +111,11 @@ class CategoryController extends ConferenceBaseController
     public function update(Requests\CategoryRequest $request, Category $category)
     {
         DB::transaction( function () use ($request, $category) {
-            $category->update(['sort' => $request->get('sort'), 'active' => $request->get('active')]);
+            $update = ['sort' => $request->get('sort'), 'active' => $request->get('active')];
+            if ($this->systemAdmin) {
+                $update['department_id'] = $request->get('department_id');
+            }
+            $category->update($update);
             foreach ($category->langs as $lang) {
                 $lang->update(['name' => $request->get('name_' . systemTrans($lang['lang_id']))]);
             }

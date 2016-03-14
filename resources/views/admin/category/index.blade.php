@@ -6,6 +6,9 @@
         <tr>
             <th>{{ trans('admin.id') }}</th>
             {!! buildTh() !!}
+            @if ($systemAdmin)
+                <th>{{ trans('admin.department') }}</th>
+            @endif
             <th>{{ trans('admin.active') }}</th>
             <th>{{ trans('admin.sort') }}</th>
         </tr>
@@ -17,6 +20,9 @@
                 @foreach (LaravelLocalization::getSupportedLocales() as $short => $locale)
                     <td>{{ $category->dbLangs->get(dbTrans($short))->name }}</td>
                 @endforeach
+                @if ($systemAdmin)
+                    <td>{{ $departments[$category->department_id] }}</td>
+                @endif
                 <td>{{ $category->active }}</td>
                 <td>{{ $category->sort }}</td>
                 <td>

@@ -80,7 +80,6 @@
                 <!-- /.navbar-collapse -->
             </nav>
             <div id="page-wrapper">
-                @include('layouts.partials.messages.errors')
                 <div class="messages">
                     @include('layouts.partials.messages.other')
                 </div>

@@ -59,16 +59,32 @@ class ConferenceBaseController extends Controller
             ->get();
     }
 
-    public function getCategoriesAdmin()
+    public function getCategoriesAdmin($departmentId)
     {
-        $categories = Category::with('langs')
-            //todo where department id when logged
+        if ($departmentId) {
+            $categories = Category::with('langs')
+                ->where('department_id', $departmentId)
+                ->sort()
+                ->get();
+        } else {
+            $categories = Category::with('langs')
+                ->sort()
+                ->get();
+        }
+        $categories = $this->loadLangs($categories);
+        return $categories;
+    }
+
+    public function getDepartmentsAdmin()
+    {
+        return Department::active()
+            ->with([
+                'langs' => function($query) {
+                    $query->lang();
+                }
+            ])
             ->sort()
             ->get();
-
-        $categories = $this->loadLangs($categories);
-
-        return $categories;
     }
 
     public function loadLangs($obj)

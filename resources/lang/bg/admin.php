@@ -1,6 +1,7 @@
 <?php
 return [
     'departments' => 'Катедри',
+    'department' => 'Катедра',
     'categories' => 'Научни интереси',
     'add' => 'Добави',
     'edit' => 'Редактирай',

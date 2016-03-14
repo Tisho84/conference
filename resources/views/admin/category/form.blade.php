@@ -11,9 +11,15 @@
             </div>
         @endforeach
         <div class="form-group">
-            <label for="sort">{{  trans('admin.sort') }}</label>
+            <label for="sort">{{ trans('admin.sort') }}</label>
             {!! Form::text('sort', null, ['class' => 'form-control', 'id' => 'sort', 'placeholder' => trans('admin.sort')]) !!}
         </div>
+        @if ($systemAdmin)
+            <div class="form-group">
+                <label for="department_id">{{ trans('admin.department') }}</label>
+                {!! Form::select('department_id', $departments, null, ['class' => 'form-control']) !!}
+            </div>
+        @endif
         <div class="form-group">
             {!! buildActive() !!}
         </div>

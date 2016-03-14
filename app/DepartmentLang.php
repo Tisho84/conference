@@ -2,7 +2,7 @@
 
 namespace App;
 
-class DepartmentLang extends ConferenceBaseModel
+class DepartmentLang extends LanguageModel
 {
     protected $table = 'department_lang';
     protected $fillable = ['lang_id', 'name', 'title', 'description'];
