@@ -55,4 +55,9 @@ class User extends ConferenceBaseModel implements AuthenticatableContract,
     {
          return $this->belongsTo('App\UserType', 'user_type_id', 'id', 'user_type');
     }
+
+    public function papers()
+    {
+        return $this->hasMany('App\Paper');
+    }
 }

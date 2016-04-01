@@ -110,10 +110,12 @@ return [
         'new-password' => 'new password',
         'password_confirmed' => 'confirm password',
         'sort' => 'sort',
+        'category_id' => 'Category',
         'name_en' => 'Name(English)',
         'name_bg' => 'Name(Български)',
         'title_en' => 'Title(English)',
         'title_bg' => 'Title(Български)',
+        'description' => 'Description',
         'description_en' => 'Description(English)',
         'description_bg' => 'Description(Български)',
         'keyword' => 'Keyword',
@@ -123,7 +125,11 @@ return [
         'theme_color' => 'Text color',
         'title' => 'Title',
         'access' => 'Access',
-        'country_id' => 'country'
+        'country_id' => 'country',
+        'file' => 'File',
+        'authors' => 'Authors',
+        'payment_description' => 'invoice information',
+        'payment_source' => 'scanned payment',
     ],
 
 ];

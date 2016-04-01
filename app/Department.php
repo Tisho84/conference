@@ -28,6 +28,5 @@ class Department extends ConferenceBaseModel
     public function categories()
     {
         return $this->hasMany('App\Category');
-
     }
 }

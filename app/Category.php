@@ -25,4 +25,9 @@ class Category extends ConferenceBaseModel
     {
         return $this->belongsToMany('App\User', 'user_category', 'category_id', 'user_id');
     }
+
+    public function papers()
+    {
+        return $this->hasMany('App\Paper');
+    }
 }

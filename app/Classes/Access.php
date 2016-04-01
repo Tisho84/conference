@@ -11,45 +11,45 @@ namespace App\Classes;
 use App\Classes\Language;
 use App\Interfaces\ILanguage;
 
-class Access
+class Access extends Language implements ILanguage
 {
     private $types = [
         1 => [
-            'id' => 1,
-            'title' => 'Upload papers',
+            'en' => 'Upload papers',
+            'bg' => 'Качване на доклади'
         ],
         2 => [
-            'id' => 2,
-            'title' => 'Review articles',
+            'en' => 'Review articles',
+            'bg' => 'Оценка на доклади',
         ],
         3 => [
-            'id' => 3,
-            'title' => 'Send emails',
+            'en' => 'Send emails',
+            'bg' => 'Изпращане имейли',
         ],
         4 => [
-            'id' => 4,
-            'title' => 'Manage news',
+            'en' => 'Manage news',
+            'bg' => 'Управление новини',
         ],
         9 => [
-            'id' => 9,
-            'title' => 'Admin panel',
+            'en' => 'Admin panel',
+            'bg' => 'Админ панел',
         ],
         10 => [
-            'id' => 10,
-            'title' => 'Admin Department',
+            'en' => 'Admin department',
+            'bg' => 'Админ катедра',
         ],
         100 => [
-            'id' => 100,
-            'title' => 'System Admin',
+            'en' => 'System admin',
+            'bg' => 'Системен админ'
         ]
     ];
 
     public function getAccess()
     {
-        return array_pluck($this->types, 'title', 'id');
+        return $this->process($this->types);
     }
 
-    public function get($id)
+    public function getTitle($id)
     {
         return $this->getAccess()[$id];
     }

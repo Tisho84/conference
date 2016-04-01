@@ -47,6 +47,10 @@ Route::group([
             put('profile', ['as' => 'profile', 'uses' => 'UsersController@postProfile']);
             get('change', ['as' => 'change', 'uses' => 'UsersController@getChangePassword']);
             put('change', ['as' => 'change', 'uses' => 'UsersController@postChangePassword']);
+            /** Papers routes **/
+            resource('papers', 'PaperController');
+            get('papers/{id}/invoice', ['as' => 'invoice', 'uses' => 'PaperController@getInvoice']);
+            post('papers/{id}/invoice', ['as' => 'invoice', 'uses' => 'PaperController@postInvoice']);
 
             get('logout', ['as' => 'logout', 'uses' => 'Auth\AuthController@getLogout']);
         });

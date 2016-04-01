@@ -55,7 +55,7 @@ class DepartmentRequest extends Request
     protected function formatErrors(Validator $validator)
     {
         if (count($validator->errors()->getMessages()) > 8) {
-//            return [trans('messages.many-errors')];
+            return [trans('messages.many-errors')];
         }
         return $validator->errors()->all();
     }

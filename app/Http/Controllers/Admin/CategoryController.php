@@ -21,7 +21,7 @@ class CategoryController extends ConferenceBaseController
     {
         $this->systemAdmin = false;
         $departments = [];
-        if (adminAccess(100)) {
+        if (systemAccess(100)) {
             $this->systemAdmin = true;
             $departments = getNomenclatureSelect($this->getDepartmentsAdmin());
         }

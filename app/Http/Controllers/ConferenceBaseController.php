@@ -47,16 +47,21 @@ class ConferenceBaseController extends Controller
 
     public function getCategories()
     {
-        return $this->getDepartment()
-            ->categories()
-            ->active()
-            ->with([
-                'langs' => function ($query) {
-                    $query->lang();
-                }
-            ])
-            ->sort()
-            ->get();
+        $department = $this->getDepartment();
+        $categories = [];
+        if ($department) {
+            $categories = $department
+                ->categories()
+                ->active()
+                ->with([
+                    'langs' => function ($query) {
+                        $query->lang();
+                    }
+                ])
+                ->sort()
+                ->get();
+        }
+        return $categories;
     }
 
     public function getCategoriesAdmin($departmentId)

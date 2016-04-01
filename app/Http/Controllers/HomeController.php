@@ -66,7 +66,7 @@ class HomeController extends ConferenceBaseController
         }
 
         if (Auth::attempt($this->getCredentials($request))) {
-            if (adminAccess(9)) { #admin panel access id
+            if (systemAccess(9)) { #admin panel access id
                 Session::flash('success', 'login');
                 return $this->handleUserWasAuthenticated($request, $throttles);
             } else {

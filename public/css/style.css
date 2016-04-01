@@ -245,3 +245,14 @@ span.glyphicon-asterisk {
 .colorpicker {
     margin-top: -50px !important;
 }
+
+.control-label-right {
+    margin-bottom: 0;
+    padding-top: 7px;
+    text-align: left;
+    font-weight: normal;
+}
+
+.btn {
+    margin: 2px;
+}

@@ -3,7 +3,7 @@
     @include('layouts.partials.head.meta')
 @show
 {{-- //define title --}}
-<title>@yield('title', trans('static.title'))</title>
+<title>@yield('title', trans('static.app-title'))</title>
 <link href="{!!asset('navicon.ico') !!}" rel="shortcut icon" type="image/vnd.microsoft.icon" />
 {{-- //load css --}}
 @section('css')

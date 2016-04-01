@@ -50,10 +50,10 @@
                 <!-- Sidebar Menu Items - These collapse to the responsive navigation menu on small screens -->
                 <div class="collapse navbar-collapse navbar-ex1-collapse">
                     <ul class="nav navbar-nav side-nav">
-                        @if (adminAccess(10))
+                        @if (systemAccess(10))
                             <li>{!! HTML::link(action('Admin\DepartmentController@index'), trans('admin.departments')) !!}</li>
                         @endif
-                        @if (adminAccess(100))
+                        @if (systemAccess(100))
                             <li>{!! HTML::link(action('Admin\UserTypesController@index'), trans('admin.user-types')) !!}</li>
                         @endif
                         <li>{!! HTML::link(action('Admin\CategoryController@index'), trans('admin.categories')) !!}</li>

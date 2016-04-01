@@ -73,13 +73,13 @@ function calcSort($sort) {
 /*
  * function that check user access type
  */
-function adminAccess($access, $user = null) {
+function systemAccess($access, $user = null) {
     $user = $user ? : \Illuminate\Support\Facades\Auth::user();
     if (
         !$user ||
         !$user->user_type_id ||
         !in_array($access, $user->type->access->pluck('access_id')->toArray())
-    ) { #admin has access id
+    ) { #has not access
         return false;
     }
     return true;

@@ -26,7 +26,7 @@ class DepartmentController extends ConferenceBaseController
     public function __construct()
     {
         $this->middleware('departmentAccess');
-        if (adminAccess(100)) { #can config all departments
+        if (systemAccess(100)) { #can config all departments
             $this->systemAdmin = true;
         } else {
             $this->middleware('userFromDepartment', ['except' => [
@@ -89,6 +89,7 @@ class DepartmentController extends ConferenceBaseController
             ]);
             $this->addDepartmentLangs($request, $department);
             $request->file('image')->move('images/', $request->file('image')->getClientOriginalName());
+            File::makeDirectory('papers/' . $department->keyword);
             Cache::forget('departments');
         });
 
@@ -135,6 +136,7 @@ class DepartmentController extends ConferenceBaseController
     public function update(Requests\DepartmentRequest $request, Department $department)
     {
         DB::transaction(function () use ($department, $request) {
+            $oldKeyword = $department->keyword;
             $data = [
                 'keyword' => $request->get('keyword'),
                 'url' => $request->get('url'),
@@ -152,7 +154,9 @@ class DepartmentController extends ConferenceBaseController
             $department->update($data);
             $department->langs()->delete();
             $this->addDepartmentLangs($request, $department);
-
+            if ($department->keyword != $oldKeyword) {
+                File::move('papers/' . $oldKeyword, 'papers/' . $department->keyword);
+            }
             Cache::forget('departments');
         });
 
@@ -175,9 +179,9 @@ class DepartmentController extends ConferenceBaseController
         }
 
         File::delete('images/' . $department->image);
+        File::delete('papers/' . $department->keyword);
         Cache::forget('departments');
         return redirect(action('Admin\DepartmentController@index'))->with('success', 'deleted');
-
     }
 
     private function loadDepartmentLangs(Department $department)

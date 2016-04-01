@@ -17,7 +17,7 @@ class Admin
      */
     public function handle($request, Closure $next)
     {
-        if (!adminAccess(9)) {
+        if (!systemAccess(9)) {
             return redirect()->guest($request->segment(1) . '/admin/');
         }
 

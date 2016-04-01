@@ -15,7 +15,7 @@ class SystemAdminAccess
      */
     public function handle($request, Closure $next)
     {
-        if (!adminAccess(100)) {
+        if (!systemAccess(100)) {
             session(['error' => 'access-denied']);
             return redirect()->route('admin-home');
         }

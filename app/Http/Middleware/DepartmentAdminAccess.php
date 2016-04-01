@@ -15,7 +15,7 @@ class DepartmentAdminAccess
      */
     public function handle($request, Closure $next)
     {
-        if (!adminAccess(10)) {
+        if (!systemAccess(10)) {
             return redirect()
                 ->route('admin-home')
                 ->withErrors(trans('messages.access-denied'));

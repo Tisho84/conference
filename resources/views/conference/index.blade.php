@@ -13,7 +13,7 @@
                     </ul>
                 </div>
                 <div class="col-lg-10">
-                    <h1>{{ trans('static.title') }}</h1>
+                    <h1>{{ trans('static.app-title') }}</h1>
                 </div>
                 <div class="col-lg-1"></div>
             </div>

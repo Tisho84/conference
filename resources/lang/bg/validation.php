@@ -91,6 +91,12 @@ return [
         'attribute-name' => [
             'rule-name' => 'custom-message',
         ],
+        'category_id' => [
+            'exists' => 'Полето за Категория е задължително.'
+        ],
+        'file' => [
+            'required' => 'Файлът е задължителен'
+        ]
     ],
 
     /*
@@ -115,6 +121,7 @@ return [
         'country_id' => 'Държава',
         'institution' => 'Университет/Институция',
         'categories' => 'Научни интереси',
+        'category_id' => 'Категория',
         'new-password' => 'нова парола',
         'password_confirmed' => 'повтори парола',
         'sort' => 'Подредба',
@@ -122,6 +129,7 @@ return [
         'name_en' => 'Име(English)',
         'title_en' => 'Заглавие(English)',
         'title_bg' => 'Заглавие(Български)',
+        'description' => 'Описание',
         'description_en' => 'Описание(English)',
         'description_bg' => 'Описание(Български)',
         'keyword' => 'Ключова дума',
@@ -130,7 +138,11 @@ return [
         'theme_background_color' => 'Основен цвят',
         'theme_color' => 'Цвят на текста',
         'title' => 'Заглавие',
-        'access' => 'Достъп'
+        'access' => 'Достъп',
+        'file' => 'Файл',
+        'authors' => 'Автори',
+        'payment_description' => 'данни за фактурата',
+        'payment_source' => 'сканирано платежно',
     ],
 
 ];

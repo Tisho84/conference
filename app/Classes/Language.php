@@ -30,7 +30,7 @@ class Language
 
     public function getLanguage()
     {
-        return LaravelLocalization::setLocale();
+        return LaravelLocalization::setLocale() ? : 'en';
     }
 
 
