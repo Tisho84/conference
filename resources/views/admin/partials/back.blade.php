@@ -1,0 +1,1 @@
+<a href="{{ \Illuminate\Support\Facades\URL::previous()  }}" class="btn btn-default">{{ trans('static.menu-back') }}</a>

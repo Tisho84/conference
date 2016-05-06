@@ -15,7 +15,7 @@ use League\Flysystem\Exception;
 class PaperClass
 {
     private $paper;
-    private $files = [ 'paper' => 'paper', 'invoice' => 'payment_source'];
+    private $files = [ 'paper' => 'paper', 'paper_name' => '', 'invoice' => 'payment_source', 'invoice_name' => ''];
     static private $path;
 
     public function __construct()
@@ -23,6 +23,10 @@ class PaperClass
         self::$path = 'papers/' . request()->segment(2) . '/';
     }
 
+    public function setUrl($url)
+    {
+        self::$path = 'papers/' . $url . '/';
+    }
 
     public function setPaper(Paper $paper)
     {
@@ -51,9 +55,17 @@ class PaperClass
      */
     public function buildFileName($invoice = false)
     {
-        $key = $invoice ? $this->files['invoice'] : $this->files['paper'];
-        $ext = request()->file($key)->getClientOriginalExtension();
-        $name = request()->file($key)->getClientOriginalName();
+        $key = $invoice ? 'invoice' : 'paper';
+        if ($this->files[$key . '_name']) { #if already build
+            return $this->files[$key . '_name'];
+        }
+
+        if (!request()->file($this->files[$key])) {
+            return '';
+        }
+
+        $ext = request()->file($this->files[$key])->getClientOriginalExtension();
+        $name = request()->file($this->files[$key])->getClientOriginalName();
         $name = str_replace('.' . $ext, '', $name);
         #check if name is bigger then 90 chars and cut + remove ... from string
         $name = str_limit($name, 90);
@@ -67,6 +79,11 @@ class PaperClass
         }
         $name .= rand(1, 999);
         $name .= '.' . $ext; #add extension
+        if (File::exists(self::$path . $name)) {
+            $name = $this->buildFileName($invoice);
+        }
+        $this->files[$key . '_name'] = $name;
+
         return $name;
     }
 
@@ -77,7 +94,7 @@ class PaperClass
 
     public function delete()
     {
-        if ($this->paper->status_id == 1) {
+        if ($this->paper->status_id == 1 || isAdminPanel()) {
             try {
                 $this->paper->delete();
             } catch(Exception $e) {

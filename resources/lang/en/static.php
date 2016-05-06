@@ -79,7 +79,13 @@ return [
     'file' => 'File',
     'preview' => 'preview',
     'invoice' => 'invoice',
+    'evaluate' => 'evaluate',
     'download' => 'Download',
     'invoice-description' => 'Invoice information',
     'invoice-source' => 'Scanned payment',
+    'uploader' => 'Uploaded by',
+    'reviewer' => 'Reviewed by',
+    'none' => 'None',
+    'paper' => 'Paper',
+    'criteria' => 'Criteria'
 ];

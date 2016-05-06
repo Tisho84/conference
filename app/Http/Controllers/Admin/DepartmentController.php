@@ -50,7 +50,7 @@ class DepartmentController extends ConferenceBaseController
         return view('admin.department.index', [
             'departments' => $departments,
             'title' => trans('admin.departments'),
-            'url' => action('Admin\DepartmentController@create')
+            'url' => $this->systemAdmin ? action('Admin\DepartmentController@create') : ''
         ]);
     }
 

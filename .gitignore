@@ -1,5 +1,6 @@
 /vendor
 /node_modules
+/public/papers
 Homestead.yaml
 Homestead.json
 .idea

@@ -27,6 +27,8 @@ Route::group([
         resource('departments.users', 'DepartmentUsersController');
         resource('types', 'UserTypesController');
         resource('categories', 'CategoryController');
+        resource('papers', 'PaperController');
+        resource('criteria', 'CriteriaController');
     });
 
     Route::group(['prefix' => '{department}', 'as' => 'department::', 'middleware' => ['department', 'userFromDepartment']], function () {

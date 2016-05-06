@@ -31,6 +31,10 @@ class Paper extends Model
         return $this->belongsTo('App\Category');
     }
 
+    public function department()
+    {
+        return $this->belongsTo('App\Department');
+    }
 
     public function getCreatedAtAttribute($date)
     {
@@ -56,5 +60,15 @@ class Paper extends Model
         return $this->canEdit();
     }
 
+    public function isAuthor($id = null)
+    {
+        $id = $id ? : auth()->user()->id;
+        return $this->user_id == $id ? true : false;
+    }
 
+    public function isReviewer($id = null)
+    {
+        $id = $id ? : auth()->user()->id;
+        return $this->reviewer_id == $id ? true : false;
+    }
 }

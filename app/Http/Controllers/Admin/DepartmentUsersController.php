@@ -19,6 +19,9 @@ class DepartmentUsersController extends ConferenceBaseController
     public function __construct()
     {
         $this->middleware('userFromDepartment');
+        view()->share([
+            'types' => $this->getUserTypes(true)->pluck('title', 'id')
+        ]);
     }
     /**
      * Display a listing of the resource.
@@ -32,7 +35,6 @@ class DepartmentUsersController extends ConferenceBaseController
             'title' => $department->keyword . ' ' . trans('admin.users'),
             'url' => action('Admin\DepartmentUsersController@create', [ $department->id ]),
             'department' => $department,
-            'types' => $this->getUserTypes(true)->pluck('title', 'id')
         ]);
     }
 
@@ -51,7 +53,6 @@ class DepartmentUsersController extends ConferenceBaseController
             'countries' => $country->getCountries(),
             'reviewer' => 1,
             'categories' => getNomenclatureSelect($department->categories()),
-            'types' => $this->getUserTypes(true)->pluck('title', 'id')
         ]);
     }
 
@@ -93,7 +94,6 @@ class DepartmentUsersController extends ConferenceBaseController
             'department' => $department,
             'ranks' => $rank->getRanks(),
             'countries' => $country->getCountries(),
-            'types' => $this->getUserTypes(true)->pluck('title', 'id')
         ]);
     }
 

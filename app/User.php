@@ -9,6 +9,7 @@ use Illuminate\Foundation\Auth\Access\Authorizable;
 use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
 use Illuminate\Contracts\Auth\Access\Authorizable as AuthorizableContract;
 use Illuminate\Contracts\Auth\CanResetPassword as CanResetPasswordContract;
+use Illuminate\Support\Facades\DB;
 
 class User extends ConferenceBaseModel implements AuthenticatableContract,
                                     AuthorizableContract,
@@ -59,5 +60,44 @@ class User extends ConferenceBaseModel implements AuthenticatableContract,
     public function papers()
     {
         return $this->hasMany('App\Paper');
+    }
+
+    public static function getReviewers($departmentId = null)
+    {
+        return self::getUsers(2, $departmentId);
+    }
+
+    public static function getAuthors($departmentId = null)
+    {
+        return self::getUsers(1, $departmentId);
+    }
+
+    private static function getUsers($access, $departmentId)
+    {
+        switch ($access) {
+            case 1:
+                $paperId = 'paper.user_id';
+                break;
+
+            case 2:
+                $paperId = 'paper.reviewer_id';
+                break;
+
+            default:
+                return [];
+        }
+
+        $where = $departmentId ? '=' : '<>';
+        return DB::table('users')
+            ->join('user_type', 'users.user_type_id', '=', 'user_type.id')
+            ->join('user_type_access', 'user_type.id', '=', 'user_type_access.user_type_id')
+            ->leftJoin('paper', 'users.id', '=', $paperId)
+            ->select('users.*', DB::raw('COUNT(paper.id) as papers'))
+            ->where('users.active', 1)
+            ->where('user_type.active', 1)
+            ->where('user_type_access.access_id', $access)
+            ->where('users.department_id', $where, (int)$departmentId)
+            ->groupBy('users.id')
+            ->get();
     }
 }

@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use App\Classes\PaperStatus;
 use App\Http\Requests\Request;
 
 class PaperRequest extends Request
@@ -30,6 +31,14 @@ class PaperRequest extends Request
             'paper'       => 'required|max:10000|mimes:pdf,doc,docx',
             'authors'     => 'required|min:3|max:1000',
         ];
+
+        if (isAdminPanel()) {
+            $paper = new PaperStatus();
+            $rules['user_id'] = 'required|exists:users,id';
+            $rules['payment_description'] = 'min:3|max:1000';
+            $rules['payment_source'] = 'image|max:5000';
+            $rules['status_id'] = 'required|between:1,' . count($paper->getStatuses());
+        }
 
         if ($this->request->get('id')) { #update request1
             if (!$this->request->get('paper')) {

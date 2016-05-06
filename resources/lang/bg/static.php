@@ -79,7 +79,13 @@ return [
     'file' => 'Файл',
     'preview' => 'преглед',
     'invoice' => 'фактура',
+    'evaluate' => 'оценка',
     'download' => 'Изтегли',
     'invoice-description' => 'Данни за фактурата',
     'invoice-source' => 'Сканирано платежно',
+    'uploader' => 'Качен от',
+    'reviewer' => 'Оценен от',
+    'none' => 'Няма',
+    'paper' => 'Доклад',
+    'criteria' => 'Критерии'
 ];

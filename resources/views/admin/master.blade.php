@@ -39,7 +39,7 @@
                         </ul>
                     </li>
                     <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i> John Smith <b class="caret"></b></a>
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i> {{ auth()->user()->name }} <b class="caret"></b></a>
                         <ul class="dropdown-menu">
                             <li>
                                 <a href="#"><i class="fa fa-fw fa-power-off"></i>{!! trans('static.menu-logout') !!}</a>
@@ -57,21 +57,8 @@
                             <li>{!! HTML::link(action('Admin\UserTypesController@index'), trans('admin.user-types')) !!}</li>
                         @endif
                         <li>{!! HTML::link(action('Admin\CategoryController@index'), trans('admin.categories')) !!}</li>
-                        <li>
-                            <a href="javascript:;" data-toggle="collapse" data-target="#account-menu">Account <i class="fa fa-fw fa-caret-down"></i></a>
-                            <ul id="account-menu" class="collapse">
-                                <li>
-                                    <a href="#">Dropdown Item</a>
-                                </li>
-                                <li>
-                                    <a href="#">Dropdown Item</a>
-                                </li>
-                            </ul>
-
-                        </li>
-                        <li>
-                            <a href="forms.html">Papers</a>
-                        </li>
+                        <li>{!! HTML::link(action('Admin\PaperController@index'), trans('static.menu-papers')) !!}</li>
+                        <li>{!! HTML::link(action('Admin\CriteriaController@index'), trans('static.criteria')) !!}</li>
                         <li>
                             <a href="bootstrap-grid.html">Settings</a>
                         </li>

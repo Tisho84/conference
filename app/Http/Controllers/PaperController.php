@@ -24,7 +24,7 @@ class PaperController extends ConferenceBaseController
 
         $statuses = new PaperStatus();
         view()->share([
-            'categories' => [ 0 => trans('static.select')] + (array)getNomenclatureSelect($this->getCategories()),
+            'categories' => [0 => trans('static.select')] + (array)getNomenclatureSelect($this->getCategories()),
             'statuses' => $statuses->getStatuses()
         ]);
     }
@@ -35,7 +35,11 @@ class PaperController extends ConferenceBaseController
      */
     public function index()
     {
-        return view('conference.papers.index', ['papers' => auth()->user()->papers->sortByDesc('created_at')]);
+        $papers = Paper::where('user_id', auth()->user()->id)
+            ->orWhere('reviewer_id', auth()->user()->id)
+            ->orderBy('created_at')
+            ->get();
+        return view('conference.papers.index', ['papers' => $papers]);
     }
 
     /**
@@ -45,6 +49,9 @@ class PaperController extends ConferenceBaseController
      */
     public function create()
     {
+        if (!systemAccess(1)) {
+            return redirect()->back()->with('error', 'access-denied');
+        }
         return view('conference.papers.create');
     }
 
@@ -56,6 +63,10 @@ class PaperController extends ConferenceBaseController
      */
     public function store(Requests\PaperRequest $request)
     {
+        if (!systemAccess(1)) {
+            return redirect()->back()->with('error', 'access-denied');
+        }
+
         $name = $this->paper->buildFileName();
         $paperData = [
             'department_id' => $this->department->id,
@@ -85,7 +96,10 @@ class PaperController extends ConferenceBaseController
      */
     public function show(Department $department, Paper $paper)
     {
-        return view('conference.papers.show', ['paper' => $paper]);
+        if ($paper->isAuthor() || $paper->isReviewer()) {
+            return view('conference.papers.show', ['paper' => $paper]);
+        }
+        return redirect()->back()->with('error', 'access-denied');
     }
 
     /**
@@ -97,7 +111,10 @@ class PaperController extends ConferenceBaseController
      */
     public function edit(Department $department, Paper $paper)
     {
-        return view('conference.papers.edit', ['paper' => $paper]);
+        if ($paper->canEdit() && $paper->isAuthor()) {
+            return view('conference.papers.edit', ['paper' => $paper]);
+        }
+        return redirect()->back()->with('error', 'access-denied');
     }
 
     /**
@@ -110,23 +127,26 @@ class PaperController extends ConferenceBaseController
      */
     public function update(Requests\PaperRequest $request, Department $department, Paper $paper)
     {
-        $this->paper->setPaper($paper);
-        $paperData = [
-            'category_id'   => $request->get('category_id'),
-            'title'         => $request->get('title'),
-            'description'   => $request->get('description'),
-            'authors'       => $request->get('authors'),
-            'updated_at'    => Carbon::now()
-        ];
+        if ($paper->canEdit() && $paper->isAuthor()) {
+            $this->paper->setPaper($paper);
+            $paperData = [
+                'category_id'   => $request->get('category_id'),
+                'title'         => $request->get('title'),
+                'description'   => $request->get('description'),
+                'authors'       => $request->get('authors'),
+                'updated_at'    => Carbon::now()
+            ];
 
-        if ($request->file('paper')) {
-            $paperData['source'] = $this->paper->buildFileName();
-            $this->paper->deleteFile();
-            $this->paper->upload($paperData['source']);
+            if ($request->file('paper')) {
+                $paperData['source'] = $this->paper->buildFileName();
+                $this->paper->deleteFile();
+                $this->paper->upload($paperData['source']);
+            }
+            $paper->update($paperData);
+
+            return redirect()->action('PaperController@index', [$department->keyword])->with('success', 'saved');
         }
-        $paper->update($paperData);
-
-        return redirect()->action('PaperController@index', [$department->keyword])->with('success', 'saved');
+        return redirect()->back()->with('error', 'access-denied');
     }
 
     /**
@@ -138,11 +158,14 @@ class PaperController extends ConferenceBaseController
      */
     public function destroy(Department $department, Paper $paper)
     {
-        $this->paper->setPaper($paper);
-        if (!$this->paper->delete()) {
-            return redirect()->back()->with('error', 'error-delete-paper');
+        if ($paper->canEdit()) {
+            $this->paper->setPaper($paper);
+            if (!$this->paper->delete()) {
+                return redirect()->back()->with('error', 'error-delete-paper');
+            }
+            return redirect()->action('PaperController@index', [$department->keyword])->with('success', 'deleted');
         }
-        return redirect()->action('PaperController@index', [$department->keyword])->with('success', 'deleted');
+        return redirect()->back()->with('error', 'access-denied');
     }
 
     /**
@@ -155,7 +178,10 @@ class PaperController extends ConferenceBaseController
     public function getInvoice(Department $department, $paper)
     {
         $paper = Paper::findOrFail($paper);
-        return view('conference.papers.invoice', ['paper' => $paper]);
+        if ($paper->canInvoice() && $paper->isAuthor()) {
+            return view('conference.papers.invoice', ['paper' => $paper]);
+        }
+        return redirect()->back()->with('error', 'access-denied');
     }
 
     /**
@@ -168,29 +194,32 @@ class PaperController extends ConferenceBaseController
      */
     public function postInvoice(Request $request, Department $department, $paper)
     {
-        $source = '';
         $paper = Paper::findOrFail($paper);
-        $this->paper->setPaper($paper);
-        if (!$paper->payment_confirmed) {
-            $source = 'required|image|max:5000';
+        if ($paper->canInvoice() && $paper->isAuthor()) {
+            $source = 'image|max:5000';
+            $this->paper->setPaper($paper);
+            if (!$paper->payment_confirmed) {
+                $source = 'required|image|max:5000';
+            }
+
+            $this->validate($request, [
+                'payment_description' => 'min:3|max:1000',
+                'payment_source' => $source
+            ]);
+
+            $paperData = [
+                'payment_confirmed' => 1,
+                'payment_description' => $request->get('payment_description')
+            ];
+            if ($request->file('payment_source')) {
+                $paperData['payment_source'] = $this->paper->buildInvoiceName();
+                $this->paper->deleteInvoice();
+                $this->paper->upload($paperData['payment_source']);
+            }
+            $paper->update($paperData);
+
+            return redirect()->action('PaperController@index', [$department->keyword])->with('success', 'saved');
         }
-
-        $this->validate($request, [
-            'payment_description' => 'min:3|max:1000',
-            'payment_source' => $source
-        ]);
-
-        $paperData = [
-            'payment_confirmed' => 1,
-            'payment_description' => $request->get('payment_description')
-        ];
-        if ($request->file('payment_source')) {
-            $paperData['payment_source'] = $this->paper->buildInvoiceName();
-            $this->paper->deleteInvoice();
-            $this->paper->upload($paperData['payment_source']);
-        }
-        $paper->update($paperData);
-
-        return redirect()->action('PaperController@index', [$department->keyword])->with('success', 'saved');
+        return redirect()->back()->with('error', 'access-denied');
     }
 }

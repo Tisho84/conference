@@ -130,6 +130,8 @@ return [
         'authors' => 'Authors',
         'payment_description' => 'invoice information',
         'payment_source' => 'scanned payment',
+        'paper' => 'Paper',
+        'user_id' => 'Uploaded by'
     ],
 
 ];

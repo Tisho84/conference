@@ -15,7 +15,7 @@ class UserFromDepartment
      */
     public function handle($request, Closure $next)
     {
-        if ($request->segment(2) == 'admin') { #required for department admin and system admin check
+        if (isAdminPanel()) { #required for department admin and system admin check
             $id = $request->segment(4);
         } else {
             $department = app()->make('ConferenceBaseController')->getDepartment();
@@ -23,7 +23,7 @@ class UserFromDepartment
         }
 
         if (!auth()->guest() && $id != auth()->user()->department_id) { #if user is logged but not from that department logout him
-            if ($request->segment(2) == 'admin') {
+            if (isAdminPanel()) {
                 return redirect()->action('Admin\DepartmentController@index');
             }
             auth()->logout();

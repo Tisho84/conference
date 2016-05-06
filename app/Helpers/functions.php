@@ -36,11 +36,29 @@ function getLangUrl($url = '') {
 /*
  * function that builds nomenclature for select
  */
-function getNomenclatureSelect($collection) {
+function getNomenclatureSelect($collection, $first = false) {
     $array = [];
     foreach ($collection as $element) {
-        $array[$element['id']] = $element->langs->first()->name;
+        $array[$element['id']] = $element->langs->first()->name;;
     }
+
+    if ($first) {
+        $array = ['0' => trans('static.select')] + $array;
+    }
+
+    return $array;
+}
+
+function simpleSelect($collection, $first = false) {
+    $array = [];
+    foreach ($collection as $element) {
+        $array[$element->id] = $element->name;
+    }
+
+    if ($first) {
+        $array = ['0' => trans('static.select')] + $array;
+    }
+
     return $array;
 }
 
@@ -83,4 +101,8 @@ function systemAccess($access, $user = null) {
         return false;
     }
     return true;
+}
+
+function isAdminPanel() {
+    return request()->segment(2) == 'admin' ? true : false;
 }

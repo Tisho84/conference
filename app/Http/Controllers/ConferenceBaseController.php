@@ -48,7 +48,6 @@ class ConferenceBaseController extends Controller
     public function getCategories()
     {
         $department = $this->getDepartment();
-        $categories = [];
         if ($department) {
             $categories = $department
                 ->categories()
@@ -60,11 +59,20 @@ class ConferenceBaseController extends Controller
                 ])
                 ->sort()
                 ->get();
+        } else {
+            $categories = Category::active()
+                ->with([
+                    'langs' => function ($query) {
+                        $query->lang();
+                    }
+                ])
+                ->sort()
+                ->get();
         }
         return $categories;
     }
 
-    public function getCategoriesAdmin($departmentId)
+    public function getCategoriesAdmin($departmentId = null)
     {
         if ($departmentId) {
             $categories = Category::with('langs')

@@ -29,4 +29,14 @@ class Department extends ConferenceBaseModel
     {
         return $this->hasMany('App\Category');
     }
+
+    public function papers()
+    {
+        return $this->hasMany('App\Paper');
+    }
+
+    public function criteria()
+    {
+        return $this->hasMany('App\Criteria');
+    }
 }

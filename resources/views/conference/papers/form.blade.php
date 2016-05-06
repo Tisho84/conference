@@ -18,7 +18,13 @@
     {!! Form::text("authors", null, ['class' => 'form-control', 'id' => 'authors', 'placeholder' => trans('static.authors')]) !!}
 </div>
 <div class="form-group">
-    <label for="paper">{{ trans('static.file') }}<span class="glyphicon glyphicon-asterisk" aria-hidden="true"></span></label>
+    <label for="paper">{{ trans('static.file') }}
+        @if (isset($paper) && $paper)
+            <span>({{ trans('messages.upload-file') }})</span>
+        @else
+            <span class="glyphicon glyphicon-asterisk" aria-hidden="true"></span>
+        @endif
+    </label>
     {!! Form::file("paper", null, ['class' => 'form-control', 'id' => 'paper', 'placeholder' => trans('static.file')]) !!}
 </div>
 @include('layouts.partials.button', ['button' => trans('static.save') ])

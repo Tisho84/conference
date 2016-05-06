@@ -38,7 +38,7 @@
             </div>
             <div class="form-group">
                 <div class="text-center">
-                    {!! HTML::link(action('PaperController@index', [$department->keyword]), trans('static.menu-back'), ['class' => 'btn btn-default']) !!}
+                    @include('layouts.partials.back')
                 </div>
             </div>
 
