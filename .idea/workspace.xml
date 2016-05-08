@@ -7,44 +7,6 @@
       <change type="DELETED" beforePath="$PROJECT_DIR$/public/papers/kst/IMAG1070_TKI831.jpg" afterPath="" />
       <change type="DELETED" beforePath="$PROJECT_DIR$/public/papers/kst/IMAG10722_TK3_invoice.jpg" afterPath="" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/Classes/PaperClass.php" afterPath="$PROJECT_DIR$/app/Classes/PaperClass.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/ConferenceBaseModel.php" afterPath="$PROJECT_DIR$/app/ConferenceBaseModel.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/Criteria.php" afterPath="$PROJECT_DIR$/app/Criteria.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/CriteriaLang.php" afterPath="$PROJECT_DIR$/app/CriteriaLang.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/Helpers/functions.php" afterPath="$PROJECT_DIR$/app/Helpers/functions.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/Http/Controllers/Admin/CategoryController.php" afterPath="$PROJECT_DIR$/app/Http/Controllers/Admin/CategoryController.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/Http/Controllers/Admin/CriteriaController.php" afterPath="$PROJECT_DIR$/app/Http/Controllers/Admin/CriteriaController.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/Http/Controllers/Admin/DepartmentController.php" afterPath="$PROJECT_DIR$/app/Http/Controllers/Admin/DepartmentController.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/Http/Controllers/Admin/PaperController.php" afterPath="$PROJECT_DIR$/app/Http/Controllers/Admin/PaperController.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/Http/Controllers/Admin/UserTypesController.php" afterPath="$PROJECT_DIR$/app/Http/Controllers/Admin/UserTypesController.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/Http/Controllers/Auth/AuthController.php" afterPath="$PROJECT_DIR$/app/Http/Controllers/Auth/AuthController.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/Http/Controllers/ConferenceBaseController.php" afterPath="$PROJECT_DIR$/app/Http/Controllers/ConferenceBaseController.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/Http/Controllers/PaperController.php" afterPath="$PROJECT_DIR$/app/Http/Controllers/PaperController.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/Http/Controllers/UsersController.php" afterPath="$PROJECT_DIR$/app/Http/Controllers/UsersController.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/Http/Requests/CategoryRequest.php" afterPath="$PROJECT_DIR$/app/Http/Requests/CategoryRequest.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/Http/Requests/PaperRequest.php" afterPath="$PROJECT_DIR$/app/Http/Requests/PaperRequest.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/Http/routes.php" afterPath="$PROJECT_DIR$/app/Http/routes.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/Providers/RouteServiceProvider.php" afterPath="$PROJECT_DIR$/app/Providers/RouteServiceProvider.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/User.php" afterPath="$PROJECT_DIR$/app/User.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/css/style.css" afterPath="$PROJECT_DIR$/public/css/style.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/resources/lang/bg/admin.php" afterPath="$PROJECT_DIR$/resources/lang/bg/admin.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/resources/lang/bg/messages.php" afterPath="$PROJECT_DIR$/resources/lang/bg/messages.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/resources/lang/bg/static.php" afterPath="$PROJECT_DIR$/resources/lang/bg/static.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/resources/lang/bg/validation.php" afterPath="$PROJECT_DIR$/resources/lang/bg/validation.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/resources/lang/en/admin.php" afterPath="$PROJECT_DIR$/resources/lang/en/admin.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/resources/lang/en/messages.php" afterPath="$PROJECT_DIR$/resources/lang/en/messages.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/resources/lang/en/static.php" afterPath="$PROJECT_DIR$/resources/lang/en/static.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/resources/lang/en/validation.php" afterPath="$PROJECT_DIR$/resources/lang/en/validation.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/resources/views/admin/category/form.blade.php" afterPath="$PROJECT_DIR$/resources/views/admin/category/form.blade.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/resources/views/admin/category/index.blade.php" afterPath="$PROJECT_DIR$/resources/views/admin/category/index.blade.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/resources/views/admin/master.blade.php" afterPath="$PROJECT_DIR$/resources/views/admin/master.blade.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/resources/views/admin/paper/form.blade.php" afterPath="$PROJECT_DIR$/resources/views/admin/paper/form.blade.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/resources/views/admin/paper/index.blade.php" afterPath="$PROJECT_DIR$/resources/views/admin/paper/index.blade.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/resources/views/admin/paper/show.blade.php" afterPath="$PROJECT_DIR$/resources/views/admin/paper/show.blade.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/resources/views/admin/partials/table.blade.php" afterPath="$PROJECT_DIR$/resources/views/admin/partials/table.blade.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/resources/views/auth/personal_form.blade.php" afterPath="$PROJECT_DIR$/resources/views/auth/personal_form.blade.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/resources/views/conference/papers/index.blade.php" afterPath="$PROJECT_DIR$/resources/views/conference/papers/index.blade.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/resources/views/conference/papers/show.blade.php" afterPath="$PROJECT_DIR$/resources/views/conference/papers/show.blade.php" />
     </list>
     <ignored path="conference.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -151,8 +113,8 @@
       <file leaf-file-name="APIController.php" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/Http/Controllers/APIController.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.82042253">
-              <caret line="48" column="26" selection-start-line="48" selection-start-column="26" selection-end-line="48" selection-end-column="26" />
+            <state vertical-scroll-proportion="0.64084506">
+              <caret line="39" column="24" selection-start-line="39" selection-start-column="24" selection-end-line="39" selection-end-column="24" />
               <folding>
                 <element signature="e#40#59#0#PHP" expanded="true" />
               </folding>
@@ -606,7 +568,7 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="-9" y="0" width="1924" height="1050" extended-state="1" />
+    <frame x="-9" y="0" width="1924" height="1050" extended-state="0" />
     <editor active="false" />
     <layout>
       <window_info id="Gulp" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3299356" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
@@ -1067,8 +1029,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/Http/Controllers/APIController.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.82042253">
-          <caret line="48" column="26" selection-start-line="48" selection-start-column="26" selection-end-line="48" selection-end-column="26" />
+        <state vertical-scroll-proportion="0.64084506">
+          <caret line="39" column="24" selection-start-line="39" selection-start-column="24" selection-end-line="39" selection-end-column="24" />
           <folding>
             <element signature="e#40#59#0#PHP" expanded="true" />
           </folding>
