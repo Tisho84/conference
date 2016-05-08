@@ -6,6 +6,7 @@ use App\Category;
 use App\Department;
 use App\UserType;
 use Carbon\Carbon;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
@@ -45,9 +46,14 @@ class ConferenceBaseController extends Controller
         return $departments;
     }
 
-    public function getCategories()
+    public function getCategories($departmentId = null)
     {
-        $department = $this->getDepartment();
+        if ($departmentId) {
+            $department = Department::find($departmentId);
+        } else {
+            $department = $this->getDepartment();
+        }
+
         if ($department) {
             $categories = $department
                 ->categories()

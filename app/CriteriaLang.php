@@ -14,10 +14,4 @@ class CriteriaLang extends Model
     {
         return $this->belongsTo('App\Criteria');
     }
-
-    public function department()
-    {
-
-    }
-
 }

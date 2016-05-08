@@ -12,6 +12,12 @@
 */
 Route::get('/', ['as' => 'home', 'uses' => 'HomeController@index']);
 
+Route::group(['prefix' => 'api'], function(){
+    get('categories', ['as' => 'department_categories', 'uses' => 'APIController@categories']);
+    get('reviewers', ['as' => 'category_reviewers', 'uses' => 'APIController@reviewers']);
+    get('authors', ['as' => 'department_authors', 'uses' => 'APIController@authors']);
+});
+
 Route::group([
     'prefix' => LaravelLocalization::setLocale(),
     'middleware' => [ 'departmentRedirect', 'localeSessionRedirect', 'localizationRedirect' ]
@@ -29,6 +35,7 @@ Route::group([
         resource('categories', 'CategoryController');
         resource('papers', 'PaperController');
         resource('criteria', 'CriteriaController');
+        resource('criteria.options', 'CriteriaOptionController');
     });
 
     Route::group(['prefix' => '{department}', 'as' => 'department::', 'middleware' => ['department', 'userFromDepartment']], function () {

@@ -43,7 +43,7 @@ function getNomenclatureSelect($collection, $first = false) {
     }
 
     if ($first) {
-        $array = ['0' => trans('static.select')] + $array;
+        $array = ['' => trans('static.select')] + $array;
     }
 
     return $array;
@@ -56,7 +56,7 @@ function simpleSelect($collection, $first = false) {
     }
 
     if ($first) {
-        $array = ['0' => trans('static.select')] + $array;
+        $array = ['' => trans('static.select')] + $array;
     }
 
     return $array;

@@ -34,7 +34,7 @@
             </div>
             <div class="form-group">
                 <label class="col-sm-3 control-label">{{ trans('static.download')}}:</label>
-                <div class="col-sm-9"><label class="control-label-right">{!! HTML::link(asset('papers/' . $department->keyword . '/' . $paper->source), $paper->source) !!}</label></div>
+                <div class="col-sm-9"><label class="control-label-right">{!! HTML::link(urlencode('papers/' . $department->keyword . '/' . $paper->source), $paper->source) !!}</label></div>
             </div>
             <div class="form-group">
                 <div class="text-center">

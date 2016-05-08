@@ -18,12 +18,14 @@ class UsersController extends ConferenceBaseController
     public function getProfile(Rank $rank, Country $country)
     {
         $data = [
+            'reviewer' => false,
             'ranks' => $rank->getRanks(),
             'countries' => $country->getCountries(),
             'categories' => getNomenclatureSelect($this->getCategories()),
         ];
 
-        if (auth()->user()->is_reviewer) {
+        if (auth()->user()->is_reviewer || systemAccess(2)) {
+            $data['reviewer'] = true;
             $data['selectedCategories'] = auth()->user()->categories()->lists('id')->toArray();
         }
         return view('conference.profile', $data);
@@ -33,7 +35,7 @@ class UsersController extends ConferenceBaseController
     {
         DB::transaction(function () use ($request) {
             auth()->user()->update($request->all());
-            if (auth()->user()->is_reviewer) {
+            if (auth()->user()->is_reviewer || systemAccess(2)) {
                 auth()->user()->categories()->sync($request->get('categories'));
             }
 

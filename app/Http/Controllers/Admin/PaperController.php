@@ -9,6 +9,7 @@ use App\Http\Controllers\ConferenceBaseController;
 use App\Paper;
 use App\User;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\File;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
@@ -25,13 +26,15 @@ class PaperController extends ConferenceBaseController
         $this->paper = new PaperClass();
         $statuses = new PaperStatus();
         $select = [0 => trans('static.select')];
+        $department = auth()->user()->department_id;
 
         if (systemAccess(100)) {
+            $department = null;
             $this->systemAdmin = true;
             $departments = getNomenclatureSelect($this->getDepartmentsAdmin(), true);
         }
         view()->share([
-            'categories' => getNomenclatureSelect($this->getCategories(), true),
+            'categories' => getNomenclatureSelect($this->getCategories($department), true),
             'departments' => $departments,
             'statuses' => $select + $statuses->getStatuses(),
             'systemAdmin' => $this->systemAdmin,
@@ -73,6 +76,7 @@ class PaperController extends ConferenceBaseController
         }
 
         return view('admin.paper.create', [
+            'force' => false,
             'authors' => simpleSelect(User::getAuthors($department), true),
             'reviewers' => simpleSelect(User::getReviewers($department), true)
         ]);
@@ -92,6 +96,10 @@ class PaperController extends ConferenceBaseController
         }
         $department = Department::find($departmentId);
         $this->paper->setUrl($department->keyword);
+        if (!in_array($request->get('category_id'), $department->categories->lists('id')->toArray())) {
+            return redirect()->back()->with('error', 'department-category');
+        }
+
         $status = $request->get('status_id') ? : 1;
         if ($request->get('reviewer_id')) {
             $status = 2;
@@ -101,7 +109,7 @@ class PaperController extends ConferenceBaseController
             'department_id' => $departmentId,
             'category_id'   => $request->get('category_id'),
             'status_id'     => $status,
-            'reviewer_id'   => $request->get('reviewer_id'),
+            'reviewer_id'   => $request->get('reviewer_id') ? : null,
             'user_id'       => $request->get('user_id'),
             'source'        => $this->paper->buildFileName(),
             'title'         => $request->get('title'),
@@ -142,15 +150,12 @@ class PaperController extends ConferenceBaseController
      */
     public function edit(Paper $paper)
     {
-        $department = null;
-        if (!$this->systemAdmin) { #if not system admin get department users
-            $department = auth()->user()->department_id;
-        }
-
         return view('admin.paper.edit', [
             'paper' => $paper,
-            'authors' => simpleSelect(User::getAuthors($department), true),
-            'reviewers' => simpleSelect(User::getReviewers($department), true)
+            'force' => true, #force to set reviewers and categories
+            'authors' => simpleSelect(User::getAuthors($paper->department_id), true),
+            'reviewers' => simpleSelect(User::getReviewers($paper->department_id, $paper->category_id), true),
+            'categories' => getNomenclatureSelect($this->getCategories($paper->department_id), true)
         ]);
     }
 
@@ -173,7 +178,24 @@ class PaperController extends ConferenceBaseController
             }
         }
 
+        $department = Department::find($request->get('department_id'));
+        $this->paper->setUrl($department->keyword);
+        if (!in_array($request->get('category_id'), $department->categories->lists('id')->toArray())) {
+            return redirect()->back()->with('error', 'department-category');
+        }
+
+        if ($paper->department_id != $request->get('department_id')) { #if department is changed files must be moved
+            $url = $this->paper->prefix();
+            $oldPath = $url . '/' . $paper->department->keyword . '/';
+            $newPath = $url . '/' . $department->keyword . '/';
+            File::move($oldPath . $paper->source, $newPath . $paper->source);
+            if ($paper->payment_source) {
+                File::move($oldPath . $paper->payment_source, $newPath . $paper->payment_source);
+            }
+        }
+//echo 'here'; exit;
         $paperData = [
+            'department_id' => $department->id,
             'category_id'   => $request->get('category_id'),
             'status_id'     => $status,
             'title'         => $request->get('title'),
@@ -185,7 +207,6 @@ class PaperController extends ConferenceBaseController
             'payment_description' => $request->get('payment_description'),
         ];
 
-        $this->paper->setUrl($paper->department->keyword);
         if ($request->file('paper')) {
             $paperData['source'] = $this->paper->buildFileName();
             $this->paper->deleteFile();

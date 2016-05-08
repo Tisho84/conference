@@ -34,6 +34,9 @@ class PaperRequest extends Request
 
         if (isAdminPanel()) {
             $paper = new PaperStatus();
+            if (systemAccess(100)) {
+                $rules['department_id'] = 'required';
+            }
             $rules['user_id'] = 'required|exists:users,id';
             $rules['payment_description'] = 'min:3|max:1000';
             $rules['payment_source'] = 'image|max:5000';

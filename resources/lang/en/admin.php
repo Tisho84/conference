@@ -44,6 +44,10 @@ return [
     'update-user-type' => 'Update user type',
     'admin-login-form' => 'Admin Panel Login Form',
     'let-me-in' => 'Let me in.',
-    'admin-login-failed' => 'Access denied!'
+    'admin-login-failed' => 'Access denied!',
+    'add-criteria' => 'Add new criteria',
+    'update-criteria' => 'Update criteria',
+    'add-option' => 'Add new option',
+    'update-option' => 'Update option',
 
 ];

@@ -5,7 +5,7 @@ namespace App\Http\Requests;
 use App\Http\Requests\Request;
 use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 
-class CategoryRequest extends Request
+class OptionRequest extends Request
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -25,7 +25,7 @@ class CategoryRequest extends Request
     public function rules()
     {
         foreach (LaravelLocalization::getSupportedLocales() as $short => $locale) {
-            $rules['name_' . $short] = 'required|min:2|max:100';
+            $rules['title_' . $short] = 'required|min:1|max:254';
         }
         $rules['sort'] = 'digits_between:1,100000';
 

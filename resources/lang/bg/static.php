@@ -78,7 +78,7 @@ return [
     'authors' => 'Автори',
     'file' => 'Файл',
     'preview' => 'преглед',
-    'invoice' => 'фактура',
+    'invoice' => 'Фактура',
     'evaluate' => 'оценка',
     'download' => 'Изтегли',
     'invoice-description' => 'Данни за фактурата',
@@ -87,5 +87,8 @@ return [
     'reviewer' => 'Оценен от',
     'none' => 'Няма',
     'paper' => 'Доклад',
-    'criteria' => 'Критерии'
+    'criteria' => 'Критерии',
+    'field-type' => 'Тип поле',
+    'options' => 'Опции',
+    'reviewer-text' => 'Име на рецензент | Брой доклади за преглед | Подходящ ли е за рецензент?'
 ];

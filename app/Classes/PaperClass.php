@@ -15,22 +15,28 @@ use League\Flysystem\Exception;
 class PaperClass
 {
     private $paper;
+    private $prefix = 'papers';
     private $files = [ 'paper' => 'paper', 'paper_name' => '', 'invoice' => 'payment_source', 'invoice_name' => ''];
     static private $path;
 
     public function __construct()
     {
-        self::$path = 'papers/' . request()->segment(2) . '/';
+        self::$path = $this->prefix . '/' . request()->segment(2) . '/';
     }
 
     public function setUrl($url)
     {
-        self::$path = 'papers/' . $url . '/';
+        self::$path = $this->prefix . '/' . $url . '/';
     }
 
     public function setPaper(Paper $paper)
     {
         $this->paper = $paper;
+    }
+
+    public function prefix()
+    {
+        return $this->prefix;
     }
 
     /*

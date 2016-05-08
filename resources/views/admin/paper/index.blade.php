@@ -13,7 +13,7 @@
                 <th>{{ trans('static.reviewer') }}</th>
                 <th>{{ trans('static.created-at') }}</th>
                 <th>{{ trans('static.status') }}</th>
-                <th>{{ trans('static.action') }}</th>
+                <th></th>
             </tr>
         </thead>
         <tbody>

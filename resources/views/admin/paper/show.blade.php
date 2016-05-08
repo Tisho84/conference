@@ -34,7 +34,7 @@
             </div>
             <div class="form-group">
                 <label class="col-sm-2 control-label">{{ trans('static.paper')}}:</label>
-                <div class="col-sm-10"><label class="control-label-right">{!! HTML::link(asset('papers/' . $paper->department->keyword . '/' . $paper->source), $paper->source) !!}</label></div>
+                <div class="col-sm-10"><label class="control-label-right">{!! HTML::link(urlencode('papers/' . $paper->department->keyword . '/' . $paper->source), $paper->source) !!}</label></div>
             </div>
             <div class="form-group">
                 <label class="col-sm-2 control-label">{{ trans('static.invoice-description')}}:</label>
@@ -42,7 +42,7 @@
             </div>
             <div class="form-group">
                 <label class="col-sm-2 control-label">{{ trans('static.invoice')}}:</label>
-                <div class="col-sm-10"><label class="control-label-right">{!! HTML::link(asset('papers/' . $paper->department->keyword . '/' . $paper->payment_source), $paper->payment_source) !!}</label></div>
+                <div class="col-sm-10"><label class="control-label-right">{!! HTML::link(urlencode('papers/' . $paper->department->keyword . '/' . $paper->payment_source), $paper->payment_source) !!}</label></div>
             </div>
             <div class="form-group">
                 <label class="col-sm-2 control-label">{{ trans('admin.created-at')}}:</label>

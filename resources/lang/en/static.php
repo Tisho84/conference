@@ -78,7 +78,7 @@ return [
     'authors' => 'Authors',
     'file' => 'File',
     'preview' => 'preview',
-    'invoice' => 'invoice',
+    'invoice' => 'Invoice',
     'evaluate' => 'evaluate',
     'download' => 'Download',
     'invoice-description' => 'Invoice information',
@@ -87,5 +87,8 @@ return [
     'reviewer' => 'Reviewed by',
     'none' => 'None',
     'paper' => 'Paper',
-    'criteria' => 'Criteria'
+    'criteria' => 'Criteria',
+    'field-type' => 'Field type',
+    'options' => 'Options',
+    'reviewer-text' => 'Reviewer\'s name | Number papers for review | Is reviewer suitable'
 ];

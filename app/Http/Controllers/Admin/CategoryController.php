@@ -23,7 +23,7 @@ class CategoryController extends ConferenceBaseController
         $departments = [];
         if (systemAccess(100)) {
             $this->systemAdmin = true;
-            $departments = getNomenclatureSelect($this->getDepartmentsAdmin());
+            $departments = getNomenclatureSelect($this->getDepartmentsAdmin(), true);
         }
         view()->share(['systemAdmin' => $this->systemAdmin, 'departments' => $departments]);
     }
@@ -60,18 +60,13 @@ class CategoryController extends ConferenceBaseController
      */
     public function store(Requests\CategoryRequest $request)
     {
-        $sort = $request->get('sort');
-        if (!$sort) {
-            $sort = calcSort(Category::max('sort'));
-        }
-
         $departmentId = auth()->user()->department_id;
         if ($request->has('department_id') && $this->systemAdmin) {
             $departmentId = $request->get('department_id');
         }
 
-        DB::transaction(function () use ($sort, $departmentId, $request) {
-            $category = Category::create(['department_id' => $departmentId, 'sort' => $sort, 'active' => $request->get('active')]);
+        DB::transaction(function () use ($departmentId, $request) {
+            $category = Category::create(['department_id' => $departmentId, 'sort' => $request->get('sort'), 'active' => $request->get('active')]);
             $langs = [];
             foreach (LaravelLocalization::getSupportedLocales() as $short => $locale) {
                 $langs[] = ['lang_id' => dbTrans($short), 'name' => $request->get('name_' . $short)];

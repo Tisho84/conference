@@ -88,6 +88,7 @@ class AuthController extends ConferenceBaseController
             'email2' => $data['email2'],
             'password' => bcrypt($data['password']),
             'department_id' => $this->getDepartment()->id,
+            'user_type_id' => request('reviewer') ? null : 1,
             'is_reviewer' => request('reviewer') ? 1 : 0,
             'active' => request('reviewer') ? 0 : 1, #reviewer is not active on registration
         ]);

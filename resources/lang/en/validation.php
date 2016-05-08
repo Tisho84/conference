@@ -131,7 +131,9 @@ return [
         'payment_description' => 'invoice information',
         'payment_source' => 'scanned payment',
         'paper' => 'Paper',
-        'user_id' => 'Uploaded by'
+        'user_id' => 'Uploaded by',
+        'type_id' => 'Field type',
+        'department_id' => 'Department',
     ],
 
 ];

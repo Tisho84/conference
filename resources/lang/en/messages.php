@@ -13,5 +13,7 @@ return [
     'is-default' => 'User type cannot be deleted or updated because is default type.',
     'access-denied' => 'Access denied!',
     'error-save' => 'Sorry, some kind of error has occurred.',
-    'upload-file' => 'Uploading new file will delete old one'
+    'upload-file' => 'Uploading new file will delete old one',
+    'options' => 'That criteria can\'t have options',
+    'department-category' => 'Selected category do not belong to the department'
 ];

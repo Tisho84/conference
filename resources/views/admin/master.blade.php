@@ -70,6 +70,12 @@
                 <div class="messages">
                     @include('layouts.partials.messages.other')
                 </div>
+                @if(isset($back) && $back)
+                    <div class="admin-back pull-left">
+                        <a href="{{ $back }}" class="btn btn-primary btn-sm">{{ trans('static.menu-back') }}</a>
+                    </div>
+                @endif
+                <div class="clearfix"></div>
                 <div class="content container-fluid">
                     <div class="panel panel-default">
                         @yield('content')

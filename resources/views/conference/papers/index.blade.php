@@ -28,7 +28,7 @@
             @foreach($papers as $paper)
                 <tr>
                     <td class="col-md-3">{{ $paper->title }}</td>
-                    <td class="col-md-3">{{ $categories[$paper->category_id] ? : '' }}</td>
+                    <td class="col-md-3">{{ isset($categories[$paper->category_id]) ? $categories[$paper->category_id] : '' }}</td>
                     <td class="col-md-2">{{ $paper->created_at }}</td>
                     <td class="col-md-1">{{ $statuses[$paper->status_id] ? : '' }}</td>
                     <td class="col-md-3">

@@ -72,19 +72,14 @@ class DepartmentController extends ConferenceBaseController
      */
     public function store(Requests\DepartmentRequest $request)
     {
-        $sort = $request->get('sort');
-        if (!$sort) {
-            $sort = calcSort(Department::max('sort'));
-        }
-
-        DB::transaction(function () use ($sort, $request) {
+        DB::transaction(function () use ($request) {
             $department = Department::create([
                 'keyword' => $request->get('keyword'),
                 'url' => $request->get('url'),
                 'image' => $request->file('image')->getClientOriginalName(),
                 'theme_background_color' => $request->get('theme_background_color'),
                 'theme_color' => $request->get('theme_color'),
-                'sort' => $sort,
+                'sort' => $request->get('sort'),
                 'active' => $request->get('active'),
             ]);
             $this->addDepartmentLangs($request, $department);

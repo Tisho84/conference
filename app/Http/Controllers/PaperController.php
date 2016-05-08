@@ -24,7 +24,7 @@ class PaperController extends ConferenceBaseController
 
         $statuses = new PaperStatus();
         view()->share([
-            'categories' => [0 => trans('static.select')] + (array)getNomenclatureSelect($this->getCategories()),
+            'categories' => getNomenclatureSelect($this->getCategories(), true),
             'statuses' => $statuses->getStatuses()
         ]);
     }
@@ -35,8 +35,11 @@ class PaperController extends ConferenceBaseController
      */
     public function index()
     {
-        $papers = Paper::where('user_id', auth()->user()->id)
-            ->orWhere('reviewer_id', auth()->user()->id)
+        $papers = Paper::where('department_id', $this->department->id)
+            ->where(function($query){
+                $query->where('user_id', auth()->user()->id)
+                    ->orWhere('reviewer_id', auth()->user()->id);
+            })
             ->orderBy('created_at')
             ->get();
         return view('conference.papers.index', ['papers' => $papers]);

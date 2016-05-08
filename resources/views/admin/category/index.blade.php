@@ -3,15 +3,15 @@
 @section('table')
     <table class="table">
         <thead>
-        <tr>
-            <th>{{ trans('admin.id') }}</th>
-            {!! buildTh() !!}
-            @if ($systemAdmin)
-                <th>{{ trans('admin.department') }}</th>
-            @endif
-            <th>{{ trans('admin.active') }}</th>
-            <th>{{ trans('admin.sort') }}</th>
-        </tr>
+            <tr>
+                <th>{{ trans('admin.id') }}</th>
+                {!! buildTh() !!}
+                @if ($systemAdmin)
+                    <th>{{ trans('admin.department') }}</th>
+                @endif
+                <th>{{ trans('admin.active') }}</th>
+                <th>{{ trans('admin.sort') }}</th>
+            </tr>
         </thead>
         <tbody>
         @foreach($categories as $category)

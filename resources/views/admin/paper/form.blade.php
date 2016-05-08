@@ -1,4 +1,5 @@
 <div class="panel-body">
+    {!! HTML::script('/js/jquery.chained.remote.min.js') !!}
     @include('layouts.partials.messages.errors')
     <div class="mt text-center">
         <label>{{ trans($title) }}</label>
@@ -7,12 +8,21 @@
         @if ($systemAdmin)
             <div class="form-group">
                 <label for="department_id">{{ trans('admin.department') }}<span class="glyphicon glyphicon-asterisk" aria-hidden="true"></span></label>
-                {!! Form::select('department_id', $departments, null, ['class' => 'form-control']) !!}
+                {!! Form::select('department_id', $departments, null, ['class' => 'form-control', 'id' => 'department']) !!}
             </div>
         @endif
         <div class="form-group">
             <label for="category_id">{{ trans('static.category') }}<span class="glyphicon glyphicon-asterisk" aria-hidden="true"></span></label>
-            {!! Form::select('category_id', $categories, null, ['class' => 'form-control']) !!}
+            {!! Form::select('category_id', $systemAdmin && isset($force) && $force == false ? [trans('static.select')] : $categories, null, ['class' => 'form-control', 'id' => 'category']) !!}
+        </div>
+        <div class="form-group">
+            <label for="reviewer">{{ trans('static.reviewer') }}</label>
+            {!! Form::select('reviewer_id', $systemAdmin && isset($force) && $force == false ? [trans('static.select')] : $reviewers, null, ['class' => 'form-control', 'id' => 'reviewer']) !!}
+            <label>{{ trans('static.reviewer-text') }}</label>
+        </div>
+        <div class="form-group">
+            <label for="user_id">{{ trans('static.uploader') }}</label><span class="glyphicon glyphicon-asterisk" aria-hidden="true"></span>
+            {!! Form::select('user_id', $systemAdmin && isset($force) && $force == false ? [trans('static.select')] : $authors, null, ['class' => 'form-control', 'id' => 'author']) !!}
         </div>
         <div class="form-group">
             <label for="status_id">{{ trans('static.status') }}</label>
@@ -52,15 +62,24 @@
             </label>
             {!! Form::file("payment_source", null, ['class' => 'form-control', 'id' => 'payment_source', 'placeholder' => trans('static.invoice-source')]) !!}
         </div>
-        <div class="form-group">
-            <label for="user_id">{{ trans('static.uploader') }}</label><span class="glyphicon glyphicon-asterisk" aria-hidden="true"></span>
-            {!! Form::select('user_id', $authors, null, ['class' => 'form-control']) !!}
-        </div>
-        <div class="form-group">
-            <label for="reviewer">{{ trans('static.reviewer') }}</label>
-            {!! Form::select('reviewer_id', $reviewers, null, ['class' => 'form-control']) !!}
-        </div>
         @include('layouts.partials.button', ['button' => trans('static.save') ])
+        <script>
+            $("#category").remoteChained({
+                parents : "#department",
+                url : "<?php echo route('department_categories')?>"
+            });
+
+            $('#author').remoteChained({
+                parents : "#department",
+                url : "<?php echo route('department_authors')?>"
+            });
+
+            $('#reviewer').remoteChained({
+                parents: '#category',
+                url: "<?php echo route('category_reviewers')?>",
+                depends : "#department"
+            });
+        </script>
     </div>
 </div>
 

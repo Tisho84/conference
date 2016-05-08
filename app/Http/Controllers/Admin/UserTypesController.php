@@ -70,13 +70,9 @@ class UserTypesController extends ConferenceBaseController
     public function store(Requests\UserTypeRequest $request)
     {
         DB::transaction(function () use ($request) {
-            $sort = $request->get('sort');
-            if (!$sort) {
-                $sort = calcSort(UserType::max('sort'));
-            }
             $type = UserType::create([
                 'title' => $request->get('title'),
-                'sort' => $sort,
+                'sort' => $request->get('sort'),
                 'active' => $request->get('active'),
                 'is_default' => 0
             ]);

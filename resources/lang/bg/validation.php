@@ -144,7 +144,9 @@ return [
         'payment_description' => 'данни за фактурата',
         'payment_source' => 'сканирано платежно',
         'paper' => 'Доклад',
-        'user_id' => 'Качен от'
+        'user_id' => 'Качен от',
+        'type_id' => 'Тип поле',
+        'department_id' => 'Катедра',
     ],
 
 ];

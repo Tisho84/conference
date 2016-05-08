@@ -20,4 +20,12 @@ class ConferenceBaseModel extends Model
     {
         return $value ? trans('yes') : trans('no');
     }
+
+    public function setSortAttribute($value)
+    {
+        if (!$value) {
+            $value = calcSort($this::max('sort'));
+        }
+        $this->attributes['sort'] = $value;
+    }
 }

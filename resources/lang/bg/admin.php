@@ -44,5 +44,9 @@ return [
     'update-user-type' => 'Актуализация на тип потребител',
     'admin-login-form' => 'Админ Панел Форма за Вход',
     'let-me-in' => 'Вписване.',
-    'admin-login-failed' => 'Достъп отказан!'
+    'admin-login-failed' => 'Достъп отказан!',
+    'add-criteria' => 'Добавяне нов критерий',
+    'update-criteria' => 'Актуализация на критерий',
+    'add-option' => 'Добавяне на нова опция',
+    'update-option' => 'Актуализация на опция',
 ];

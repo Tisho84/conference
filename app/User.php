@@ -62,9 +62,21 @@ class User extends ConferenceBaseModel implements AuthenticatableContract,
         return $this->hasMany('App\Paper');
     }
 
-    public static function getReviewers($departmentId = null)
+    public static function getReviewers($departmentId = null, $categoryId = null)
     {
-        return self::getUsers(2, $departmentId);
+        $no = trans('static.no');
+        $yes = trans('static.yes');
+        $reviewers = self::getUsers(2, $departmentId);
+        foreach ($reviewers as &$reviewer) {
+            $hasCategory = $no;
+            $text = $reviewer->name . ' | ' . $reviewer->papers . ' | ';
+            if (in_array($categoryId, explode(' ', $reviewer->categories))) {
+                $hasCategory = $yes;
+            }
+            $text .= $hasCategory;
+            $reviewer->name = $text;
+        }
+        return $reviewers;
     }
 
     public static function getAuthors($departmentId = null)
@@ -92,7 +104,8 @@ class User extends ConferenceBaseModel implements AuthenticatableContract,
             ->join('user_type', 'users.user_type_id', '=', 'user_type.id')
             ->join('user_type_access', 'user_type.id', '=', 'user_type_access.user_type_id')
             ->leftJoin('paper', 'users.id', '=', $paperId)
-            ->select('users.*', DB::raw('COUNT(paper.id) as papers'))
+            ->leftJoin('user_category', 'user_category.user_id', '=', 'users.id')
+            ->select('users.*', DB::raw('COUNT(DISTINCT paper.id) as papers'), DB::raw("GROUP_CONCAT(DISTINCT user_category.category_id SEPARATOR ' ') as categories"))
             ->where('users.active', 1)
             ->where('user_type.active', 1)
             ->where('user_type_access.access_id', $access)
