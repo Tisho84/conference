@@ -62,6 +62,11 @@ class User extends ConferenceBaseModel implements AuthenticatableContract,
         return $this->hasMany('App\Paper');
     }
 
+    public function reviewPapers()
+    {
+        return $this->hasMany('App\Paper', 'reviewer_id', 'id', 'paper');
+    }
+
     public static function getReviewers($departmentId = null, $categoryId = null)
     {
         $no = trans('static.no');

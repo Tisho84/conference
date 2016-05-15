@@ -56,6 +56,7 @@
                         @if (systemAccess(100))
                             <li>{!! HTML::link(action('Admin\UserTypesController@index'), trans('admin.user-types')) !!}</li>
                         @endif
+                        <li>{!! HTML::link(action('Admin\UsersController@index'), trans('admin.users')) !!}</li>
                         <li>{!! HTML::link(action('Admin\CategoryController@index'), trans('admin.categories')) !!}</li>
                         <li>{!! HTML::link(action('Admin\PaperController@index'), trans('static.menu-papers')) !!}</li>
                         <li>{!! HTML::link(action('Admin\CriteriaController@index'), trans('static.criteria')) !!}</li>

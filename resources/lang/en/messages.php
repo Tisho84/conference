@@ -15,5 +15,8 @@ return [
     'error-save' => 'Sorry, some kind of error has occurred.',
     'upload-file' => 'Uploading new file will delete old one',
     'options' => 'That criteria can\'t have options',
-    'department-category' => 'Selected category do not belong to the department'
+    'department-category' => 'Selected category do not belong to the department',
+    'paper-evaluated' => 'Paper evaluated successfully',
+    'admin-delete' => 'System admin can\'t be deleted',
+    'error-user-paper' => "The user has papers uploaded or for reviewing and can't be deleted"
 ];

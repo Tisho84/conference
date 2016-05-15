@@ -29,13 +29,38 @@
                 <div class="col-sm-9"><label class="control-label-right">{{ $paper->created_at }}</label></div>
             </div>
             <div class="form-group">
-                <label class="col-sm-3 control-label">{{ trans('static.updated_at')}}:</label>
-                <div class="col-sm-9"><label class="control-label-right">{{ $paper->updated_at }}</label></div>
-            </div>
-            <div class="form-group">
                 <label class="col-sm-3 control-label">{{ trans('static.download')}}:</label>
                 <div class="col-sm-9"><label class="control-label-right">{!! HTML::link(urlencode('papers/' . $department->keyword . '/' . $paper->source), $paper->source) !!}</label></div>
             </div>
+            @if ($paper->reviewed_at)
+                <div class="centered text-center">
+                    <h3>{{ trans('static.evaluate-info') }}</h3>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-3 control-label">{{ trans('static.reviewed_at')}}:</label>
+                    <div class="col-sm-9"><label class="control-label-right">{{ $paper->reviewed_at }}</label></div>
+                </div>
+                @foreach ($paper->criteria as $criteria)
+                    @if ($criteria->visible)
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">{{ $criteria->langs->first()->title }}:</label>
+                            <div class="col-sm-9">
+                                <label class="control-label-right">
+                                    @if (count($criteria->options) > 0)
+                                        @foreach ($criteria->options as $option)
+                                            @if ($criteria->pivot->value == $option->id)
+                                                {{ $option->langs->first()->title }}
+                                            @endif
+                                        @endforeach
+                                    @else
+                                        {{ $criteria->pivot->value }}
+                                    @endif
+                                </label>
+                            </div>
+                        </div>
+                    @endif
+                @endforeach
+            @endif
             <div class="form-group">
                 <div class="text-center">
                     @include('layouts.partials.back')

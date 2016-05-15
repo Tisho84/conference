@@ -134,6 +134,7 @@ return [
         'user_id' => 'Uploaded by',
         'type_id' => 'Field type',
         'department_id' => 'Department',
+        'user_type_id' => 'User type'
     ],
 
 ];

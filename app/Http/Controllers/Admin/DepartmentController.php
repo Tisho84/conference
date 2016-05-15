@@ -168,8 +168,7 @@ class DepartmentController extends ConferenceBaseController
     {
         try {
             $department->delete();
-        }
-        catch (QueryException $e) {
+        } catch (QueryException $e) {
             return redirect()->back()->with('error', 'error-delete-department');
         }
 

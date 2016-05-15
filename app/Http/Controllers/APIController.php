@@ -11,11 +11,15 @@ use App\Http\Controllers\Controller;
 
 class APIController extends ConferenceBaseController
 {
-
     public function categories()
     {
         $records = [];
-        $categories = getNomenclatureSelect($this->getCategories(request()->get('department_id')), true);
+        $first = true;
+        if (request()->has('first') && request('first') == 0) {
+            $first = false;
+        }
+
+        $categories = getNomenclatureSelect($this->getCategories(request()->get('department_id')), $first);
         foreach ($categories as $id => $value) {
             $records[] = [$id => $value];
         }

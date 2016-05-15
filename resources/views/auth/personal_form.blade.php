@@ -24,7 +24,7 @@
 </div>
 @if (request('reviewer') || (isset(auth()->user()->is_reviewer) && auth()->user()->is_reviewer) || (isset($reviewer) && $reviewer))
     <div class="form-group">
-        <label for="inputCategories">{{ trans('static.categories') }}<span class="glyphicon glyphicon-asterisk" aria-hidden="true"></span></label>
-        {!! Form::select('categories[]', $categories, isset($selectedCategories) ? $selectedCategories : null, ['class' => 'form-control select2', 'multiple' => 'multiple', 'style' => 'width: 100%;']) !!}
+        <label for="inputCategories">{{ trans('static.categories') }}@if(!isAdminPanel()) <span class="glyphicon glyphicon-asterisk" aria-hidden="true"></span> @endif</label>
+        {!! Form::select('categories[]', $categories, isset($selectedCategories) ? $selectedCategories : null, ['class' => 'form-control select2', 'multiple' => 'multiple', 'style' => 'width: 100%;', 'id' => 'category']) !!}
     </div>
 @endif

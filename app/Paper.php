@@ -5,15 +5,15 @@ namespace App;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 
-class Paper extends Model
+class Paper extends ConferenceBaseModel
 {
     protected $table = 'paper';
-    protected $dates = ['created_at', 'updated_at'];
+    protected $dates = ['created_at', 'updated_at', 'reviewed_at'];
     protected $fillable = [
         'department_id', 'category_id', 'user_id',
         'reviewer_id', 'status_id', 'source', 'title',
         'description', 'authors', 'archived', 'payment_confirmed',
-        'payment_source', 'payment_description', 'updated_at'
+        'payment_source', 'payment_description', 'updated_at', 'reviewed_at'
     ];
 
     public function user()
@@ -36,12 +36,23 @@ class Paper extends Model
         return $this->belongsTo('App\Department');
     }
 
+    public function criteria()
+    {
+        return $this->belongsToMany('App\Criteria', 'criteria_paper', 'paper_id', 'criteria_id')->withPivot('value');
+    }
+
+
     public function getCreatedAtAttribute($date)
     {
         return Carbon::parse($date)->format('d.m.Y H:i');
     }
 
     public function getUpdatedAtAttribute($date)
+    {
+        return Carbon::parse($date)->format('d.m.Y H:i');
+    }
+
+    public function getReviewedAtAttribute($date)
     {
         return Carbon::parse($date)->format('d.m.Y H:i');
     }
@@ -70,5 +81,13 @@ class Paper extends Model
     {
         $id = $id ? : auth()->user()->id;
         return $this->reviewer_id == $id ? true : false;
+    }
+
+    public function canEvaluate()
+    {
+        if ($this->status_id != 4) {
+            return true;
+        }
+        return false;
     }
 }

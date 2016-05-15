@@ -35,9 +35,12 @@
                 <td class="col-md-1">{{ $statuses[$paper->status_id] }}</td>
                 <td class="col-md-2">
                     {!! Form::open(['url' => action('Admin\PaperController@destroy', [$paper->id]), 'method' => 'delete']) !!}
-                        <a href="{{ action('Admin\PaperController@show', [$paper->id])}}" class="btn btn-xs btn-warning">{{ trans('static.preview') }}</a>
-                        <a href="{{ action('Admin\PaperController@edit', [$paper->id])}}" class="btn btn-xs btn-success">{{ trans('static.edit') }}</a>
-                        {!! Form::submit(trans('static.delete'), ['class' => 'btn btn-danger btn-xs']) !!}
+                        <a href="{{ action('Admin\PaperController@show', [$paper->id])}}" class="btn btn-xs btn-warning">{{ trans('admin.details') }}</a>
+                        <a href="{{ action('Admin\PaperController@edit', [$paper->id])}}" class="btn btn-xs btn-success">{{ trans('admin.edit') }}</a>
+                        @if ($paper->reviewer_id && systemAccess(10))
+                            <a href="{{ action('Admin\PaperController@getEvaluate', [$paper->id])}}" class="btn btn-xs btn-primary">{{ trans('admin.evaluate') }}</a>
+                        @endif
+                        {!! Form::submit(trans('admin.delete'), ['class' => 'btn btn-danger btn-xs']) !!}
                     {!! Form::close() !!}
                 </td>
             </tr>

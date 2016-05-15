@@ -4,12 +4,16 @@ namespace App\Http\Controllers;
 
 use App\Classes\PaperClass;
 use App\Classes\PaperStatus;
+use App\Criteria;
+use App\CriteriaPaper;
 use App\Department;
 use App\Paper;
 use Carbon\Carbon;
 
 use App\Http\Requests;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Validator;
 use PhpSpec\Exception\Exception;
 
 class PaperController extends ConferenceBaseController
@@ -100,6 +104,10 @@ class PaperController extends ConferenceBaseController
     public function show(Department $department, Paper $paper)
     {
         if ($paper->isAuthor() || $paper->isReviewer()) {
+            $paper->load([
+                'criteria.langs' => function($query) { $query->lang(); },
+                'criteria.options.langs' => function($query) { $query->lang(); },
+            ]);
             return view('conference.papers.show', ['paper' => $paper]);
         }
         return redirect()->back()->with('error', 'access-denied');
@@ -224,5 +232,87 @@ class PaperController extends ConferenceBaseController
             return redirect()->action('PaperController@index', [$department->keyword])->with('success', 'saved');
         }
         return redirect()->back()->with('error', 'access-denied');
+    }
+
+    /**
+     * @param Department $department
+     * @param int paper
+     * get reviewer evaluation view
+     * @return \Illuminate\Http\Response
+     */
+    public function getEvaluate(Department $department, $paper)
+    {
+        $paper = Paper::findOrFail($paper);
+        if (auth()->user()->id != $paper->reviewer_id || !$paper->canEvaluate()) {
+            return redirect()->action('PaperController@index', [$department->keyword])->with('error', 'access-denied');
+        }
+
+        $criteria = $department->criteria()->with([
+            'langs' => function($query) { $query->lang(); },
+            'options' => function($query) {$query->sort(); },
+            'options.langs' => function($query) { $query->lang(); },
+            'papers' => function($query) use ($paper) {
+                $query->where('criteria_paper.paper_id', $paper->id);
+            }
+        ])->where('admin', 0)
+            ->sort()
+            ->get();
+
+        return view('conference.papers.evaluate', ['paper' => $paper, 'criteria' => $criteria]);
+    }
+
+    /**
+     * @param Department $department
+     * @param int paper
+     * save reviewer evaluation
+     * @return \Illuminate\Http\Response
+     */
+    public function postEvaluate(Department $department, $paper)
+    {
+        $paper = Paper::findOrFail($paper);
+        if (auth()->user()->id != $paper->reviewer_id || !$paper->canEvaluate()) {
+            return redirect()->action('PaperController@index', [$department->keyword])->with('error', 'access-denied');
+        }
+
+        $criteriaPaper = $rules = $params = $errors = [];
+        $criteria = $department->criteria()->with(['langs' => function($query) {
+            $query->lang();
+        }])->get();
+
+        foreach ($criteria as $value) {
+            $errors[$value->id] = $value->langs->first()->title;
+            if (request()->has($value->id)) {
+                $params[$value->id] = request($value->id);
+                $criteriaPaper[$value->id] = ['value' => request($value->id)];
+            }
+
+            if ($value->required) {
+                $rules[$value->id] = 'required';
+            }
+
+            if ($value->type_id == 1) {
+                $max = 'max:1500';
+                if (isset($rules[$value->id])) {
+                    $rules[$value->id] .= '|' . $max;
+                } else {
+                    $rules[$value->id] = $max;
+                }
+            }
+        }
+
+        $validator = Validator::make($params, $rules);
+        $validator->setAttributeNames($errors);
+        if ($validator->fails()) {
+            return redirect()->back()
+                ->withErrors($validator)
+                ->withInput();
+        }
+
+        DB::transaction(function() use ($criteriaPaper, $paper) {
+            $paper->update(['status_id' => 3, 'reviewed_at' => Carbon::now()]);
+            $paper->criteria()->sync($criteriaPaper);
+
+        });
+        return redirect()->action('PaperController@index', [$department->keyword])->with('success', 'paper-evaluated');
     }
 }

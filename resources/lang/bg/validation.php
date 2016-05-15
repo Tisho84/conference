@@ -147,6 +147,7 @@ return [
         'user_id' => 'Качен от',
         'type_id' => 'Тип поле',
         'department_id' => 'Катедра',
+        'user_type_id' => 'Тип потребител'
     ],
 
 ];

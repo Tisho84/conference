@@ -37,8 +37,8 @@ return [
     'institution' => 'Institution',
     'user-type' => 'User type',
     'user-types' => 'User types',
-    'add-user' => 'Add new user to department',
-    'update-user' => 'Update user to department',
+    'add-user' => 'Add new user',
+    'update-user' => 'Update user',
     'access' => 'Access',
     'add-user-type' => 'Add new user type',
     'update-user-type' => 'Update user type',
@@ -49,5 +49,6 @@ return [
     'update-criteria' => 'Update criteria',
     'add-option' => 'Add new option',
     'update-option' => 'Update option',
+    'evaluate' => 'Evaluate',
 
 ];

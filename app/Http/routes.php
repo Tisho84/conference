@@ -12,16 +12,16 @@
 */
 Route::get('/', ['as' => 'home', 'uses' => 'HomeController@index']);
 
-Route::group(['prefix' => 'api'], function(){
-    get('categories', ['as' => 'department_categories', 'uses' => 'APIController@categories']);
-    get('reviewers', ['as' => 'category_reviewers', 'uses' => 'APIController@reviewers']);
-    get('authors', ['as' => 'department_authors', 'uses' => 'APIController@authors']);
-});
 
 Route::group([
     'prefix' => LaravelLocalization::setLocale(),
     'middleware' => [ 'departmentRedirect', 'localeSessionRedirect', 'localizationRedirect' ]
 ], function() {
+    Route::group(['prefix' => 'api'], function(){
+        get('categories', ['as' => 'department_categories', 'uses' => 'APIController@categories']);
+        get('reviewers', ['as' => 'category_reviewers', 'uses' => 'APIController@reviewers']);
+        get('authors', ['as' => 'department_authors', 'uses' => 'APIController@authors']);
+    });
     /** ADD ALL LOCALIZED ROUTES INSIDE THIS GROUP **/
     get('/', ['uses' => 'HomeController@index']);
     /** ---------- ADMIN ROUTES ---------- */
@@ -30,10 +30,13 @@ Route::group([
     Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'middleware' => ['admin']], function () {
         get('/home', ['as' => 'admin-home', 'uses' => '\App\Http\Controllers\HomeController@admin']);
         resource('departments', 'DepartmentController');
-        resource('departments.users', 'DepartmentUsersController');
+//        resource('departments.users', 'DepartmentUsersController');
+        resource('users', 'UsersController');
         resource('types', 'UserTypesController');
         resource('categories', 'CategoryController');
         resource('papers', 'PaperController');
+        get('papers/{id}/evaluate', 'PaperController@getEvaluate');
+        post('papers/{id}/evaluate', 'PaperController@postEvaluate');
         resource('criteria', 'CriteriaController');
         resource('criteria.options', 'CriteriaOptionController');
     });
@@ -60,6 +63,9 @@ Route::group([
             resource('papers', 'PaperController');
             get('papers/{id}/invoice', ['as' => 'invoice', 'uses' => 'PaperController@getInvoice']);
             post('papers/{id}/invoice', ['as' => 'invoice', 'uses' => 'PaperController@postInvoice']);
+
+            get('papers/{id}/evaluate', ['as' => 'evaluate', 'uses' => 'PaperController@getEvaluate']);
+            post('papers/{id}/evaluate', ['as' => 'evaluate', 'uses' => 'PaperController@postEvaluate']);
 
             get('logout', ['as' => 'logout', 'uses' => 'Auth\AuthController@getLogout']);
         });

@@ -26,6 +26,8 @@ class DepartmentUserRequest extends Request
      */
     public function rules(Rank $rank, Country $country)
     {
+        $userId = $this->request->has('user_id') ? $this->request->get('user_id') : null;
+        $department = $this->request->has('department_id') ? $this->request->get('department_id') : auth()->user()->department_id;
         return [
             'rank_id' => 'in:' . implode(',', array_keys($rank->getRanks())),
             'name' => 'required|max:255|min:4',
@@ -33,10 +35,11 @@ class DepartmentUserRequest extends Request
             'address' => 'required|max:255|min:4',
             'institution' => 'required|max:100|min:4',
             'country_id' => 'required|in:' . implode(',', array_keys($country->getCountries())),
-            'email' => 'required|email|max:255|unique:users,email,NULL,id,department_id,' . $this->request->get('department_id'),
+            'user_type_id' => 'required|exists:user_type,id',
+            'email' => 'required|email|max:255|unique:users,email,' . $userId  . ',id,department_id,' . $department,
             'email2' => 'email|max:255',
-            'password' => 'required|confirmed|min:6',
-            'categories' => request('reviewer') ? 'required|exists:category,id' : ''
+            'password' => $userId ? 'confirmed|min:6' : 'required|confirmed|min:6',
+            'categories' => 'exists:category,id'
         ];
     }
 }

@@ -4,7 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class CriteriaOptionLang extends Model
+class CriteriaOptionLang extends ConferenceBaseModel
 {
     protected $table = 'criteria_option_lang';
     protected $fillable = ['lang_id', 'title'];

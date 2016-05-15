@@ -4,16 +4,19 @@ namespace App\Http\Controllers\Admin;
 
 use App\Classes\PaperClass;
 use App\Classes\PaperStatus;
+use App\Criteria;
 use App\Department;
 use App\Http\Controllers\ConferenceBaseController;
 use App\Paper;
 use App\User;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Validator;
 
 class PaperController extends ConferenceBaseController
 {
@@ -33,6 +36,7 @@ class PaperController extends ConferenceBaseController
             $this->systemAdmin = true;
             $departments = getNomenclatureSelect($this->getDepartmentsAdmin(), true);
         }
+
         view()->share([
             'categories' => getNomenclatureSelect($this->getCategories($department), true),
             'departments' => $departments,
@@ -139,6 +143,16 @@ class PaperController extends ConferenceBaseController
      */
     public function show(Paper $paper)
     {
+        if ($paper->department_id != auth()->user()->department_id ) {
+            if (!$this->systemAdmin) {
+                return redirect()->action('Admin\PaperController@index')->with('error', 'access-denied');
+            }
+        }
+        $paper->load([
+            'criteria.langs' => function($query) { $query->lang(); },
+            'criteria.options.langs' => function($query) { $query->lang(); },
+        ]);
+
         return view('admin.paper.show', ['paper' => $paper]);
     }
 
@@ -150,6 +164,12 @@ class PaperController extends ConferenceBaseController
      */
     public function edit(Paper $paper)
     {
+        if ($paper->department_id != auth()->user()->department_id ) {
+            if (!$this->systemAdmin) {
+                return redirect()->action('Admin\PaperController@index')->with('error', 'access-denied');
+            }
+        }
+
         return view('admin.paper.edit', [
             'paper' => $paper,
             'force' => true, #force to set reviewers and categories
@@ -168,8 +188,13 @@ class PaperController extends ConferenceBaseController
      */
     public function update(Requests\PaperRequest $request, Paper $paper)
     {
-        $this->paper->setPaper($paper);
+        if ($paper->department_id != auth()->user()->department_id ) {
+            if (!$this->systemAdmin) {
+                return redirect()->action('Admin\PaperController@index')->with('error', 'access-denied');
+            }
+        }
 
+        $this->paper->setPaper($paper);
         $status = $request->get('status_id');
         $reviewer = $request->get('reviewer_id') ? : null;
         if (!$paper->reviewer_id && $reviewer) {
@@ -193,7 +218,7 @@ class PaperController extends ConferenceBaseController
                 File::move($oldPath . $paper->payment_source, $newPath . $paper->payment_source);
             }
         }
-//echo 'here'; exit;
+
         $paperData = [
             'department_id' => $department->id,
             'category_id'   => $request->get('category_id'),
@@ -237,5 +262,87 @@ class PaperController extends ConferenceBaseController
             return redirect()->back()->with('error', 'error-delete-paper');
         }
         return redirect()->action('Admin\PaperController@index')->with('success', 'deleted');
+    }
+
+    /**
+     * @param int $paper
+     * get reviewer evaluation view
+     * @return \Illuminate\Http\Response
+     */
+    public function getEvaluate($paper)
+    {
+        $paper = Paper::findOrFail($paper);
+        if ($paper->department_id != auth()->user()->department_id ) {
+            if (!$this->systemAdmin) {
+                return redirect()->action('Admin\PaperController@index')->with('error', 'access-denied');
+            }
+        }
+
+        $criteria = Criteria::where('department_id', $paper->department_id)->with([
+            'langs' => function($query) { $query->lang(); },
+            'options' => function($query) {$query->sort(); },
+            'options.langs' => function($query) { $query->lang(); },
+            'papers' => function($query) use ($paper) {
+                $query->where('criteria_paper.paper_id', $paper->id);
+            }
+        ])->sort()->get();
+
+        return view('admin.paper.evaluate', ['paper' => $paper, 'criteria' => $criteria]);
+    }
+
+    /**
+     * @param int paper
+     * save reviewer evaluation
+     * @return \Illuminate\Http\Response
+     */
+    public function postEvaluate($paper)
+    {
+        $paper = Paper::findOrFail($paper);
+        if ($paper->department_id != auth()->user()->department_id ) {
+            if (!$this->systemAdmin) {
+                return redirect()->action('Admin\PaperController@index')->with('error', 'access-denied');
+            }
+        }
+
+        $criteriaPaper = $rules = $params = $errors = [];
+        $criteria = Criteria::where('department_id', $paper->department_id)
+            ->with(['langs' => function($query) {
+                $query->lang();
+        }])->get();
+
+        foreach ($criteria as $value) {
+            $errors[$value->id] = $value->langs->first()->title;
+            if (request()->has($value->id)) {
+                $params[$value->id] = request($value->id);
+                $criteriaPaper[$value->id] = ['value' => request($value->id)];
+            }
+            if ($value->required) {
+                $rules[$value->id] = 'required';
+            }
+
+            if ($value->type_id == 1) {
+                $max = 'max:1500';
+                if (isset($rules[$value->id])) {
+                    $rules[$value->id] .= '|' . $max;
+                } else {
+                    $rules[$value->id] = $max;
+                }
+            }
+        }
+
+        $validator = Validator::make($params, $rules);
+        $validator->setAttributeNames($errors);
+        if ($validator->fails()) {
+            return redirect()->back()
+                ->withErrors($validator)
+                ->withInput();
+        }
+
+        DB::transaction(function() use ($criteriaPaper, $paper) {
+            $paper->update(['status_id' => 4, 'reviewed_at' => Carbon::now()]);
+            $paper->criteria()->sync($criteriaPaper);
+
+        });
+        return redirect()->action('Admin\PaperController@index')->with('success', 'paper-evaluated');
     }
 }

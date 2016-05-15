@@ -25,6 +25,10 @@ body {
     padding-bottom: 0 !important;
 }
 
+textarea {
+    resize: none;
+}
+
 #container {
     background-color: #0f5586;
     display: block;
@@ -268,4 +272,8 @@ span.glyphicon-asterisk {
 .admin-back {
     padding-left: 15px;
     padding-bottom: 5px;
+}
+
+.centered{
+    margin: 0 auto;
 }

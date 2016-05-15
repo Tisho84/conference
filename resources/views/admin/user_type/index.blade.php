@@ -17,7 +17,7 @@
                 <td>{{ $type->id }}</td>
                 <td>{{ $type->title }}</td>
                 <td>{{ $access[$type->id] }}</td>
-                <td>{{ $type->active }}</td>
+                <td>{{ boolString($type->active) }}</td>
                 <td>{{ $type->sort }}</td>
                 <td>
                     {!! Form::open(['url' => action('Admin\UserTypesController@destroy', [$type->id]), 'method' => 'delete']) !!}

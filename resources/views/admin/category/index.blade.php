@@ -11,6 +11,7 @@
                 @endif
                 <th>{{ trans('admin.active') }}</th>
                 <th>{{ trans('admin.sort') }}</th>
+                <th></th>
             </tr>
         </thead>
         <tbody>
@@ -23,7 +24,7 @@
                 @if ($systemAdmin)
                     <td>{{ $departments[$category->department_id] }}</td>
                 @endif
-                <td>{{ $category->active }}</td>
+                <td>{{ boolString($category->active) }}</td>
                 <td>{{ $category->sort }}</td>
                 <td>
                     {!! Form::open(['url' => action('Admin\CategoryController@destroy', [$category->id]), 'method' => 'delete']) !!}

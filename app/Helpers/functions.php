@@ -49,10 +49,10 @@ function getNomenclatureSelect($collection, $first = false) {
     return $array;
 }
 
-function simpleSelect($collection, $first = false) {
+function simpleSelect($collection, $first = false, $key = 'name') {
     $array = [];
     foreach ($collection as $element) {
-        $array[$element->id] = $element->name;
+        $array[$element->id] = $element->$key;
     }
 
     if ($first) {
@@ -80,7 +80,7 @@ function buildTh($title = '') {
 function buildActive() {
     $html = '';
     $html .= '<label for="active">' . trans('admin.active') . '</label>';
-    $html .= Form::select('active', [ 1 => trans('static.yes'), 0 => trans('static.no') ], null, ['class' => 'form-control select2-simple', 'style' => 'width: 100%;']);
+    $html .= Form::select('active', selectBoolean(), null, ['class' => 'form-control select2-simple', 'style' => 'width: 100%;']);
     return $html;
 }
 
@@ -105,4 +105,15 @@ function systemAccess($access, $user = null) {
 
 function isAdminPanel() {
     return request()->segment(2) == 'admin' ? true : false;
+}
+
+function boolString($int) {
+    if ($int) {
+        return trans('static.yes');
+    }
+    return trans('static.no');
+}
+
+function selectBoolean() {
+    return [ 1 => trans('static.yes'), 0 => trans('static.no')];
 }

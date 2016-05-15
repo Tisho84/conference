@@ -42,17 +42,11 @@
             </div>
             <div class="form-group">
                 <label class="col-sm-2 control-label">{{ trans('admin.active')}}:</label>
-                <div class="col-sm-10">
-                    <label class="control-label">
-                        @if ($department->active)
-                            {{ trans('admin.yes') }}
-                        @else
-                            {{ trans('admin.no') }}
-                        @endif
-                    </label>
-                </div>
+                <div class="col-sm-10"><label class="control-label">{{ boolString($department->active) }}</label></div>
             </div>
+
             @foreach ($department->dbLangs as $localeCode => $lang)
+                <hr>
                 <div class="form-group">
                     <label class="col-sm-2 control-label">{{ systemTrans($localeCode) }}</label></div>
                 <div class="form-group">
@@ -68,6 +62,11 @@
                     <div class="col-sm-10"><label class="control-label">{{ $lang->description }}</label></div>
                 </div>
             @endforeach
+            <div class="form-group">
+                <div class="text-center">
+                    @include('admin.partials.back')
+                </div>
+            </div>
         </form>
     </div>
 @endsection

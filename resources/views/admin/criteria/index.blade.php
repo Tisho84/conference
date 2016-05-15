@@ -10,7 +10,11 @@
                     <th>{{ trans('admin.department') }}</th>
                 @endif
                 <th>{{ trans('static.field-type') }}</th>
-                <th>{{ trans('admin.sort') }}</th>
+                <th>{{ trans('static.is-required') }}</th>
+                <th>{{ trans('static.is-visible') }}</th>
+                <th>{{ trans('static.admin-criteria') }}</th>
+                <th>{{ trans('static.sort') }}</th>
+                <th></th>
             </tr>
         </thead>
         <tbody>
@@ -24,6 +28,9 @@
                     <td>{{ $departments[$value->department_id] }}</td>
                 @endif
                 <td>{{ $types[$value->type_id] }}</td>
+                <td>{{ boolString($value->required) }}</td>
+                <td>{{ boolString($value->visible) }}</td>
+                <td>{{ boolString($value->admin) }}</td>
                 <td>{{ $value->sort }}</td>
                 <td>
                     {!! Form::open(['url' => action('Admin\CriteriaController@destroy', [$value->id]), 'method' => 'delete']) !!}

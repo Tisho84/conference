@@ -71,6 +71,7 @@ return [
     'updated_at' => 'Last update',
     'adding-paper' => 'Adding new paper',
     'updating-paper' => 'Updating a paper',
+    'evaluating-paper' => 'Evaluating a paper',
     'adding-invoice' => 'Add invoice',
     'preview-paper' => 'Preview paper',
     'fill-fields' => 'Please enter the required information',
@@ -78,7 +79,7 @@ return [
     'authors' => 'Authors',
     'file' => 'File',
     'preview' => 'preview',
-    'invoice' => 'Invoice',
+    'invoice' => 'invoice',
     'evaluate' => 'evaluate',
     'download' => 'Download',
     'invoice-description' => 'Invoice information',
@@ -90,5 +91,13 @@ return [
     'criteria' => 'Criteria',
     'field-type' => 'Field type',
     'options' => 'Options',
-    'reviewer-text' => 'Reviewer\'s name | Number papers for review | Is reviewer suitable'
+    'reviewer-text' => 'Reviewer\'s name | Number papers for review | Is reviewer suitable',
+    'evaluate-criteria' => 'Paper evaluation criteria',
+    'reviewed_at' => 'Reviewed at',
+    'evaluate-info' => 'Evaluation info',
+    'is-required' => 'Required',
+    'is-visible' => 'Visible(for author)',
+    'sort' => 'Sort',
+    'admin-criteria' => 'Admin criteria',
+    'no-type' => 'None(registered as reviewer)'
 ];

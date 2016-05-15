@@ -78,7 +78,14 @@ class CriteriaController extends  ConferenceBaseController
         }
 
         DB::transaction(function () use ($departmentId, $request) {
-            $criteria = Criteria::create(['department_id' => $departmentId, 'sort' => $request->get('sort'), 'type_id' => $request->get('type_id')]);
+            $criteria = Criteria::create([
+                'department_id' => $departmentId,
+                'type_id' => $request->get('type_id'),
+                'required' => $request->get('required'),
+                'visible' => $request->get('visible'),
+                'admin' => $request->get('admin'),
+                'sort' => $request->get('sort'),
+            ]);
             $langs = [];
             foreach (LaravelLocalization::getSupportedLocales() as $short => $locale) {
                 $langs[] = ['lang_id' => dbTrans($short), 'title' => $request->get('title_' . $short)];
@@ -116,7 +123,13 @@ class CriteriaController extends  ConferenceBaseController
     public function update(Requests\CriteriaRequest $request, Criteria $criteria)
     {
         DB::transaction( function () use ($request, $criteria) {
-            $update = ['sort' => $request->get('sort'), 'type_id' => $request->get('type_id')];
+            $update = [
+                'required' => $request->get('required'),
+                'visible' => $request->get('visible'),
+                'admin' => $request->get('admin'),
+                'sort' => $request->get('sort'),
+                'type_id' => $request->get('type_id')
+            ];
             if ($this->systemAdmin) {
                 $update['department_id'] = $request->get('department_id');
             }

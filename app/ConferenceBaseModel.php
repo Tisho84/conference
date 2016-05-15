@@ -16,10 +16,15 @@ class ConferenceBaseModel extends Model
         return $query->orderBy('sort');
     }
 
-    public function getActiveAttribute($value)
+    public function scopeLang($query)
     {
-        return $value ? trans('yes') : trans('no');
+        return $query->where('lang_id', dbTrans());
     }
+
+//    public function getActiveAttribute($value)
+//    {
+//        return $value ? trans('static.yes') : trans('static.no');
+//    }
 
     public function setSortAttribute($value)
     {
