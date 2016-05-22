@@ -30,8 +30,8 @@ Route::group([
     Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'middleware' => ['admin']], function () {
         get('/home', ['as' => 'admin-home', 'uses' => '\App\Http\Controllers\HomeController@admin']);
         resource('departments', 'DepartmentController');
-//        resource('departments.users', 'DepartmentUsersController');
         resource('users', 'UsersController');
+        resource('news', 'NewsController');
         resource('types', 'UserTypesController');
         resource('categories', 'CategoryController');
         resource('papers', 'PaperController');
@@ -39,10 +39,12 @@ Route::group([
         post('papers/{id}/evaluate', 'PaperController@postEvaluate');
         resource('criteria', 'CriteriaController');
         resource('criteria.options', 'CriteriaOptionController');
+        get('settings', 'SettingsController@display');
+        post('settings', 'SettingsController@save');
     });
 
     Route::group(['prefix' => '{department}', 'as' => 'department::', 'middleware' => ['department', 'userFromDepartment']], function () {
-        get('/', ['as' => 'index', 'uses' => 'HomeController@department']);
+        get('/', ['as' => 'index', 'uses' => 'HomeController@news']);
 
         Route::group(['prefix' => 'auth', 'as' => 'auth::', 'middleware' => ['guest']], function () {
             /** Authentication routes **/

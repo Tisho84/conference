@@ -19,6 +19,9 @@ class CategoryController extends ConferenceBaseController
 
     public function __construct()
     {
+        $this->middleware('departmentAccess:7');
+        $this->middleware('adminDepartmentObject:Category', ['only' => ['edit', 'update', 'delete']]);
+
         $this->systemAdmin = false;
         $departments = [];
         if (systemAccess(100)) {

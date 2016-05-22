@@ -56,13 +56,22 @@
                         @if (systemAccess(100))
                             <li>{!! HTML::link(action('Admin\UserTypesController@index'), trans('admin.user-types')) !!}</li>
                         @endif
-                        <li>{!! HTML::link(action('Admin\UsersController@index'), trans('admin.users')) !!}</li>
-                        <li>{!! HTML::link(action('Admin\CategoryController@index'), trans('admin.categories')) !!}</li>
+                        @if (systemAccess(5))
+                            <li>{!! HTML::link(action('Admin\UsersController@index'), trans('admin.users')) !!}</li>
+                        @endif
+                        @if (systemAccess(4))
+                            <li>{!! HTML::link(action('Admin\NewsController@index'), trans('static.news')) !!}</li>
+                        @endif
+                        @if (systemAccess(7))
+                            <li>{!! HTML::link(action('Admin\CategoryController@index'), trans('admin.categories')) !!}</li>
+                        @endif
                         <li>{!! HTML::link(action('Admin\PaperController@index'), trans('static.menu-papers')) !!}</li>
-                        <li>{!! HTML::link(action('Admin\CriteriaController@index'), trans('static.criteria')) !!}</li>
-                        <li>
-                            <a href="bootstrap-grid.html">Settings</a>
-                        </li>
+                        @if (systemAccess(6))
+                            <li>{!! HTML::link(action('Admin\CriteriaController@index'), trans('static.criteria')) !!}</li>
+                        @endif
+                        @if (systemAccess(8))
+                            <li>{!! HTML::link(action('Admin\SettingsController@display'), trans('static.settings')) !!}</li>
+                        @endif
                     </ul>
                 </div>
                 <!-- /.navbar-collapse -->

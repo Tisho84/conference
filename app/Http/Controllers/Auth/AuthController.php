@@ -154,6 +154,11 @@ class AuthController extends ConferenceBaseController
 
     public function getRegister(Rank $rank, Country $country)
     {
+        $lock = $this->getDepartment()->settings()->key('registrations')->value;
+        if ($lock) {
+            return redirect()->back()->with('error', 'lock-registrations');
+        }
+
         return view('auth.register', [
             'ranks' => $rank->getRanks(),
             'countries' => $country->getCountries(),

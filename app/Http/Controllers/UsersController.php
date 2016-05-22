@@ -27,6 +27,7 @@ class UsersController extends ConferenceBaseController
         if (auth()->user()->is_reviewer || systemAccess(2)) {
             $data['reviewer'] = true;
             $data['selectedCategories'] = auth()->user()->categories()->lists('id')->toArray();
+            $data['disabled'] = $this->getDepartment()->settings()->key('user_data')->value == 1 ? 'disabled' : '';
         }
         return view('conference.profile', $data);
     }

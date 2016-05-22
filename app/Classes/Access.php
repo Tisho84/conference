@@ -1,11 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: Tihomir
- * Date: 7.12.2015 г.
- * Time: 20:09
- */
-
 namespace App\Classes;
 
 use App\Classes\Language;
@@ -15,8 +8,8 @@ class Access extends Language implements ILanguage
 {
     private $types = [
         1 => [
-            'en' => 'Upload papers',
-            'bg' => 'Качване на доклади'
+            'en' => 'Upload / Edit papers',
+            'bg' => 'Качване / Редакция на доклади'
         ],
         2 => [
             'en' => 'Review articles',
@@ -30,13 +23,29 @@ class Access extends Language implements ILanguage
             'en' => 'Manage news',
             'bg' => 'Управление новини',
         ],
+        5 => [
+            'en' => 'Manage users',
+            'bg' => 'Управление потребители',
+        ],
+        6 => [
+            'en' => 'Manage criteria',
+            'bg' => 'Управление критерии',
+        ],
+        7 => [
+            'en' => 'Manage categories',
+            'bg' => 'Управление научни интереси',
+        ],
+        8 => [
+            'en' => 'Manage settings',
+            'bg' => 'Управление настройки',
+        ],
         9 => [
             'en' => 'Admin panel',
             'bg' => 'Админ панел',
         ],
         10 => [
-            'en' => 'Admin department',
-            'bg' => 'Админ катедра',
+            'en' => 'Department',
+            'bg' => 'Катедра',
         ],
         100 => [
             'en' => 'System admin',

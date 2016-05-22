@@ -18,6 +18,9 @@ class CriteriaController extends  ConferenceBaseController
 
     public function __construct()
     {
+        $this->middleware('departmentAccess:6');
+        $this->middleware('adminDepartmentObject:Criteria', ['only' => ['edit', 'update', 'delete']]);
+
         $this->systemAdmin = false;
         $departments = [];
         $types = new CriteriaType();

@@ -2,6 +2,7 @@
 
 namespace App;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 
 class ConferenceBaseModel extends Model
@@ -19,6 +20,16 @@ class ConferenceBaseModel extends Model
     public function scopeLang($query)
     {
         return $query->where('lang_id', dbTrans());
+    }
+
+    public function getCreatedAtAttribute($date)
+    {
+        return Carbon::parse($date)->format('d.m.Y H:i');
+    }
+
+    public function getUpdatedAtAttribute($date)
+    {
+        return Carbon::parse($date)->format('d.m.Y H:i');
     }
 
 //    public function getActiveAttribute($value)

@@ -38,5 +38,6 @@ class Kernel extends HttpKernel
         'admin' => \App\Http\Middleware\Admin::class,
         'departmentAccess' => \App\Http\Middleware\DepartmentAdminAccess::class,
         'systemAccess' => \App\Http\Middleware\SystemAdminAccess::class,
+        'adminDepartmentObject' => \App\Http\Middleware\AdminDepartmentObject::class,
     ];
 }

@@ -11,14 +11,13 @@ class DepartmentAdminAccess
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  \Closure  $next
+     * @param $access
      * @return mixed
      */
-    public function handle($request, Closure $next)
+    public function handle($request, Closure $next, $access)
     {
-        if (!systemAccess(10)) {
-            return redirect()
-                ->route('admin-home')
-                ->withErrors(trans('messages.access-denied'));
+        if (!systemAccess((int)$access)) {
+            return redirect()->route('admin-home')->with('error', 'access-denied');
         }
 
         return $next($request);

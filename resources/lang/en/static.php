@@ -99,5 +99,9 @@ return [
     'is-visible' => 'Visible(for author)',
     'sort' => 'Sort',
     'admin-criteria' => 'Admin criteria',
-    'no-type' => 'None(registered as reviewer)'
+    'no-type' => 'None(registered as reviewer)',
+    'news' => 'News',
+    'add-news' => 'Adding news',
+    'update-news' => 'Updating news',
+    'settings' => 'Settings',
 ];

@@ -41,20 +41,12 @@ class Paper extends ConferenceBaseModel
         return $this->belongsToMany('App\Criteria', 'criteria_paper', 'paper_id', 'criteria_id')->withPivot('value');
     }
 
-
-    public function getCreatedAtAttribute($date)
-    {
-        return Carbon::parse($date)->format('d.m.Y H:i');
-    }
-
-    public function getUpdatedAtAttribute($date)
-    {
-        return Carbon::parse($date)->format('d.m.Y H:i');
-    }
-
     public function getReviewedAtAttribute($date)
     {
-        return Carbon::parse($date)->format('d.m.Y H:i');
+        if ($date) {
+            return Carbon::parse($date)->format('d.m.Y H:i');
+        }
+        return $this->attributes['reviewed_at'];
     }
 
     public function canEdit()

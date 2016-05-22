@@ -42,9 +42,16 @@ class HomeController extends ConferenceBaseController
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
 
-    public function department()
+    public function news()
     {
-        return view('conference.department');
+        $department = $this->getDepartment();
+        $number = $department->settings()->key('news_pages');
+        $number = $number ? $number->value : 5;
+        $news = $department->news()->with([
+            'langs' => function($query) { $query->lang(); }
+        ])->active()->sort()->paginate($number);
+
+        return view('conference.news', compact('news'));
     }
 
     public function getLogin()

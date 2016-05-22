@@ -24,6 +24,9 @@ class PaperController extends ConferenceBaseController
 
     public function __construct()
     {
+        $this->middleware('departmentAccess:1', ['only' => ['create', 'store', 'update', 'edit']]);
+        $this->middleware('adminDepartmentObject:Paper', ['only' => ['show', 'edit', 'update', 'getEvaluate', 'postEvaluate', 'delete']]);
+
         $departments = [];
         $this->systemAdmin = false;
         $this->paper = new PaperClass();
@@ -143,11 +146,6 @@ class PaperController extends ConferenceBaseController
      */
     public function show(Paper $paper)
     {
-        if ($paper->department_id != auth()->user()->department_id ) {
-            if (!$this->systemAdmin) {
-                return redirect()->action('Admin\PaperController@index')->with('error', 'access-denied');
-            }
-        }
         $paper->load([
             'criteria.langs' => function($query) { $query->lang(); },
             'criteria.options.langs' => function($query) { $query->lang(); },
@@ -164,12 +162,6 @@ class PaperController extends ConferenceBaseController
      */
     public function edit(Paper $paper)
     {
-        if ($paper->department_id != auth()->user()->department_id ) {
-            if (!$this->systemAdmin) {
-                return redirect()->action('Admin\PaperController@index')->with('error', 'access-denied');
-            }
-        }
-
         return view('admin.paper.edit', [
             'paper' => $paper,
             'force' => true, #force to set reviewers and categories
@@ -188,12 +180,6 @@ class PaperController extends ConferenceBaseController
      */
     public function update(Requests\PaperRequest $request, Paper $paper)
     {
-        if ($paper->department_id != auth()->user()->department_id ) {
-            if (!$this->systemAdmin) {
-                return redirect()->action('Admin\PaperController@index')->with('error', 'access-denied');
-            }
-        }
-
         $this->paper->setPaper($paper);
         $status = $request->get('status_id');
         $reviewer = $request->get('reviewer_id') ? : null;
@@ -272,7 +258,7 @@ class PaperController extends ConferenceBaseController
     public function getEvaluate($paper)
     {
         $paper = Paper::findOrFail($paper);
-        if ($paper->department_id != auth()->user()->department_id ) {
+        if ($paper->department_id != auth()->user()->department_id || !systemAccess(2)) {
             if (!$this->systemAdmin) {
                 return redirect()->action('Admin\PaperController@index')->with('error', 'access-denied');
             }
@@ -298,7 +284,7 @@ class PaperController extends ConferenceBaseController
     public function postEvaluate($paper)
     {
         $paper = Paper::findOrFail($paper);
-        if ($paper->department_id != auth()->user()->department_id ) {
+        if ($paper->department_id != auth()->user()->department_id || !systemAccess(2)) {
             if (!$this->systemAdmin) {
                 return redirect()->action('Admin\PaperController@index')->with('error', 'access-denied');
             }

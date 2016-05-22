@@ -9,6 +9,8 @@
             <label for="department_id">{{ trans('admin.department') }}<span class="glyphicon glyphicon-asterisk" aria-hidden="true"></span></label>
             {!! Form::select('department_id', $departments, null, ['class' => 'form-control', 'id' => 'department']) !!}
         </div>
+    @else
+        {!! Form::hidden('department_id', auth()->user()->department_id) !!}
     @endif
     <div class="form-group">
         <label for="category_id">{{ trans('static.category') }}<span class="glyphicon glyphicon-asterisk" aria-hidden="true"></span></label>

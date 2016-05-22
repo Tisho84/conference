@@ -56,6 +56,11 @@ class PaperController extends ConferenceBaseController
      */
     public function create()
     {
+        $lock = $this->getDepartment()->settings()->key('papers')->value;
+        if ($lock) {
+            return redirect()->back()->with('error', 'lock-papers');
+        }
+
         if (!systemAccess(1)) {
             return redirect()->back()->with('error', 'access-denied');
         }
@@ -70,7 +75,8 @@ class PaperController extends ConferenceBaseController
      */
     public function store(Requests\PaperRequest $request)
     {
-        if (!systemAccess(1)) {
+        $lock = $this->getDepartment()->settings()->key('papers')->value;
+        if (!systemAccess(1) || $lock) {
             return redirect()->back()->with('error', 'access-denied');
         }
 
@@ -122,6 +128,11 @@ class PaperController extends ConferenceBaseController
      */
     public function edit(Department $department, Paper $paper)
     {
+        $lock = $department->settings()->key('papers')->value;
+        if ($lock) {
+            return redirect()->back()->with('error', 'lock-papers');
+        }
+
         if ($paper->canEdit() && $paper->isAuthor()) {
             return view('conference.papers.edit', ['paper' => $paper]);
         }
@@ -138,7 +149,7 @@ class PaperController extends ConferenceBaseController
      */
     public function update(Requests\PaperRequest $request, Department $department, Paper $paper)
     {
-        if ($paper->canEdit() && $paper->isAuthor()) {
+        if ($paper->canEdit() && $paper->isAuthor() && !$department->settings()->key('papers')->value) {
             $this->paper->setPaper($paper);
             $paperData = [
                 'category_id'   => $request->get('category_id'),
@@ -169,6 +180,11 @@ class PaperController extends ConferenceBaseController
      */
     public function destroy(Department $department, Paper $paper)
     {
+        $lock = $department->settings()->key('papers')->value;
+        if ($lock) {
+            return redirect()->back()->with('error', 'lock-papers');
+        }
+
         if ($paper->canEdit()) {
             $this->paper->setPaper($paper);
             if (!$this->paper->delete()) {
@@ -188,6 +204,11 @@ class PaperController extends ConferenceBaseController
      */
     public function getInvoice(Department $department, $paper)
     {
+        $lock = $department->settings()->key('papers')->value;
+        if ($lock) {
+            return redirect()->back()->with('error', 'lock-papers');
+        }
+
         $paper = Paper::findOrFail($paper);
         if ($paper->canInvoice() && $paper->isAuthor()) {
             return view('conference.papers.invoice', ['paper' => $paper]);
@@ -206,7 +227,7 @@ class PaperController extends ConferenceBaseController
     public function postInvoice(Request $request, Department $department, $paper)
     {
         $paper = Paper::findOrFail($paper);
-        if ($paper->canInvoice() && $paper->isAuthor()) {
+        if ($paper->canInvoice() && $paper->isAuthor() && !$department->settings()->key('papers')->value) {
             $source = 'image|max:5000';
             $this->paper->setPaper($paper);
             if (!$paper->payment_confirmed) {

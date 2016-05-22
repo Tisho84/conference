@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\ConferenceBaseController;
 use App\UserType;
 use App\UserTypeAccess;
+use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
@@ -137,7 +138,13 @@ class UserTypesController extends ConferenceBaseController
         if ($type->is_default) {
             return redirect()->back()->with('error', 'is-default');
         }
-        $type->delete();
+
+        try {
+            $type->delete();
+        } catch (QueryException $e) {
+            return redirect()->back()->with('error', 'error-user-type');
+        }
+
         return redirect(action('Admin\UserTypesController@index'))->with('success', 'deleted');
     }
 }

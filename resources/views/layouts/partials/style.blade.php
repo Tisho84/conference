@@ -37,4 +37,14 @@
     #sidebar li {
         {{--border: 0 {!! $department->theme_background_color !!} solid !important;--}}
     }
+
+    .pagination > .active > a,
+    .pagination > .active > a:hover,
+    .pagination > .active > a:focus,
+    .pagination > .active > span,
+    .pagination > .active > span:hover,
+    .pagination > .active > span:focus {
+        background-color: {!! $department->theme_background_color  !!};
+        border-color: {!! $department->theme_background_color  !!};
+    }
 </style>

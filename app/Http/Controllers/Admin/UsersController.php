@@ -16,6 +16,9 @@ class UsersController extends ConferenceBaseController
 {
     public function __construct()
     {
+        $this->middleware('departmentAccess:5');
+        $this->middleware('adminDepartmentObject:User', ['only' => ['edit', 'update', 'delete']]);
+
         $departments = [];
         $this->systemAdmin = false;
         if (systemAccess(100)) {
@@ -128,7 +131,7 @@ class UsersController extends ConferenceBaseController
      */
     public function update(Requests\DepartmentUserRequest $request, User $user)
     {
-        $user->update([
+        $data = [
             'rank_id' => $request->get('rank_id'),
             'name' => $request->get('name'),
             'phone' => $request->get('phone'),
@@ -137,17 +140,22 @@ class UsersController extends ConferenceBaseController
             'country_id' => $request->get('country_id'),
             'email' => $request->get('email'),
             'email2' => $request->get('email2'),
-            'password' => bcrypt($request->get('password')),
             'department_id' => $this->systemAdmin ? $request->get('department_id') : auth()->user()->department_id,
             'user_type_id' => $request->get('user_type_id'),
             'is_reviewer' => count((array)$request->get('categories')) ? 1 : 0,
             'active' => $request->get('active')
-        ]);
+        ];
+
+        if ($request->get('password')) {
+            $data['password'] = bcrypt($request->get('password'));
+        }
+
+        $user->update($data);
 
         if (systemAccess(2, $user)) {
             $user->categories()->sync((array)$request->get('categories'));
         } else {
-            $user->categories()->delete();
+            $user->categories()->detach();
         }
 
         return redirect()->action('Admin\UsersController@index')->with('success', 'updated');

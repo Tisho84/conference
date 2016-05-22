@@ -25,7 +25,7 @@ class DepartmentController extends ConferenceBaseController
      */
     public function __construct()
     {
-        $this->middleware('departmentAccess');
+        $this->middleware('departmentAccess:10');
         if (systemAccess(100)) { #can config all departments
             $this->systemAdmin = true;
         } else {

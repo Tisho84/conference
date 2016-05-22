@@ -18,5 +18,8 @@ return [
     'department-category' => 'Selected category do not belong to the department',
     'paper-evaluated' => 'Paper evaluated successfully',
     'admin-delete' => 'System admin can\'t be deleted',
-    'error-user-paper' => "The user has papers uploaded or for reviewing and can't be deleted"
+    'error-user-paper' => "The user has papers uploaded or for reviewing and can't be deleted",
+    'error-user-type' => "User type can't be deleted because it's used",
+    'lock-registrations' => 'Registrations are temporary suspended.',
+    'lock-papers' => 'Adding and modifying papers are temporary suspended.'
 ];
