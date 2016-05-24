@@ -44,6 +44,11 @@ class NewsController extends ConferenceBaseController
         if (!$this->systemAdmin) {
             $news->where('department_id', auth()->user()->department_id);
         }
+
+        if (session('department_filter_id')) {
+            $news = $news->where('department_id', session('department_filter_id'));
+        }
+
         $news = $news->sort()->get();
         $this->loadLangs($news);
 

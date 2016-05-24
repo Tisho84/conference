@@ -21,6 +21,7 @@ Route::group([
         get('categories', ['as' => 'department_categories', 'uses' => 'APIController@categories']);
         get('reviewers', ['as' => 'category_reviewers', 'uses' => 'APIController@reviewers']);
         get('authors', ['as' => 'department_authors', 'uses' => 'APIController@authors']);
+        get('filter', ['as' => 'department_filter', 'uses' => 'APIController@filter']);
     });
     /** ADD ALL LOCALIZED ROUTES INSIDE THIS GROUP **/
     get('/', ['uses' => 'HomeController@index']);

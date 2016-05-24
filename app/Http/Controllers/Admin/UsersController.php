@@ -39,12 +39,15 @@ class UsersController extends ConferenceBaseController
      */
     public function index()
     {
-        if ($this->systemAdmin) {
-            $users = User::all();
-        } else {
-            $users = User::where('department_id', auth()->user()->department_id)
-                ->get();
+        $users = User::with('type.access');
+        if (!$this->systemAdmin) {
+            $users = $users->where('department_id', auth()->user()->department_id);
         }
+
+        if (session('department_filter_id')) {
+            $users = $users->where('department_id', session('department_filter_id'));
+        }
+        $users = $users->get();
 
         return view('admin.user.index', [
             'title' => trans('admin.users'),

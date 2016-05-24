@@ -37,7 +37,16 @@ class CategoryController extends ConferenceBaseController
      */
     public function index()
     {
-        $categories = $this->getCategoriesAdmin($this->systemAdmin ? null : auth()->user()->department_id);
+        $departmentId = null;
+        if ($this->systemAdmin) {
+            if (session('department_filter_id')) {
+                $departmentId = session('department_filter_id');
+            }
+        } else {
+            $departmentId = auth()->user()->department_id;
+        }
+
+        $categories = $this->getCategoriesAdmin($departmentId);
         return view('admin.category.index', [
             'categories' => $categories,
             'title' => trans('admin.categories'),

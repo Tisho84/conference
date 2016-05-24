@@ -312,3 +312,10 @@ span.glyphicon-asterisk {
 .mb20 {
     margin-bottom: 20px;
 }
+
+.dropdown-menu > .active-admin > a, .dropdown-menu > .active-admin > a:hover, .dropdown-menu > .active-admin > a:focus {
+    color: #fff;
+    text-decoration: none;
+    outline: 0;
+    background-color: #000000;
+}

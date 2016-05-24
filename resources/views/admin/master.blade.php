@@ -24,20 +24,41 @@
                 </div>
                 <!-- Top Menu Items -->
                 <ul class="nav navbar-right top-nav">
+                    @if (systemAccess(100))
+                        <li class="dropdown">
+    {{--                            {!! Form::open(['url' => route('department_filter')]) !!}--}}
+    {{--                            {!! Form::select('department_filter_id', $departmentsSelect, (int)session('department_filter_id'), ['class' => 'form-control', 'id' => 'department', 'onchange' => "this.form.submit()"]) !!}--}}
+                                {{--{!! Form::close() !!}--}}
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">{{ trans('static.filter-department') }}<i class="fa fa-bell"></i> <b class="caret"></b>
+                            </a>
+                            <ul class="dropdown-menu alert-dropdown">
+                                @foreach ($departmentsSelect as $id => $title)
+                                    @if ((int)session('department_filter_id') == $id)
+                                        <li class="active-admin">
+                                    @else
+                                        <li>
+                                    @endif
+                                        <a href="{{ route('department_filter', ['department_filter_id' => $id]) }}">{{ $title }}</a>
+                                    </li>
+                                @endforeach
+                          </ul>
+                        </li>
+                    @endif
+
                     @include('layouts.partials.language_dropdown')
-                    <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-bell"></i> <b class="caret"></b>
-                        </a>
-                        <ul class="dropdown-menu alert-dropdown">
-                            <li>
-                                <a href="#">Alert Name <span class="label label-default">Alert Badge</span></a>
-                            </li>
-                            <li class="divider"></li>
-                            <li>
-                                <a href="#">View All</a>
-                            </li>
-                        </ul>
-                    </li>
+                    {{--<li class="dropdown">--}}
+                        {{--<a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-bell"></i> <b class="caret"></b>--}}
+                        {{--</a>--}}
+                        {{--<ul class="dropdown-menu alert-dropdown">--}}
+                            {{--<li>--}}
+                                {{--<a href="#">Alert Name <span class="label label-default">Alert Badge</span></a>--}}
+                            {{--</li>--}}
+                            {{--<li class="divider"></li>--}}
+                            {{--<li>--}}
+                                {{--<a href="#">View All</a>--}}
+                            {{--</li>--}}
+                        {{--</ul>--}}
+                    {{--</li>--}}
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i> {{ auth()->user()->name }} <b class="caret"></b></a>
                         <ul class="dropdown-menu">
@@ -87,9 +108,7 @@
                 @endif
                 <div class="clearfix"></div>
                 <div class="content container-fluid">
-                    <div class="panel panel-default">
-                        @yield('content')
-                    </div>
+                    @yield('content')
                 </div>
                 <!-- /.container-fluid -->
             </div>

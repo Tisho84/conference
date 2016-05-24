@@ -104,4 +104,6 @@ return [
     'add-news' => 'Adding news',
     'update-news' => 'Updating news',
     'settings' => 'Settings',
+    'reviews' => 'Reviews',
+    'filter-department' => 'Filter department'
 ];

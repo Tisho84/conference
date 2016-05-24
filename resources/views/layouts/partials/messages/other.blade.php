@@ -16,6 +16,12 @@
     </div>
 @endif
 
+@if (Session::has('info-raw'))
+    <div class="alert alert-info">
+        {{ Session::pull('info-raw') }}
+    </div>
+@endif
+
 @if (Session::has('warning'))
     <div class="alert alert-warning">
         {{ trans('messages.' . Session::pull('warning')) }}

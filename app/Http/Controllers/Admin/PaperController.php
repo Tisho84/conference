@@ -55,14 +55,28 @@ class PaperController extends ConferenceBaseController
      */
     public function index()
     {
-        if ($this->systemAdmin) {
-            $papers = Paper::with('reviewer', 'user')->get();
-        } else {
-            $papers = Paper::with('reviewer', 'user')
-                ->where('department_id', auth()->user()->department_id)
-                ->get();
+        $papers = Paper::with('reviewer', 'user');
+        if (!$this->systemAdmin) {
+            $papers->where('department_id', auth()->user()->department_id);
         }
 
+        if (request('user_id')) {
+            $papers->where('user_id', (int)request('user_id'));
+            $user = User::find((int)request('user_id'));
+            session()->set('info-raw', $user->name . ' ' . trans('static.uploaded-papers'));
+        }
+
+        if (request('reviewer_id')) {
+            $papers->where('reviewer_id', (int)request('reviewer_id'));
+            $reviewer = User::find((int)request('reviewer_id'));
+            session()->set('info-raw', $reviewer->name . ' ' . trans('static.reviewed-papers'));
+        }
+
+        if (session('department_filter_id')) {
+            $papers = $papers->where('department_id', session('department_filter_id'));
+        }
+
+        $papers = $papers->get();
         return view('admin.paper.index', [
             'papers' => $papers,
             'title' => trans('static.menu-papers'),

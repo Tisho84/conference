@@ -47,6 +47,11 @@ class CriteriaController extends  ConferenceBaseController
         if (!$this->systemAdmin) {
             $criteria->where('department_id', auth()->user()->department_id);
         }
+
+        if (session('department_filter_id')) {
+            $criteria = $criteria->where('department_id', session('department_filter_id'));
+        }
+
         $criteria = $criteria->sort()->get();
         $this->loadLangs($criteria);
 

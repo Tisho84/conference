@@ -22,14 +22,30 @@ class SettingsController extends ConferenceBaseController
         $settings = $settings->getSettings();
         $departments = $this->getDepartmentsAdmin();
         $settingsRecords = [];
-        foreach (Settings::all() as $setting) {
+
+        if (session('department_filter_id')) {
+            $settingsDB = Settings::where('department_id', session('department_filter_id'))->get();
+        } else {
+            $settingsDB = Settings::all();
+        }
+
+        foreach ($settingsDB as $setting) {
             $settingsRecords[$setting['department_id']][$setting['key']] = $setting['value'];
         }
 
-        if (!systemAccess(100)) {
+        $departmentId = null;
+        if (systemAccess(100)) {
+            if (session('department_filter_id')) {
+                $departmentId = session('department_filter_id');
+            }
+        } else {
+            $departmentId = auth()->user()->department_id;
+        }
+
+        if ($departmentId) {
             $userDepartment = [];
             foreach ($departments as $department) {
-                if ($department->id == auth()->user()->department_id) {
+                if ($department->id == $departmentId) {
                     $userDepartment = $department;
                     break;
                 }

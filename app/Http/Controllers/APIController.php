@@ -55,4 +55,10 @@ class APIController extends ConferenceBaseController
         }
         return $records;
     }
+
+    public function filter()
+    {
+        session()->set('department_filter_id', (int)request()->get('department_filter_id'));
+        return redirect()->back();
+    }
 }

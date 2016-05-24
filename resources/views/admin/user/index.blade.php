@@ -32,6 +32,12 @@
                 <td>{{ boolString($user->active) }}</td>
                 <td>
                     {!! Form::open(['url' => action('Admin\UsersController@destroy', [$user->id]), 'method' => 'delete']) !!}
+                        @if (systemAccess(1, $user))
+                            <a href="{{ action('Admin\PaperController@index', ['user_id' => $user->id])}}" class="btn btn-xs btn-primary">{{ trans('static.menu-papers') }}</a>
+                        @endif
+                        @if (systemAccess(2, $user))
+                            <a href="{{ action('Admin\PaperController@index', ['reviewer_id' => $user->id])}}" class="btn btn-xs btn-primary">{{ trans('static.reviews') }}</a>
+                        @endif
                         <a href="{{ action('Admin\UsersController@edit', [$user->id]) }}" class="btn btn-xs btn-success">{{ trans('admin.edit') }}</a>
                         {!! Form::submit(trans('admin.delete'), ['class' => 'btn btn-danger btn-xs']) !!}
                     {!! Form::close() !!}
