@@ -40,7 +40,6 @@
                         @if ($paper->reviewer_id && systemAccess(2))
                             <a href="{{ action('Admin\PaperController@getEvaluate', [$paper->id])}}" class="btn btn-xs btn-primary">{{ trans('admin.evaluate') }}</a>
                         @endif
-                        {!! Form::submit(trans('admin.delete'), ['class' => 'btn btn-danger btn-xs']) !!}
                     {!! Form::close() !!}
                 </td>
             </tr>

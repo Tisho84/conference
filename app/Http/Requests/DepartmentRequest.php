@@ -27,7 +27,7 @@ class DepartmentRequest extends Request
     {
         $imageMax = 500;
         $rules = [
-            'keyword' => 'required|max:6|unique:department,keyword',
+            'keyword' => 'required|max:6|unique:department,keyword|regex:' . config('app.expressions.dir'),
             'url'     => 'required',
             'image'   => 'required|image|max:' . $imageMax,
             'theme_background_color' => 'required',

@@ -10,9 +10,9 @@ class Paper extends ConferenceBaseModel
     protected $table = 'paper';
     protected $dates = ['created_at', 'updated_at', 'reviewed_at'];
     protected $fillable = [
-        'department_id', 'category_id', 'user_id',
-        'reviewer_id', 'status_id', 'source', 'title',
-        'description', 'authors', 'archived', 'payment_confirmed',
+        'department_id', 'category_id', 'user_id', 'reviewer_id',
+        'status_id', 'source', 'title', 'description',
+        'authors', 'archive_id', 'payment_confirmed',
         'payment_source', 'payment_description', 'updated_at', 'reviewed_at'
     ];
 
@@ -24,6 +24,11 @@ class Paper extends ConferenceBaseModel
     public function reviewer()
     {
         return $this->belongsTo('App\User');
+    }
+
+    public function archive()
+    {
+        return $this->belongsTo('App\Archive');
     }
 
     public function category()
@@ -47,6 +52,11 @@ class Paper extends ConferenceBaseModel
             return Carbon::parse($date)->format('d.m.Y H:i');
         }
         return $this->attributes['reviewed_at'];
+    }
+
+    public function scopeArchived($query, $id = null)
+    {
+        $query->where('archive_id', $id);
     }
 
     public function canEdit()

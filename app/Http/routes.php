@@ -24,7 +24,7 @@ Route::group([
         get('filter', ['as' => 'department_filter', 'uses' => 'APIController@filter']);
     });
     /** ADD ALL LOCALIZED ROUTES INSIDE THIS GROUP **/
-    get('/', ['uses' => 'HomeController@index']);
+    get('/', ['as' => 'home-index', 'uses' => 'HomeController@index']);
     /** ---------- ADMIN ROUTES ---------- */
     get('/admin/', ['as' => 'admin-index', 'uses' => 'HomeController@getLogin']);
     post('/admin', ['uses' => 'HomeController@postLogin']);
@@ -36,6 +36,8 @@ Route::group([
         resource('types', 'UserTypesController');
         resource('categories', 'CategoryController');
         resource('papers', 'PaperController');
+        resource('archive', 'ArchiveController');
+        get('archive/{archive}/papers/{paper}', 'ArchiveController@showPapers');
         get('papers/{id}/evaluate', 'PaperController@getEvaluate');
         post('papers/{id}/evaluate', 'PaperController@postEvaluate');
         resource('criteria', 'CriteriaController');

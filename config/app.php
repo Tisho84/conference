@@ -209,4 +209,7 @@ return [
 
     ],
 
+    'expressions' => [
+        'dir' => '/^[a-zA-Z0-9\-_.]+$/'
+    ]
 ];

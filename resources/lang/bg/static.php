@@ -106,4 +106,6 @@ return [
     'settings' => 'Настройки',
     'reviews' => 'Рецензии',
     'filter-department' => 'Филтър катедра',
+    'archive' => 'Архив',
+    'add-archive-papers' => 'Добавяне на доклади към архив'
 ];

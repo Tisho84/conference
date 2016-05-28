@@ -49,4 +49,9 @@ class Department extends ConferenceBaseModel
     {
         return $this->hasMany('App\Settings');
     }
+
+    public function archives()
+    {
+        return $this->hasMany('App\Archive');
+    }
 }

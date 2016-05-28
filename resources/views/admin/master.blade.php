@@ -26,9 +26,6 @@
                 <ul class="nav navbar-right top-nav">
                     @if (systemAccess(100))
                         <li class="dropdown">
-    {{--                            {!! Form::open(['url' => route('department_filter')]) !!}--}}
-    {{--                            {!! Form::select('department_filter_id', $departmentsSelect, (int)session('department_filter_id'), ['class' => 'form-control', 'id' => 'department', 'onchange' => "this.form.submit()"]) !!}--}}
-                                {{--{!! Form::close() !!}--}}
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown">{{ trans('static.filter-department') }}<i class="fa fa-bell"></i> <b class="caret"></b>
                             </a>
                             <ul class="dropdown-menu alert-dropdown">
@@ -90,6 +87,9 @@
                         @if (systemAccess(6))
                             <li>{!! HTML::link(action('Admin\CriteriaController@index'), trans('static.criteria')) !!}</li>
                         @endif
+                        @if (systemAccess(11))
+                            <li>{!! HTML::link(action('Admin\ArchiveController@index'), trans('static.archive')) !!}</li>
+                        @endif
                         @if (systemAccess(8))
                             <li>{!! HTML::link(action('Admin\SettingsController@display'), trans('static.settings')) !!}</li>
                         @endif
@@ -108,7 +108,11 @@
                 @endif
                 <div class="clearfix"></div>
                 <div class="content container-fluid">
-                    @yield('content')
+                    <div class="col-sm12 col-md-10 col-md-offset-1 col-lg-10 col-lg-offset-1">
+                        <div class="panel panel-default">
+                            @yield('content')
+                        </div>
+                    </div>
                 </div>
                 <!-- /.container-fluid -->
             </div>

@@ -39,6 +39,10 @@ class Access extends Language implements ILanguage
             'en' => 'Manage settings',
             'bg' => 'Управление настройки',
         ],
+        11 => [
+            'en' => 'Manage archive',
+            'bg' => 'Управление архив',
+        ],
         9 => [
             'en' => 'Admin panel',
             'bg' => 'Админ панел',

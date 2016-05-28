@@ -23,6 +23,8 @@ class PaperController extends ConferenceBaseController
 
     public function __construct()
     {
+        $this->middleware('paperArchive', ['except' => ['index', 'create', 'store']]);
+
         $this->department = $this->getDepartment();
         $this->paper = new PaperClass();
 
@@ -44,6 +46,7 @@ class PaperController extends ConferenceBaseController
                 $query->where('user_id', auth()->user()->id)
                     ->orWhere('reviewer_id', auth()->user()->id);
             })
+            ->archived()
             ->orderBy('created_at')
             ->get();
         return view('conference.papers.index', ['papers' => $papers]);

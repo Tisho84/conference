@@ -105,5 +105,7 @@ return [
     'update-news' => 'Updating news',
     'settings' => 'Settings',
     'reviews' => 'Reviews',
-    'filter-department' => 'Filter department'
+    'filter-department' => 'Filter department',
+    'archive' => 'Archive',
+    'add-archive-papers' => 'Add papers to archive'
 ];

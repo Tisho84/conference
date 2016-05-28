@@ -84,7 +84,9 @@ class DepartmentController extends ConferenceBaseController
             ]);
             $this->addDepartmentLangs($request, $department);
             $request->file('image')->move('images/', $request->file('image')->getClientOriginalName());
-            File::makeDirectory('papers/' . $department->keyword);
+            if (!File::exists('papers/' . $department->keyword)) {
+                File::makeDirectory('papers/' . $department->keyword);
+            }
             Cache::forget('departments');
         });
 

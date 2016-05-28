@@ -25,6 +25,7 @@ class PaperController extends ConferenceBaseController
     public function __construct()
     {
         $this->middleware('departmentAccess:1', ['only' => ['create', 'store', 'update', 'edit']]);
+        $this->middleware('paperArchive', ['only' => ['update', 'edit', 'getEvaluate', 'postEvaluate']]);
         $this->middleware('adminDepartmentObject:Paper', ['only' => ['show', 'edit', 'update', 'getEvaluate', 'postEvaluate', 'delete']]);
 
         $departments = [];
@@ -76,7 +77,7 @@ class PaperController extends ConferenceBaseController
             $papers = $papers->where('department_id', session('department_filter_id'));
         }
 
-        $papers = $papers->get();
+        $papers = $papers->archived()->get();
         return view('admin.paper.index', [
             'papers' => $papers,
             'title' => trans('static.menu-papers'),
@@ -148,7 +149,6 @@ class PaperController extends ConferenceBaseController
         }
 
         $this->paper->upload();
-
         return redirect()->action('Admin\PaperController@index')->with('success', 'saved');
     }
 

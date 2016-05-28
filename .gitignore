@@ -2,6 +2,7 @@
 /node_modules
 /public/papers
 /public/papers/
+/public/archive/
 Homestead.yaml
 Homestead.json
 .idea

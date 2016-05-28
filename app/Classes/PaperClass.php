@@ -21,12 +21,12 @@ class PaperClass
 
     public function __construct()
     {
-        self::$path = $this->prefix . '/' . request()->segment(2) . '/';
+        self::$path = $this->prefix() . '/' . request()->segment(2) . '/';
     }
 
     public function setUrl($url)
     {
-        self::$path = $this->prefix . '/' . $url . '/';
+        self::$path = $this->prefix() . '/' . $url . '/';
     }
 
     public function setPaper(Paper $paper)
