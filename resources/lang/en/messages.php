@@ -21,5 +21,8 @@ return [
     'error-user-paper' => "The user has papers uploaded or for reviewing and can't be deleted",
     'error-user-type' => "User type can't be deleted because it's used",
     'lock-registrations' => 'Registrations are temporary suspended.',
-    'lock-papers' => 'Adding and modifying papers are temporary suspended.'
+    'lock-papers' => 'Adding and modifying papers are temporary suspended.',
+    'no-template' => 'Email template not set',
+    'email-send' => 'Email with link for reset password send',
+    'password-changed' => 'Your password has been reset!',
 ];

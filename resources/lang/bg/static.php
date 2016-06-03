@@ -33,7 +33,7 @@ return [
     'password' => 'Парола',
     'login-title' => 'Моля, въведете имейл адрес и парола',
     'remember-me' => 'Запомни ме',
-    'forgot-password' => 'Забравена парола ?',
+    'forgot-password' => 'Забравена парола',
     'register-reviewer' => 'Регистрация рецензент',
     'register-author' => 'Регистрация автор',
     'name' => 'Име',
@@ -107,5 +107,14 @@ return [
     'reviews' => 'Рецензии',
     'filter-department' => 'Филтър катедра',
     'archive' => 'Архив',
-    'add-archive-papers' => 'Добавяне на доклади към архив'
+    'add-archive-papers' => 'Добавяне на доклади към архив',
+    'templates' => 'Темплейти',
+    'system-template' => 'Системен темплейт',
+    'subject' => 'Заглавие',
+    'body' => 'Текст',
+    'available-params' => 'Достъпни параметри',
+    'send-email' => 'Изпрати имейл',
+    'send' => 'Изпрати',
+    'password-title' => 'Въведете имейл адрес',
+    'password-reset' => 'Въдедете имейл адреса и новата парола'
 ];

@@ -7,6 +7,8 @@ use App\Classes\PaperStatus;
 use App\Criteria;
 use App\CriteriaPaper;
 use App\Department;
+use App\Events\PaperWasCreated;
+use App\Events\PaperWasUpdated;
 use App\Paper;
 use Carbon\Carbon;
 
@@ -95,11 +97,13 @@ class PaperController extends ConferenceBaseController
         ];
 
         try {
-            Paper::create($paperData);
+            $paper = Paper::create($paperData);
         } catch(Exception $e) {
             return redirect()->back()->with('error', 'error');
         }
         $this->paper->upload($name);
+        event(new PaperWasCreated($paper));
+
         return redirect()->action('PaperController@index', [$this->department->keyword])->with('success', 'saved');
     }
 
@@ -168,6 +172,7 @@ class PaperController extends ConferenceBaseController
                 $this->paper->upload($paperData['source']);
             }
             $paper->update($paperData);
+            event(new PaperWasUpdated($paper));
 
             return redirect()->action('PaperController@index', [$department->keyword])->with('success', 'saved');
         }

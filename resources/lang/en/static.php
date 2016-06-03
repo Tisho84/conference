@@ -33,7 +33,7 @@ return [
     'password' => 'Password',
     'login-title' => 'Please enter email and password',
     'remember-me' => 'Remember me',
-    'forgot-password' => 'Forgot Your Password ?',
+    'forgot-password' => 'Forgot your password',
     'register-reviewer' => 'Register as reviewer',
     'register-author' => 'Register as author',
     'name' => 'Name',
@@ -107,5 +107,14 @@ return [
     'reviews' => 'Reviews',
     'filter-department' => 'Filter department',
     'archive' => 'Archive',
-    'add-archive-papers' => 'Add papers to archive'
+    'add-archive-papers' => 'Add papers to archive',
+    'templates' => 'Templates',
+    'system-template' => 'System template',
+    'subject' => 'Subject',
+    'body' => 'Body',
+    'available-params' => 'Available params',
+    'send-email' => 'Send email',
+    'send' => 'Send',
+    'password-title' => 'Enter email address',
+    'password-reset' => 'Enter email address and new password'
 ];

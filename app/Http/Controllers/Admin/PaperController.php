@@ -6,6 +6,8 @@ use App\Classes\PaperClass;
 use App\Classes\PaperStatus;
 use App\Criteria;
 use App\Department;
+use App\Events\PaperWasFinished;
+use App\Events\ReviewerPaperSet;
 use App\Http\Controllers\ConferenceBaseController;
 use App\Paper;
 use App\User;
@@ -243,7 +245,13 @@ class PaperController extends ConferenceBaseController
         }
 
         $this->paper->upload();
+        $oldReviewer = $paper->reviewer_id;
         $paper->update($paperData);
+
+
+        if ($oldReviewer != $paper->reviewer_id) { #reviewer changed
+            event(new ReviewerPaperSet($paper));
+        }
 
         return redirect()->action('Admin\PaperController@index')->with('success', 'updated');
     }
@@ -343,6 +351,11 @@ class PaperController extends ConferenceBaseController
             $paper->criteria()->sync($criteriaPaper);
 
         });
+
+        if (request()->get('email')) {
+            event(new PaperWasFinished($paper));
+        }
+
         return redirect()->action('Admin\PaperController@index')->with('success', 'paper-evaluated');
     }
 }

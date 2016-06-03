@@ -19,7 +19,6 @@ class SettingsController extends ConferenceBaseController
     public function display()
     {
         $settings = new \App\Classes\Settings;
-        $settings = $settings->getSettings();
         $departments = $this->getDepartmentsAdmin();
         $settingsRecords = [];
 
@@ -32,7 +31,7 @@ class SettingsController extends ConferenceBaseController
         foreach ($settingsDB as $setting) {
             $settingsRecords[$setting['department_id']][$setting['key']] = $setting['value'];
         }
-
+//dd($settingsRecords);
         $departmentId = null;
         if (systemAccess(100)) {
             if (session('department_filter_id')) {
@@ -52,6 +51,7 @@ class SettingsController extends ConferenceBaseController
             }
             $departments = [$userDepartment];
         }
+        $settings = $settings->getSettings($departments);
         return view('admin.settings.display', compact('settings', 'departments', 'settingsRecords'));
     }
 

@@ -19,6 +19,10 @@
                     {!! $v->build() !!}
                 </div>
             @endforeach
+            <div class="form-group">
+                <label for="email">{{ trans('static.send-email') }}</label>
+                {!! Form::checkbox('email', null, null, ['id' => 'email']) !!}
+            </div>
             @include('layouts.partials.button', ['button' => trans('static.save') ])
         </div>
     {!! Form::close() !!}

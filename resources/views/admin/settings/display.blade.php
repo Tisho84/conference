@@ -19,7 +19,10 @@
                                 @if ($setting['plain'])
                                     {!! Form::text('department[' . $department->id . '][' .$setting['key'] . ']', isset($settingsRecords[$department->id][$setting['key']]) ? (int)$settingsRecords[$department->id][$setting['key']] : 5, ['class' => 'form-control']) !!}
                                 @else
-                                    {!! Form::select('department[' . $department->id . '][' .$setting['key'] . ']', selectBoolean(), isset($settingsRecords[$department->id][$setting['key']]) ? (int)$settingsRecords[$department->id][$setting['key']] : 0, ['class' => 'form-control']) !!}
+                                    {!! Form::select('department[' . $department->id . '][' .$setting['key'] . ']',
+                                        isset($setting['data']) ? $setting['data'][$department->id] : selectBoolean(),
+                                        isset($settingsRecords[$department->id][$setting['key']]) ? (int)$settingsRecords[$department->id][$setting['key']] : 0, ['class' => 'form-control'])
+                                    !!}
                                 @endif
                             </div>
                         @endforeach

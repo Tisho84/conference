@@ -50,5 +50,6 @@ return [
     'add-option' => 'Add new option',
     'update-option' => 'Update option',
     'evaluate' => 'Evaluate',
-
+    'add-template' => 'Add new template',
+    'update-template' => 'Update template',
 ];

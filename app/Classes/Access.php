@@ -43,6 +43,11 @@ class Access extends Language implements ILanguage
             'en' => 'Manage archive',
             'bg' => 'Управление архив',
         ],
+        12 => [
+            'en' => 'Email notifications',
+            'bg' => 'Имейл известия',
+        ],
+
         9 => [
             'en' => 'Admin panel',
             'bg' => 'Админ панел',

@@ -16,6 +16,19 @@ class EventServiceProvider extends ServiceProvider
         'App\Events\SomeEvent' => [
             'App\Listeners\EventListener',
         ],
+        'App\Events\PaperWasCreated' => [
+            'App\Listeners\PaperWasCreatedEmail',
+            'App\Listeners\PaperWasCreatedNotification'
+        ],
+        'App\Events\PaperWasUpdated' => [
+            'App\Listeners\PaperWasCreatedNotification'
+        ],
+        'App\Events\ReviewerPaperSet' => [
+            'App\Listeners\ReviewerPaperSetEmail'
+        ],
+        'App\Events\PaperWasFinished' => [
+            'App\Listeners\PaperWasFinishedEmail'
+        ],
     ];
 
     /**

@@ -44,6 +44,7 @@ Route::group([
         resource('criteria.options', 'CriteriaOptionController');
         get('settings', 'SettingsController@display');
         post('settings', 'SettingsController@save');
+        resource('templates', 'EmailTemplateController');
     });
 
     Route::group(['prefix' => '{department}', 'as' => 'department::', 'middleware' => ['department', 'userFromDepartment']], function () {
@@ -57,6 +58,13 @@ Route::group([
             /** Registration routes **/
             get('register', ['as' => 'register', 'uses' => 'Auth\AuthController@getRegister']);
             post('register', ['as' => 'register', 'uses' => 'Auth\AuthController@postRegister']);
+
+            Route::get('password/email', ['as' => 'reset_pass', 'uses' => 'Auth\PasswordController@getEmail']);
+            Route::post('password/email', 'Auth\PasswordController@postEmail');
+
+            // Password reset routes...
+            Route::get('password/reset/{token}', ['as' => 'reset_token', 'uses' => 'Auth\PasswordController@getReset']);
+            Route::post('password/reset', 'Auth\PasswordController@postReset');
         });
 
         Route::group(['as' => 'user::', 'middleware' => ['auth']], function () {

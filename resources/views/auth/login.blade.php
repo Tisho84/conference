@@ -22,7 +22,7 @@
                  </label>
             </div>
             <div class="form-group">
-                <a class="btn btn-link" href="{{ url('/password/email') }}">{{ trans('static.forgot-password') }}</a>
+                <a class="btn btn-link" href="{{ route('department::auth::reset_pass', [$department->keyword]) }}">{{ trans('static.forgot-password') . ' ?' }}</a>
                 {!! HTML::link(route('department::auth::register', [$department->keyword]), trans('static.register-author'), ['class' => 'btn btn-link']) !!}
                 {!! HTML::link(route('department::auth::register', [$department->keyword, 'reviewer' => 1]), trans('static.register-reviewer'), ['class' => 'btn btn-link']) !!}
             </div>

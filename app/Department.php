@@ -54,4 +54,9 @@ class Department extends ConferenceBaseModel
     {
         return $this->hasMany('App\Archive');
     }
+
+    public function templates()
+    {
+        return $this->hasMany('App\EmailTemplate');
+    }
 }

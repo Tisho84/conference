@@ -90,6 +90,9 @@
                         @if (systemAccess(11))
                             <li>{!! HTML::link(action('Admin\ArchiveController@index'), trans('static.archive')) !!}</li>
                         @endif
+                        @if (systemAccess(3))
+                            <li>{!! HTML::link(action('Admin\EmailTemplateController@index'), trans('static.templates')) !!}</li>
+                        @endif
                         @if (systemAccess(8))
                             <li>{!! HTML::link(action('Admin\SettingsController@display'), trans('static.settings')) !!}</li>
                         @endif

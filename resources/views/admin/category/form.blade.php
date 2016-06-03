@@ -1,7 +1,7 @@
 <div class="panel-body">
     @include('layouts.partials.messages.errors')
-    <div class="mt text-center">
-        <label>{{ trans($title) }}</label>
+    <div class="centered text-center">
+        <h3>{{ trans($title) }}</h3>
     </div>
     @if ($systemAdmin)
         <div class="form-group">
