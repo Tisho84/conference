@@ -92,10 +92,12 @@
                         @endif
                         @if (systemAccess(3))
                             <li>{!! HTML::link(action('Admin\EmailTemplateController@index'), trans('static.templates')) !!}</li>
+                            <li>{!! HTML::link(action('Admin\EmailTemplateController@getEmail'), trans('static.send-email')) !!}</li>
                         @endif
                         @if (systemAccess(8))
                             <li>{!! HTML::link(action('Admin\SettingsController@display'), trans('static.settings')) !!}</li>
                         @endif
+
                     </ul>
                 </div>
                 <!-- /.navbar-collapse -->

@@ -31,7 +31,7 @@ class SettingsController extends ConferenceBaseController
         foreach ($settingsDB as $setting) {
             $settingsRecords[$setting['department_id']][$setting['key']] = $setting['value'];
         }
-//dd($settingsRecords);
+
         $departmentId = null;
         if (systemAccess(100)) {
             if (session('department_filter_id')) {

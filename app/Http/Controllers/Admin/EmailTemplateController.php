@@ -4,11 +4,15 @@ namespace App\Http\Controllers\Admin;
 
 use App\Classes\Template;
 use App\EmailTemplate;
+use App\UserType;
+use App\User;
+use Illuminate\Contracts\Mail\Mailer;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\ConferenceBaseController;
+use Illuminate\Support\Facades\Mail;
 
 class EmailTemplateController extends ConferenceBaseController
 {
@@ -23,7 +27,6 @@ class EmailTemplateController extends ConferenceBaseController
             $this->systemAdmin = true;
         }
         $temp = new Template();
-//        dd($temp->parser('dasa[link], [aa2a], sdadasdda a [name],  ad as ,[name2]', ['name2' => 'Tihomir Kamenov']));
         view()->share(['systemAdmin' => $this->systemAdmin, 'text' => $temp->getParams()]);
 
     }
@@ -83,7 +86,7 @@ class EmailTemplateController extends ConferenceBaseController
             $departmentId = $request->get('department_id');
         }
 
-        EmailTemplate::create($request->all() + ['department_id' => $departmentId]);
+        EmailTemplate::create(['department_id' => $departmentId] + $request->all());
         return redirect()->action('Admin\EmailTemplateController@index')->with('success', 'saved');
     }
 
@@ -115,7 +118,7 @@ class EmailTemplateController extends ConferenceBaseController
             $departmentId = $request->get('department_id');
         }
 
-        $template->update($request->all() + ['department_id' => $departmentId]);
+        $template->update(['department_id' => $departmentId] + $request->all());
         return redirect()->action('Admin\EmailTemplateController@index')->with('success', 'updated');
     }
 
@@ -129,5 +132,76 @@ class EmailTemplateController extends ConferenceBaseController
     {
         $template->delete();
         return redirect()->action('Admin\EmailTemplateController@index')->with('success', 'deleted');
+    }
+
+    public function getEmail()
+    {
+        $departmentId = null;
+        if ($this->systemAdmin) {
+            if (session('department_filter_id')) {
+                $departmentId = session('department_filter_id');
+            }
+        } else {
+            $departmentId = auth()->user()->department_id;
+        }
+
+        $users = $templates = [];
+        if ($departmentId) {
+            $users = simpleSelect(User::where('department_id', $departmentId)->get());
+            $templates = simpleSelect(EmailTemplate::where('department_id', $departmentId)->where('system', 0)->get(), true);
+        }
+
+        return view('admin.template.email', [
+            'departments' => getNomenclatureSelect($this->getDepartmentsAdmin(), true),
+            'user_types'  => simpleSelect(UserType::active()->get(), true, 'title'),
+            'users'       => $users,
+            'templates'   => $templates,
+        ]);
+    }
+
+    public function postEmail(Request $request, Mailer $mailer)
+    {
+        $this->validate($request, [
+            'template_id' => 'required|exists:email_template,id',
+        ]);
+
+
+        $departmentId = auth()->user()->department_id;
+        if ($request->get('department_id')) {
+            $departmentId = $request->get('department_id');
+        }
+
+        $users = [];
+        if ($request->get('user_type')) {
+            $users = array_merge(User::where('department_id', $departmentId)->where('user_type_id', $request->get('user_type'))->get()->toArray());
+        }
+
+        if ($request->get('users')) {
+            $users = array_merge($users, User::whereIn('id', $request->get('users'))->get()->toArray());
+        }
+
+
+        $emailTemplate = EmailTemplate::find($request->get('template_id'));
+
+        if (strpos($emailTemplate->body, '[name]')) {
+            $template = new Template();
+            foreach ($users as $user) {
+                $body = $template->parser($emailTemplate->body, ['name' => $user['name']]);
+
+                $mailer->send('layouts.partials.email', ['body' => $body], function ($message) use ($emailTemplate, $user) {
+                    $message->subject($emailTemplate->subject);
+                    $message->to($user['email']);
+                });
+            }
+        } else {
+            $emails = array_column($users, 'email');
+            $emails = array_unique($emails);
+            $mailer->send('layouts.partials.email', ['body' => $emailTemplate->body], function ($message) use ($emailTemplate, $emails) {
+                $message->subject($emailTemplate->subject);
+                $message->bcc($emails);
+            });
+        }
+
+        return redirect()->action('Admin\EmailTemplateController@getEmail')->with('success', 'emails-send');
     }
 }

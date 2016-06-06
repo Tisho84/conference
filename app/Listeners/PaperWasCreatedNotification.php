@@ -41,20 +41,19 @@ class PaperWasCreatedNotification
 
             if (count($users)) {
                 $emailTemplate = EmailTemplate::findOrFail($settings->value);
-                foreach ($users as $user) {
-                    $body = $template->parser($emailTemplate->body, [
-                        'author_name' => $event->paper->user->name,
-                        'admin_name' => $user->name,
-                        'time' => $event->paper->updated_at,
-                        'operation' => $event->operation,
-                        'link' => action('Admin\PaperController@show', [$event->paper->id])
-                    ]);
+                $emails = $users->pluck('email')->toArray();
 
-                    $this->mailer->send('layouts.partials.email', ['body' => $body], function ($message) use ($emailTemplate, $user) {
-                        $message->subject($emailTemplate->subject);
-                        $message->to($user->email);
-                    });
-                }
+                $body = $template->parser($emailTemplate->body, [
+                    'author_name' => $event->paper->user->name,
+                    'time' => $event->paper->updated_at,
+                    'operation' => $event->operation,
+                    'link' => action('Admin\PaperController@show', [$event->paper->id])
+                ]);
+
+                $this->mailer->send('layouts.partials.email', ['body' => $body], function ($message) use ($emailTemplate, $emails) {
+                    $message->subject($emailTemplate->subject);
+                    $message->bcc($emails);
+                });
             }
         }
     }

@@ -257,6 +257,7 @@ class PaperController extends ConferenceBaseController
                 $this->paper->upload($paperData['payment_source']);
             }
             $paper->update($paperData);
+            event(new PaperWasUpdated($paper));
 
             return redirect()->action('PaperController@index', [$department->keyword])->with('success', 'saved');
         }

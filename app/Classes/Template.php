@@ -63,7 +63,16 @@ class Template
                 'bg' => 'Информиране на потребител при промяна и качване на доклад',
             ],
             'params' => [
-                '[author_name]', '[admin_name]', '[time]', '[link]', '[operation]',
+                '[author_name]', '[time]', '[link]', '[operation]',
+            ]
+        ],
+        7 => [
+            'langs' => [
+                'en' => 'Non system template (if name param used emails are send one by one)',
+                'bg' => 'Имейл темплейт за група от потребители (ако е изпозлван параметъра за име имейлите се изпращат един по един)',
+            ],
+            'params' => [
+                '[name]',
             ]
         ],
     ];

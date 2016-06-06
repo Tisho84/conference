@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Department;
+use App\EmailTemplate;
 use App\User;
 use Illuminate\Http\Request;
 
@@ -60,5 +61,32 @@ class APIController extends ConferenceBaseController
     {
         session()->set('department_filter_id', (int)request()->get('department_filter_id'));
         return redirect()->back();
+    }
+
+    public function templates()
+    {
+        $records = $templates = [];
+        $records[] = ['' => trans('static.select')];
+        if (request()->has('department_id')) {
+            $templates = EmailTemplate::where('department_id', request()->get('department_id'))->where('system', 0)->get();
+        }
+
+        foreach ($templates as $template) {
+            $records[] = [$template->id => $template->name];
+        }
+        return $records;
+    }
+
+    public function users()
+    {
+        $records = $users = [];
+        if (request()->has('department_id')) {
+            $users = User::where('department_id', request()->get('department_id'))->get();
+        }
+
+        foreach ($users as $user) {
+            $records[] = [$user->id => $user->name];
+        }
+        return $records;
     }
 }

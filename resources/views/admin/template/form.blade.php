@@ -19,16 +19,16 @@
         {!! Form::text('subject', null, ['class' => 'form-control', 'id' => 'subject', 'placeholder' => trans('static.subject')]) !!}
     </div>
     <div class="form-group">
+        <label for="system">{{ trans('static.system-template') }}</label>
+        {!! Form::select('system', selectBoolean(), null, ['class' => 'form-control']) !!}
+    </div>
+    <div class="form-group">
         <label>{{ trans('static.available-params') . ':' }}</label>
         <div>{!! $text !!}</div>
     </div>
     <div class="form-group">
         <label for="body">{{ trans('static.body') }}<span class="glyphicon glyphicon-asterisk" aria-hidden="true"></span></label>
         {!! Form::textarea("body", null, ['class' => 'form-control', 'id' => 'body', 'placeholder' => trans('static.body')]) !!}
-    </div>
-    <div class="form-group">
-        <label for="system">{{ trans('static.system-template') }}</label>
-        {!! Form::select('system', selectBoolean(), null, ['class' => 'form-control']) !!}
     </div>
     @include('layouts.partials.button', ['button' => trans('static.save') ])
 </div>

@@ -22,6 +22,8 @@ Route::group([
         get('reviewers', ['as' => 'category_reviewers', 'uses' => 'APIController@reviewers']);
         get('authors', ['as' => 'department_authors', 'uses' => 'APIController@authors']);
         get('filter', ['as' => 'department_filter', 'uses' => 'APIController@filter']);
+        get('templates', ['as' => 'department_templates', 'uses' => 'APIController@templates']);
+        get('users', ['as' => 'department_users', 'uses' => 'APIController@users']);
     });
     /** ADD ALL LOCALIZED ROUTES INSIDE THIS GROUP **/
     get('/', ['as' => 'home-index', 'uses' => 'HomeController@index']);
@@ -45,6 +47,8 @@ Route::group([
         get('settings', 'SettingsController@display');
         post('settings', 'SettingsController@save');
         resource('templates', 'EmailTemplateController');
+        get('email', 'EmailTemplateController@getEmail');
+        post('email', 'EmailTemplateController@postEmail');
     });
 
     Route::group(['prefix' => '{department}', 'as' => 'department::', 'middleware' => ['department', 'userFromDepartment']], function () {
