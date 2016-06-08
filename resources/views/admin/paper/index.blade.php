@@ -40,6 +40,9 @@
                         @if (($paper->reviewer_id && systemAccess(2)) || systemAccess(10))
                             <a href="{{ action('Admin\PaperController@getEvaluate', [$paper->id])}}" class="btn btn-xs btn-primary">{{ trans('admin.evaluate') }}</a>
                         @endif
+                        @if (count($paper->requests))
+                            <a href="{{ action('Admin\UsersController@index', ['paper_id' => $paper->id])}}" class="btn btn-xs btn-primary">{{ trans('static.reviewers') }}</a>
+                        @endif
                     {!! Form::close() !!}
                 </td>
             </tr>

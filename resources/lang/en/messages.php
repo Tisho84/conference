@@ -25,5 +25,7 @@ return [
     'no-template' => 'Email template not set',
     'email-send' => 'Email with link for reset password send',
     'password-changed' => 'Your password has been reset!',
-    'emails-send' => 'Emails are sent successfully'
+    'emails-send' => 'Emails are sent successfully',
+    'reviewer-set' => 'Reviewer set successfully',
+    'request-send' => 'Request for reviewer send',
 ];

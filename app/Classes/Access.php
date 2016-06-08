@@ -47,6 +47,10 @@ class Access extends Language implements ILanguage
             'en' => 'Email notifications',
             'bg' => 'Имейл известия',
         ],
+        13 => [
+            'en' => 'Reviewer requests',
+            'bg' => 'Заявки за рецензент',
+        ],
 
         9 => [
             'en' => 'Admin panel',

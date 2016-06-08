@@ -2,7 +2,9 @@
 
 @section('inner-content')
     <div class="panel-heading">
-        @if (auth()->user()->is_reviewer)
+        @if (request()->get('requests'))
+            {{ trans('static.papers-for-review') }}
+        @elseif (auth()->user()->is_reviewer)
             {{ trans('static.reviewed-papers') }}
         @else
             {{ trans('static.uploaded-papers') }}
@@ -10,6 +12,13 @@
 
         @if (systemAccess(1))
             <a href="{{ action('PaperController@create', [$department->keyword]) }}" class="btn btn-primary btn-xs pull-right">{{ trans('static.add-paper') }}</a>
+        @endif
+        @if (systemAccess(13))
+            @if (request()->get('requests'))
+                <a href="{{ action('PaperController@index', [$department->keyword])}}" class="btn btn-xs btn-primary pull-right">{{ trans('static.reviewed-papers') }}</a>
+            @else
+                <a href="{{ action('PaperController@index', [$department->keyword, 'requests' => 1]) }}" class="btn btn-primary btn-xs pull-right">{{ trans('static.all-papers') }}</a>
+            @endif
         @endif
     </div>
 
@@ -34,7 +43,11 @@
                         <td class="col-md-1">{{ $statuses[$paper->status_id] ? : '' }}</td>
                         <td class="col-md-3">
                             {!! Form::open(['url' => action('PaperController@destroy', [$department->keyword, $paper->id]), 'method' => 'delete']) !!}
+                                @if (request()->get('requests'))
+                                    <a href="{{ action('PaperController@show', [$department->keyword, $paper->id, 'requests' => 1])}}" class="btn btn-xs btn-primary">{{ trans('static.preview') }}</a>
+                                @else
                                 <a href="{{ action('PaperController@show', [$department->keyword, $paper->id])}}" class="btn btn-xs btn-primary">{{ trans('static.preview') }}</a>
+                                @endif
                                 @if ($paper->isAuthor())
                                     @if ($paper->canInvoice())
                                         <a href="{{ action('PaperController@getInvoice', [$department->keyword, $paper->id])}}" class="btn btn-xs btn-primary">{{ trans('static.invoice') }}</a>

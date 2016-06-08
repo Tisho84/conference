@@ -46,6 +46,11 @@ class Paper extends ConferenceBaseModel
         return $this->belongsToMany('App\Criteria', 'criteria_paper', 'paper_id', 'criteria_id')->withPivot('value');
     }
 
+    public function requests()
+    {
+        return $this->belongsToMany('App\User', 'paper_reviewer_request', 'paper_id', 'user_id');
+    }
+
     public function getReviewedAtAttribute($date)
     {
         if ($date) {

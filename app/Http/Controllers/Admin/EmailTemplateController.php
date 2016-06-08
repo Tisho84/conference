@@ -180,7 +180,6 @@ class EmailTemplateController extends ConferenceBaseController
             $users = array_merge($users, User::whereIn('id', $request->get('users'))->get()->toArray());
         }
 
-
         $emailTemplate = EmailTemplate::find($request->get('template_id'));
 
         if (strpos($emailTemplate->body, '[name]')) {

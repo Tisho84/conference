@@ -58,7 +58,7 @@ class PaperController extends ConferenceBaseController
      */
     public function index()
     {
-        $papers = Paper::with('reviewer', 'user');
+        $papers = Paper::with('reviewer', 'user', 'requests');
         if (!$this->systemAdmin) {
             $papers->where('department_id', auth()->user()->department_id);
         }

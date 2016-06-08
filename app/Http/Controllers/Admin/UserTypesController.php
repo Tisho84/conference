@@ -95,10 +95,6 @@ class UserTypesController extends ConferenceBaseController
      */
     public function edit(UserType $type)
     {
-        if ($type->is_default) {
-            return redirect()->back()->with('error', 'is-default');
-        }
-
         return view('admin.user_type.edit', [
             'type' => $type,
             'selectedAccess' => $type->access->lists('access_id')->toArray(),
@@ -115,10 +111,6 @@ class UserTypesController extends ConferenceBaseController
      */
     public function update(Requests\UserTypeRequest $request, UserType $type)
     {
-        if ($type->is_default) {
-            return redirect()->back()->with('error', 'is-default');
-        }
-
         DB::transaction(function () use ($request, $type) {
             $type->update($request->except('access'));
             $type->access()->delete();

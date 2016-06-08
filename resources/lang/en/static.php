@@ -116,5 +116,10 @@ return [
     'send-email' => 'Send email',
     'send' => 'Send',
     'password-title' => 'Enter email address',
-    'password-reset' => 'Enter email address and new password'
+    'password-reset' => 'Enter email address and new password',
+    'reviewers' => 'Reviewers',
+    'set-reviewer' => 'Set reviewer',
+    'all-papers' => 'All papers',
+    'reviewer-request' => 'Reviewer request',
+    'papers-for-review' => 'Available papers for review'
 ];

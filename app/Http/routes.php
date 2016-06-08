@@ -34,6 +34,7 @@ Route::group([
         get('/home', ['as' => 'admin-home', 'uses' => '\App\Http\Controllers\HomeController@admin']);
         resource('departments', 'DepartmentController');
         resource('users', 'UsersController');
+        get('users/{user_id}/papers/{paper_id}', 'UsersController@paper');
         resource('news', 'NewsController');
         resource('types', 'UserTypesController');
         resource('categories', 'CategoryController');
@@ -80,6 +81,7 @@ Route::group([
             resource('papers', 'PaperController');
             get('papers/{id}/invoice', ['as' => 'invoice', 'uses' => 'PaperController@getInvoice']);
             post('papers/{id}/invoice', ['as' => 'invoice', 'uses' => 'PaperController@postInvoice']);
+            post('papers/{id}', 'PaperController@request');
 
             get('papers/{id}/evaluate', ['as' => 'evaluate', 'uses' => 'PaperController@getEvaluate']);
             post('papers/{id}/evaluate', ['as' => 'evaluate', 'uses' => 'PaperController@postEvaluate']);

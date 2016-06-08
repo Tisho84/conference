@@ -4,7 +4,9 @@ namespace App\Http\Controllers\Admin;
 
 use App\Classes\Country;
 use App\Classes\Rank;
+use App\Events\ReviewerPaperSet;
 use App\Http\Controllers\ConferenceBaseController;
+use App\Paper;
 use App\User;
 use Doctrine\DBAL\Query\QueryException;
 use Illuminate\Http\Request;
@@ -41,12 +43,19 @@ class UsersController extends ConferenceBaseController
     {
         $users = User::with('type.access');
         if (!$this->systemAdmin) {
-            $users = $users->where('department_id', auth()->user()->department_id);
+            $users->where('department_id', auth()->user()->department_id);
         }
 
         if (session('department_filter_id')) {
-            $users = $users->where('department_id', session('department_filter_id'));
+            $users->where('department_id', session('department_filter_id'));
         }
+
+        if (request()->get('paper_id')) {
+            $users->whereHas('requests', function($query) {
+                $query->where('paper_id', request()->get('paper_id'));
+            });
+        }
+
         $users = $users->get();
 
         return view('admin.user.index', [
@@ -182,5 +191,23 @@ class UsersController extends ConferenceBaseController
             return redirect()->back()->with('error', 'error-user-paper');
         }
         return redirect()->action('Admin\UsersController@index')->with('success', 'deleted');
+    }
+
+    public function paper($user, $paper)
+    {
+        $user = User::findOrFail($user);
+        $paper = Paper::findOrFail($paper);
+        if (count($user->requests()->where('paper_id', $paper->id)->get())) {
+            $data = ['reviewer_id' => $user->id];
+            if ($paper->status_id < 2) {
+                $data['status_id'] = 2;
+            }
+            $paper->update($data);
+            event(new ReviewerPaperSet($paper));
+
+            return redirect()->action('Admin\PaperController@index')->with('success', 'reviewer-set');
+        }
+
+        return redirect()->action('Admin\UsersController@index')->with('error', 'access-denied');
     }
 }

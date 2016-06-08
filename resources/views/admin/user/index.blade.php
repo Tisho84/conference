@@ -32,6 +32,9 @@
                 <td>{{ boolString($user->active) }}</td>
                 <td>
                     {!! Form::open(['url' => action('Admin\UsersController@destroy', [$user->id]), 'method' => 'delete']) !!}
+                        @if (request()->get('paper_id'))
+                            <a href="{{ action('Admin\UsersController@paper', [$user->id, request()->get('paper_id')]) }}" class="btn btn-primary btn-xs">{{ trans('static.select') }}</a>
+                        @endif
                         @if (systemAccess(1, $user))
                             <a href="{{ action('Admin\PaperController@index', ['user_id' => $user->id])}}" class="btn btn-xs btn-primary">{{ trans('static.menu-papers') }}</a>
                         @endif

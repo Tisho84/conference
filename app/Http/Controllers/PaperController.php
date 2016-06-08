@@ -43,12 +43,20 @@ class PaperController extends ConferenceBaseController
      */
     public function index()
     {
-        $papers = Paper::where('department_id', $this->department->id)
-            ->where(function($query){
+        $papers = Paper::where('department_id', $this->department->id);
+        if (request()->get('requests')) {
+            $requests = auth()->user()->requests->pluck('id');
+            $papers->where('reviewer_id', null)
+                ->whereNotIn('id', $requests)
+                ->where('status_id', 1); #available papers
+        } else {
+            $papers->where(function($query){
                 $query->where('user_id', auth()->user()->id)
                     ->orWhere('reviewer_id', auth()->user()->id);
-            })
-            ->archived()
+            });
+        }
+
+        $papers = $papers->archived()
             ->orderBy('created_at')
             ->get();
         return view('conference.papers.index', ['papers' => $papers]);
@@ -116,7 +124,7 @@ class PaperController extends ConferenceBaseController
      */
     public function show(Department $department, Paper $paper)
     {
-        if ($paper->isAuthor() || $paper->isReviewer()) {
+        if ($paper->isAuthor() || $paper->isReviewer() || systemAccess(13)) {
             $paper->load([
                 'criteria.langs' => function($query) { $query->lang(); },
                 'criteria.options.langs' => function($query) { $query->lang(); },
@@ -344,5 +352,17 @@ class PaperController extends ConferenceBaseController
 
         });
         return redirect()->action('PaperController@index', [$department->keyword])->with('success', 'paper-evaluated');
+    }
+
+    public function request(Department $department, $paper)
+    {
+        if (!systemAccess(13)) {
+            return redirect()->action('PaperController@index', [$department->keyword])->with('error', 'access-denied');
+        }
+
+        $paper = Paper::findOrFail($paper);
+        $paper->requests()->attach(auth()->user()->id);
+
+        return redirect()->action('PaperController@index', [$department->keyword])->with('success', 'request-send');
     }
 }

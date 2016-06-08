@@ -3,10 +3,10 @@
 @section('inner-content')
     <div class="panel-heading">{{ trans('static.preview-paper') }}</div>
     <div class="panel-body">
-        <form class="form-horizontal">
+        <div class="form-horizontal">
             <div class="form-group">
                 <label class="col-sm-3 control-label">{{ trans('static.category')}}:</label>
-                <div class="col-sm-9"><label class="control-label-right">{{ $categories[$paper->category_id] }}</label></div>
+                <div class="col-sm-9"><label class="control-label-right">{{ isset($categories[$paper->category_id]) ? $categories[$paper->category_id] : '' }}</label></div>
             </div>
             <div class="form-group">
                 <label class="col-sm-3 control-label">{{ trans('static.title')}}:</label>
@@ -22,7 +22,7 @@
             </div>
             <div class="form-group">
                 <label class="col-sm-3 control-label">{{ trans('static.status')}}:</label>
-                <div class="col-sm-9"><label class="control-label-right">{{ $statuses[$paper->status_id] }}</label></div>
+                <div class="col-sm-9"><label class="control-label-right">{{ isset($statuses[$paper->status_id]) ? $statuses[$paper->status_id] : '' }}</label></div>
             </div>
             <div class="form-group">
                 <label class="col-sm-3 control-label">{{ trans('static.created-at')}}:</label>
@@ -63,10 +63,14 @@
             @endif
             <div class="form-group">
                 <div class="text-center">
-                    @include('layouts.partials.back')
+                    {!! Form::open(['method' => 'post', 'url' => action('PaperController@request', [$department->keyword, $paper->id])], ['class' => 'form-horizontal']) !!}
+                        @include('layouts.partials.back')
+                        @if (systemAccess(13) && request()->get('requests'))
+                            <button type="submit" class="btn btn-theme">{{ trans('static.reviewer-request') }}</button>
+                        @endif
+                    {!! Form::close() !!}
                 </div>
             </div>
-
-        </form>
+        </div>
     </div>
 @endsection
