@@ -43,25 +43,10 @@
                     @endif
 
                     @include('layouts.partials.language_dropdown')
-                    {{--<li class="dropdown">--}}
-                        {{--<a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-bell"></i> <b class="caret"></b>--}}
-                        {{--</a>--}}
-                        {{--<ul class="dropdown-menu alert-dropdown">--}}
-                            {{--<li>--}}
-                                {{--<a href="#">Alert Name <span class="label label-default">Alert Badge</span></a>--}}
-                            {{--</li>--}}
-                            {{--<li class="divider"></li>--}}
-                            {{--<li>--}}
-                                {{--<a href="#">View All</a>--}}
-                            {{--</li>--}}
-                        {{--</ul>--}}
-                    {{--</li>--}}
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i> {{ auth()->user()->name }} <b class="caret"></b></a>
                         <ul class="dropdown-menu">
-                            <li>
-                                <a href="#"><i class="fa fa-fw fa-power-off"></i>{!! trans('static.menu-logout') !!}</a>
-                            </li>
+                            <li><a href="{{ route('logout') }}">{!! trans('static.menu-logout') !!}</a></li>
                         </ul>
                     </li>
                 </ul>

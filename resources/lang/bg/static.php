@@ -120,5 +120,6 @@ return [
     'reviewers' => 'Рецензенти',
     'all-papers' => 'Всички доклади',
     'reviewer-request' => 'Заяви рецензент',
-    'papers-for-review' => 'Налични доклади за оценка'
+    'papers-for-review' => 'Налични доклади за оценка',
+    'to-page' => 'Към страницата'
 ];

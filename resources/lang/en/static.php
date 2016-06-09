@@ -121,5 +121,6 @@ return [
     'set-reviewer' => 'Set reviewer',
     'all-papers' => 'All papers',
     'reviewer-request' => 'Reviewer request',
-    'papers-for-review' => 'Available papers for review'
+    'papers-for-review' => 'Available papers for review',
+    'to-page' => 'To page'
 ];

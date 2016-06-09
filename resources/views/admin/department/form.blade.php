@@ -8,7 +8,7 @@
         {!! Form::text("keyword", null, ['class' => 'form-control', 'id' => 'keyword', 'placeholder' => trans('admin.keyword')]) !!}
     </div>
     <div class="form-group">
-        <label for="url">{{ trans('admin.url') }}<span class="glyphicon glyphicon-asterisk" aria-hidden="true"></span></label>
+        <label for="url">{{ trans('admin.url') }}</label>
         {!! Form::text("url", null, ['class' => 'form-control', 'id' => 'url', 'placeholder' => trans('admin.url')]) !!}
     </div>
     <div class="form-group">

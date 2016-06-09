@@ -121,3 +121,14 @@
     function buildPaperLink(App\Paper $paper) {
         return action('PaperController@show', [$paper->department->keyword, $paper->id]);
     }
+
+    /*
+     * setActive for active link
+     */
+    function setActive($path) {
+        $prefix = LaravelLocalization::setLocale() . '/' . request()->segment(2);
+        if (request()->is($prefix . $path) || request()->is($prefix . $path . '/*')) {
+            return "class=active";
+        }
+        return '';
+    }

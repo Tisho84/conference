@@ -83,7 +83,13 @@ class ArchiveController extends ConferenceBaseController
      */
     public function store(Request $request)
     {
-        $rules = ['name' => 'required|unique:archive,name|regex:' . config('app.expressions.dir')];
+        $rules = [
+            'name' => [
+                'required',
+                'unique:archive,name',
+                'regex:' . config('app.expressions.dir')
+            ]
+        ];
         if ($this->systemAdmin) {
             $rules['department_id'] = 'required';
         }

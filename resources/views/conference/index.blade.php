@@ -42,7 +42,7 @@
                     @foreach ($departments as $k => $department)
                         <div class="col-lg-6">
                             <p class="department-name">{!! $department->dbLangs->get(dbTrans())->name !!}</p>
-                            <a href="{{ getLangUrl($department->keyword)  }}">
+                            <a href="{{ route('department::index', [$department->keyword])  }}">
                                 {!! HTML::image(asset('images/' . $department->image), $department->dbLangs->get(dbTrans())->name, ['class' => 'img-responsive']) !!}
                             </a>
                         </div>

@@ -7,11 +7,7 @@
             @include('layouts.partials.messages.errors')
             @include('auth.personal_form')
             @if (!isset($disabled) || (isset($disabled) && !$disabled))
-                <div class="form-group">
-                    <div class="text-center">
-                        <button type="submit" class="btn btn-theme">{{ trans('static.save') }}</button>
-                    </div>
-                </div>
+                @include('layouts.partials.button', ['button' => trans('static.save') ])
             @endif
         </div>
     {!! Form::close() !!}

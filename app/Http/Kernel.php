@@ -40,5 +40,6 @@ class Kernel extends HttpKernel
         'systemAccess' => \App\Http\Middleware\SystemAdminAccess::class,
         'adminDepartmentObject' => \App\Http\Middleware\AdminDepartmentObject::class,
         'paperArchive' => \App\Http\Middleware\PaperArchive::class,
+        'lockPaper' => \App\Http\Middleware\LockPaper::class,
     ];
 }

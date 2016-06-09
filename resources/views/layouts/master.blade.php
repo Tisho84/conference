@@ -37,13 +37,13 @@
 
                         <!-- Collect the nav links, forms, and other content for toggling -->
                         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                            <ul class="nav navbar-nav">
+                            <ul class="nav navbar-nav" id="nav">
                                 @if (count(Cache::get('departments')) > 1)
                                     <li class="li-glyphicon">
                                         <a href="{{ getLangUrl() }}"><span class="glyphicon glyphicon-menu-left" aria-hidden="true"></span></a>
                                     </li>
                                 @endif
-                                <li><a href="{{ getLangUrl($department->keyword) }}">{{ trans('static.menu-home') }}</a></li>
+                                    <li {{ setActive('/news') }}>{!! HTML::link(route('department::index', [$department->keyword]), trans('static.menu-home')) !!}</li>
                                 @if (Auth::guest())
                                     @include('layouts.partials.menu_guest')
                                 @else

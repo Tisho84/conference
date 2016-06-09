@@ -47,7 +47,7 @@ class HomeController extends ConferenceBaseController
     {
         $department = $this->getDepartment();
         $number = $department->settings()->key('news_pages');
-        $number = $number ? $number->value : 5;
+        $number = isset($number->value) ? $number->value : 5;
         $news = $department->news()->with([
             'langs' => function($query) { $query->lang(); }
         ])->active()->sort()->paginate($number);
@@ -57,7 +57,11 @@ class HomeController extends ConferenceBaseController
 
     public function getLogin()
     {
-        return view('admin.auth.login');
+        if (Auth::guest()) {
+            return view('admin.auth.login');
+        }
+
+        return $this->admin();
     }
 
     public function postLogin()
@@ -99,5 +103,11 @@ class HomeController extends ConferenceBaseController
     public function admin()
     {
         return view('admin.master');
+    }
+
+    public function logout()
+    {
+        auth()->logout();
+        return redirect()->route('admin-home')->with('success', 'logout');
     }
 }

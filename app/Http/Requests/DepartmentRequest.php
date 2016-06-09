@@ -27,8 +27,12 @@ class DepartmentRequest extends Request
     {
         $imageMax = 500;
         $rules = [
-            'keyword' => 'required|max:6|unique:department,keyword|regex:' . config('app.expressions.dir'),
-            'url'     => 'required',
+            'keyword' => [
+                1 => 'required',
+                2 => 'max:6',
+                3 => 'unique:department,keyword',
+                4 => 'regex:'. (config('app.expressions.dir'))
+            ],
             'image'   => 'required|image|max:' . $imageMax,
             'theme_background_color' => 'required',
             'theme_color' => 'required',
@@ -43,7 +47,7 @@ class DepartmentRequest extends Request
 
         $id = $this->request->get('id');
         if ($id) { #update request
-            $rules['keyword'] .= ',' . $id;
+            $rules['keyword'][3] .= ',' . $id;
             if (!$this->request->get('image')) {
                 $rules['image'] = '';
             }

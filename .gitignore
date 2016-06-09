@@ -1,6 +1,7 @@
 /vendor
 /node_modules
 /public/papers
+/public/images/
 /public/papers/
 /public/archive/
 Homestead.yaml

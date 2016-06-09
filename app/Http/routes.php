@@ -30,6 +30,7 @@ Route::group([
     /** ---------- ADMIN ROUTES ---------- */
     get('/admin/', ['as' => 'admin-index', 'uses' => 'HomeController@getLogin']);
     post('/admin', ['uses' => 'HomeController@postLogin']);
+    get('logout', ['as' => 'logout', 'uses' => 'HomeController@logout']);
     Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'middleware' => ['admin']], function () {
         get('/home', ['as' => 'admin-home', 'uses' => '\App\Http\Controllers\HomeController@admin']);
         resource('departments', 'DepartmentController');
@@ -53,7 +54,8 @@ Route::group([
     });
 
     Route::group(['prefix' => '{department}', 'as' => 'department::', 'middleware' => ['department', 'userFromDepartment']], function () {
-        get('/', ['as' => 'index', 'uses' => 'HomeController@news']);
+        get('/', 'HomeController@news');
+        get('/news', ['as' => 'index', 'uses' => 'HomeController@news']);
 
         Route::group(['prefix' => 'auth', 'as' => 'auth::', 'middleware' => ['guest']], function () {
             /** Authentication routes **/

@@ -9,7 +9,11 @@
         color: {!! $department->theme_color  !!} !important;
     }
 
-    .department .navbar li.active a {
+    .department .navbar li.open > a {
+        color: {!! $department->theme_background_color !!} !important;
+    }
+
+    .department .navbar li:not(.open).active a {
         color: {!! $department->theme_background_color !!} !important;
     }
 
@@ -17,11 +21,15 @@
         border-color: {!! $department->theme_background_color  !!} !important;
     }
 
-    .department .navbar-default .navbar-nav > .open > a,
-    .department .navbar-default .navbar-nav > .open > a:hover,
-    .department .navbar-default .navbar-nav > .open > a:focus,
+    .department .navbar-default .navbar-nav > li.open:not(.active) > a,
+    .department .navbar-default .navbar-nav > li.open:not(.active) > a:hover,
+    .department .navbar-default .navbar-nav > li.open:not(.active) > a:focus,
     .department .navbar-default .dropdown-menu {
         background-color: {!! $department->theme_background_color  !!};
+    }
+
+    .department .navbar li.open:not(.active) > a {
+        color: {!! $department->theme_color !!} !important;
     }
 
     .department .dropdown-menu > li > a:hover,

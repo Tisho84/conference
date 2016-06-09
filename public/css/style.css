@@ -319,3 +319,11 @@ span.glyphicon-asterisk {
     outline: 0;
     background-color: #000000;
 }
+
+#sub-header ul li:hover,
+body.home li.home,
+body.contact li.contact { background-color: #000;}
+
+#sub-header ul li:hover a,
+body.home li.home a,
+body.contact li.contact a { color: #fff; }

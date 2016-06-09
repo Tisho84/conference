@@ -11,13 +11,13 @@
         @endif
 
         @if (systemAccess(1))
-            <a href="{{ action('PaperController@create', [$department->keyword]) }}" class="btn btn-primary btn-xs pull-right">{{ trans('static.add-paper') }}</a>
+            <a href="{{ action('PaperController@create', [$department->keyword]) }}" class="btn btn-theme btn-xs pull-right">{{ trans('static.add-paper') }}</a>
         @endif
         @if (systemAccess(13))
             @if (request()->get('requests'))
-                <a href="{{ action('PaperController@index', [$department->keyword])}}" class="btn btn-xs btn-primary pull-right">{{ trans('static.reviewed-papers') }}</a>
+                <a href="{{ action('PaperController@index', [$department->keyword])}}" class="btn btn-xs btn-theme pull-right">{{ trans('static.reviewed-papers') }}</a>
             @else
-                <a href="{{ action('PaperController@index', [$department->keyword, 'requests' => 1]) }}" class="btn btn-primary btn-xs pull-right">{{ trans('static.all-papers') }}</a>
+                <a href="{{ action('PaperController@index', [$department->keyword, 'requests' => 1]) }}" class="btn btn-theme btn-xs pull-right">{{ trans('static.all-papers') }}</a>
             @endif
         @endif
     </div>
@@ -44,21 +44,21 @@
                         <td class="col-md-3">
                             {!! Form::open(['url' => action('PaperController@destroy', [$department->keyword, $paper->id]), 'method' => 'delete']) !!}
                                 @if (request()->get('requests'))
-                                    <a href="{{ action('PaperController@show', [$department->keyword, $paper->id, 'requests' => 1])}}" class="btn btn-xs btn-primary">{{ trans('static.preview') }}</a>
+                                    <a href="{{ action('PaperController@show', [$department->keyword, $paper->id, 'requests' => 1])}}" class="btn btn-xs btn-theme">{{ trans('static.preview') }}</a>
                                 @else
-                                <a href="{{ action('PaperController@show', [$department->keyword, $paper->id])}}" class="btn btn-xs btn-primary">{{ trans('static.preview') }}</a>
+                                <a href="{{ action('PaperController@show', [$department->keyword, $paper->id])}}" class="btn btn-xs btn-theme">{{ trans('static.preview') }}</a>
                                 @endif
                                 @if ($paper->isAuthor())
                                     @if ($paper->canInvoice())
-                                        <a href="{{ action('PaperController@getInvoice', [$department->keyword, $paper->id])}}" class="btn btn-xs btn-primary">{{ trans('static.invoice') }}</a>
+                                        <a href="{{ action('PaperController@getInvoice', [$department->keyword, $paper->id])}}" class="btn btn-xs btn-theme">{{ trans('static.invoice') }}</a>
                                     @endif
                                     @if ($paper->canEdit())
-                                        <a href="{{ action('PaperController@edit', [$department->keyword, $paper->id])}}" class="btn btn-xs btn-primary">{{ trans('static.edit') }}</a>
-                                        {!! Form::submit(trans('static.delete'), ['class' => 'btn btn-primary btn-xs']) !!}
+                                        <a href="{{ action('PaperController@edit', [$department->keyword, $paper->id])}}" class="btn btn-xs btn-theme">{{ trans('static.edit') }}</a>
+                                        {!! Form::submit(trans('static.delete'), ['class' => 'btn btn-theme btn-xs']) !!}
                                     @endif
                                 @endif
                                 @if ($paper->isReviewer() && $paper->canEvaluate())
-                                    <a href="{{ action('PaperController@getEvaluate', [$department->keyword, $paper->id])}}" class="btn btn-xs btn-primary">{{ trans('static.evaluate') }}</a>
+                                    <a href="{{ action('PaperController@getEvaluate', [$department->keyword, $paper->id])}}" class="btn btn-xs btn-theme">{{ trans('static.evaluate') }}</a>
                                 @endif
                             {!! Form::close() !!}
                         </td>
