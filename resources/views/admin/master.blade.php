@@ -4,6 +4,7 @@
         @include('layouts.partials.head')
         {!! HTML::style('/css/sb-admin.css') !!}
         {!! HTML::style('/css/select2.css') !!}
+        {!! HTML::style('/css/bootstrap-datepicker.min.css') !!}
 
         {!! HTML::script('/js/all.js') !!}
         {!! HTML::script('/js/select2.js') !!}
@@ -98,7 +99,11 @@
                 @endif
                 <div class="clearfix"></div>
                 <div class="content container-fluid">
+
                     <div class="col-sm12 col-md-10 col-md-offset-1 col-lg-10 col-lg-offset-1">
+                        @if (isset($search) && $search)
+                            @include('admin.partials.search')
+                        @endif
                         <div class="panel panel-default">
                             @yield('content')
                         </div>
@@ -111,5 +116,6 @@
         <!-- /#wrapper -->
         @yield('javascript')
         {!! HTML::script('/js/app.js') !!}
+        {!! HTML::script('/js/bootstrap-datepicker.min.js') !!}
     </body>
 </html>

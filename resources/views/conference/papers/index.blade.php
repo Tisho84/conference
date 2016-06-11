@@ -68,4 +68,7 @@
             </table>
         @endif
     </div>
+    <div class="centered text-center">
+        {!! $papers->render() !!}
+    </div>
 @endsection

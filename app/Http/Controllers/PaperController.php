@@ -58,7 +58,8 @@ class PaperController extends ConferenceBaseController
 
         $papers = $papers->archived()
             ->orderBy('created_at')
-            ->get();
+            ->paginate(10);
+        
         return view('conference.papers.index', ['papers' => $papers]);
     }
 

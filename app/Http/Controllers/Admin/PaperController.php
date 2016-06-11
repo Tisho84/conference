@@ -59,8 +59,35 @@ class PaperController extends ConferenceBaseController
     public function index()
     {
         $papers = Paper::with('reviewer', 'user', 'requests');
+        $department = null;
         if (!$this->systemAdmin) {
-            $papers->where('department_id', auth()->user()->department_id);
+            $department = auth()->user()->department_id;
+        } else if (request('department_id') && $this->systemAdmin) {
+            $department = request('department_id');
+        }
+
+        if ($department) {
+            $papers->where('department_id', (int)$department);
+        }
+
+        if (request('status_id')) {
+            $papers->where('status_id', (int)request('status_id'));
+        }
+
+        if (request('category_id')) {
+            $papers->where('category_id', (int)request('category_id'));
+        }
+
+        if (request('from')) {
+            $papers->whereDate('created_at', '>=', Carbon::createFromFormat('m/d/Y', request('from'))->format('Y-m-d'));
+        }
+
+        if (request('to')) {
+            $papers->whereDate('created_at', '<=', Carbon::createFromFormat('m/d/Y', request('to'))->format('Y-m-d'));
+        }
+
+        if (request('title')) {
+            $papers->where('title', 'like', '%' . request('title') . '%');
         }
 
         if (request('user_id')) {
@@ -83,7 +110,8 @@ class PaperController extends ConferenceBaseController
         return view('admin.paper.index', [
             'papers' => $papers,
             'title' => trans('static.menu-papers'),
-            'url' => action('Admin\PaperController@create')
+            'url' => action('Admin\PaperController@create'),
+            'search' => 1
         ]);
     }
 

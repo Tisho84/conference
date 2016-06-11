@@ -122,5 +122,9 @@ return [
     'all-papers' => 'All papers',
     'reviewer-request' => 'Reviewer request',
     'papers-for-review' => 'Available papers for review',
-    'to-page' => 'To page'
+    'to-page' => 'To page',
+    'search' => 'Search',
+    'date' => 'Date',
+    'to' => 'To',
+    'from' => 'From'
 ];
