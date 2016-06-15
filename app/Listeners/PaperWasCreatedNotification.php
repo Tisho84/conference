@@ -34,7 +34,7 @@ class PaperWasCreatedNotification
         $template = new Template();
         $department = $event->paper->department;
         $settings = $department->settings()->key('email_notification');
-        if (isset($settings->value)) {
+        if (isset($settings->value) && $settings->value) {
             $users = User::where('department_id', $department->id)->whereHas('type.access', function($query) {
                 $query->where('access_id', 12);
             })->get();

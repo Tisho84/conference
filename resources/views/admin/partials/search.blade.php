@@ -35,7 +35,7 @@
                 </div>
             </div>
         </div>
-        <div class="form-group">
+        <div class="form-group pull-right">
             <button type="submit" class="btn btn-default">{{ trans('static.search') }}</button>
         </div>
     </div>

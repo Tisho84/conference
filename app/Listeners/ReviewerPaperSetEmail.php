@@ -31,9 +31,8 @@ class ReviewerPaperSetEmail
     {
         $template = new Template();
         $settings = $event->paper->department->settings()->key('email_reviewer_paper');
-        if (isset($settings->value)) {
+        if (isset($settings->value) && $settings->value && $event->paper->reviewer) {
             $emailTemplate = EmailTemplate::findOrFail($settings->value);
-
             $emailTemplate->body = $template->parser($emailTemplate->body, [
                 'name' => $event->paper->reviewer->name,
                 'link' => buildPaperLink($event->paper)

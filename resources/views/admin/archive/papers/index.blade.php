@@ -1,7 +1,7 @@
 @extends('admin.partials.table')
 
 @section('table')
-    <table class="table">
+    <table id="exportTable" class="table table-hover">
         <thead>
             <tr>
                 <th>{{ trans('static.title') }}</th>
@@ -35,4 +35,5 @@
         @endforeach
         </tbody>
     </table>
+    @include('admin.partials.export')
 @endsection

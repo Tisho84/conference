@@ -28,4 +28,5 @@ return [
     'emails-send' => 'Emails are sent successfully',
     'reviewer-set' => 'Reviewer set successfully',
     'request-send' => 'Request for reviewer send',
+    'auto-success' => 'Automatic reviewers set finished successfully. Emails are send to reviewers.'
 ];

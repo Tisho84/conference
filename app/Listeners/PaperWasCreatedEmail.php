@@ -32,7 +32,7 @@ class PaperWasCreatedEmail// implements ShouldQueue
     {
         $template = new Template();
         $settings = $event->paper->department->settings()->key('email_add_paper');
-        if (isset($settings->value)) {
+        if (isset($settings->value) && $settings->value) {
             $emailTemplate = EmailTemplate::findOrFail($settings->value);
 
             $emailTemplate->body = $template->parser($emailTemplate->body, [

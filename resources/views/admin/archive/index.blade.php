@@ -1,7 +1,7 @@
 @extends('admin.partials.table')
 
 @section('table')
-    <table class="table">
+    <table class="table table-hover">
         <thead>
             <tr>
                 <th>{{ trans('admin.id') }}</th>

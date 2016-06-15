@@ -48,6 +48,7 @@ Route::group([
         resource('criteria.options', 'CriteriaOptionController');
         get('settings', 'SettingsController@display');
         post('settings', 'SettingsController@save');
+        post('settings/auto', 'SettingsController@auto');
         resource('templates', 'EmailTemplateController');
         get('email', 'EmailTemplateController@getEmail');
         post('email', 'EmailTemplateController@postEmail');

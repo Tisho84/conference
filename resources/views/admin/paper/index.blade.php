@@ -1,7 +1,7 @@
 @extends('admin.partials.table')
 
 @section('table')
-    <table class="table">
+    <table id="exportTable" class="table table-hover">
         <thead>
             <tr>
                 <th>{{ trans('static.title') }}</th>
@@ -20,11 +20,11 @@
         @foreach ($papers as $paper)
             <tr>
                 <td class="col-md-2">{{ $paper->title }}</td>
-                <td class="col-md-2">{{ $categories[$paper->category_id] }}</td>
+                <td class="col-md-2">{{ isset($categories[$paper->category_id]) ? $categories[$paper->category_id] : '' }}</td>
                 @if ($systemAdmin)
-                    <td class="col-md-2">{{ $departments[$paper->department_id] }}</td>
+                    <td class="col-md-1">{{ isset($departments[$paper->department_id]) ? $departments[$paper->department_id] : '' }}</td>
                 @endif
-                <td class="col-md-1">{{ $paper->user->name }}</td>
+                <td class="col-md-2">{{ $paper->user->name . ' ' . trans('static.and') . ' ' . $paper->authors }}</td>
                 @if ($paper->reviewer)
                     <td class="col-md-1">{{ $paper->reviewer->name }}</td>
                 @else
@@ -43,10 +43,15 @@
                         @if (count($paper->requests))
                             <a href="{{ action('Admin\UsersController@index', ['paper_id' => $paper->id])}}" class="btn btn-xs btn-primary">{{ trans('static.reviewers') }}</a>
                         @endif
+
+                        @if ($paper->canEdit())
+                            {!! Form::submit(trans('admin.delete'), ['class' => 'btn btn-danger btn-xs']) !!}
+                        @endif
                     {!! Form::close() !!}
                 </td>
             </tr>
         @endforeach
         </tbody>
     </table>
+    @include('admin.partials.export')
 @endsection

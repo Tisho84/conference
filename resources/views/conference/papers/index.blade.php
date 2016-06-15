@@ -24,7 +24,7 @@
 
     <div class="panel-body">
         @if (count($papers))
-            <table class="table">
+            <table class="table table-hover">
                 <thead>
                 <tr>
                     <th>{{ trans('static.title') }}</th>

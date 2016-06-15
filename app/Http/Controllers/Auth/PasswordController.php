@@ -52,7 +52,7 @@ class PasswordController extends ConferenceBaseController// implements ShouldQue
         }
 
         $settings = $user->department->settings()->key('email_password_reset');
-        if (!isset($settings->value)) {
+        if (!isset($settings->value) || !$settings->value) {
             return redirect()->back()->with('error', 'no-template');
         }
 

@@ -111,7 +111,8 @@ class PaperController extends ConferenceBaseController
             'papers' => $papers,
             'title' => trans('static.menu-papers'),
             'url' => action('Admin\PaperController@create'),
-            'search' => 1
+            'search' => 1,
+            'export' => 1
         ]);
     }
 

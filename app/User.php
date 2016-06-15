@@ -114,7 +114,9 @@ class User extends ConferenceBaseModel implements AuthenticatableContract,
         return DB::table('users')
             ->join('user_type', 'users.user_type_id', '=', 'user_type.id')
             ->join('user_type_access', 'user_type.id', '=', 'user_type_access.user_type_id')
-            ->leftJoin('paper', 'users.id', '=', $paperId)
+            ->leftJoin('paper', function($join) use ($paperId) {
+                $join->on('users.id', '=', $paperId)->whereNull('paper.archive_id');
+            })
             ->leftJoin('user_category', 'user_category.user_id', '=', 'users.id')
             ->select('users.*', DB::raw('COUNT(DISTINCT paper.id) as papers'), DB::raw("GROUP_CONCAT(DISTINCT user_category.category_id SEPARATOR ' ') as categories"))
             ->where('users.active', 1)

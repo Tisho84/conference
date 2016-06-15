@@ -31,7 +31,7 @@ class PaperWasFinishedEmail
     {
         $template = new Template();
         $settings = $event->paper->department->settings()->key('email_finished_paper');
-        if (isset($settings->value)) {
+        if (isset($settings->value) && $settings->value) {
             $emailTemplate = EmailTemplate::findOrFail($settings->value);
 
             $emailTemplate->body = $template->parser($emailTemplate->body, [
