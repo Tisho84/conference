@@ -59,8 +59,12 @@ class HomeController extends ConferenceBaseController
     {
         if (Auth::guest()) {
             return view('admin.auth.login');
+        } else {
+            if (!systemAccess(9)) {
+                Auth::logout();
+                return view('admin.auth.login');
+            }
         }
-
         return $this->admin();
     }
 

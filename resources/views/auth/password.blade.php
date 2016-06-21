@@ -15,8 +15,8 @@
 
             <div class="form-group">
                 <div class="text-center">
+                    <a class="btn btn-theme" href="{{ route('department::auth::login', [$department->keyword]) }}">{{ trans('static.menu-back') }}</a>
                     <button type="submit" class="btn btn-theme">{{ trans('static.send') }}</button>
-                    <a class="btn btn-default" href="{{ route('department::auth::login', [$department->keyword]) }}">{{ trans('static.menu-back') }}</a>
                 </div>
             </div>
         {!! Form::close() !!}

@@ -22,11 +22,12 @@ return [
     'error-user-type' => "User type can't be deleted because it's used",
     'lock-registrations' => 'Registrations are temporary suspended.',
     'lock-papers' => 'Adding and modifying papers are temporary suspended.',
+    'lock-data' => 'Modifying information is temporary suspended.',
     'no-template' => 'Email template not set',
     'email-send' => 'Email with link for reset password send',
     'password-changed' => 'Your password has been reset!',
     'emails-send' => 'Emails are sent successfully',
     'reviewer-set' => 'Reviewer set successfully',
     'request-send' => 'Request for reviewer send',
-    'auto-success' => 'Automatic reviewers set finished successfully. Emails are send to reviewers.'
+    'auto-success' => 'Automatic reviewers set finished successfully. Emails are send to reviewers.',
 ];

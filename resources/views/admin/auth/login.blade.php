@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <title>{{ trans('admin.admin-login-form') }}</title>
     {!! HTML::style('/css/app.css') !!}
-    {!! HTML::style('/css/admin.login.css') !!}
+    {!! HTML::style('/css/admin_login.css') !!}
     <link href="{!!asset('navicon.ico') !!}" rel="shortcut icon" type="image/vnd.microsoft.icon" />
 </head>
 

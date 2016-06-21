@@ -55,12 +55,12 @@ class PaperController extends ConferenceBaseController
                     ->orWhere('reviewer_id', auth()->user()->id);
             });
         }
-
+        $settings = $this->department->settings()->key('papers');
         $papers = $papers->archived()
             ->orderBy('created_at')
             ->paginate(10);
 
-        return view('conference.papers.index', ['papers' => $papers]);
+        return view('conference.papers.index', ['papers' => $papers, 'lock' => isset($settings->value) ? $settings->value : 0]);
     }
 
     /**

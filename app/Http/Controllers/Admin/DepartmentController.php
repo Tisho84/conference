@@ -171,7 +171,6 @@ class DepartmentController extends ConferenceBaseController
         try {
             $department->delete();
         } catch (QueryException $e) {
-            dd($e->getMessage());
             return redirect()->back()->with('error', 'error-delete-department');
         }
 

@@ -25,7 +25,7 @@ class DepartmentRequest extends Request
      */
     public function rules()
     {
-        $imageMax = 500;
+        $imageMax = 1024;
         $rules = [
             'keyword' => [
                 1 => 'required',

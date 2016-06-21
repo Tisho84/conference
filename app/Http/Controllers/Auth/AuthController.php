@@ -117,13 +117,17 @@ class AuthController extends ConferenceBaseController
             return $this->sendLockoutResponse($request);
         }
 
+        $department = $this->getDepartment();
         $credentials = $this->getCredentials($request);
+        $credentials['department_id'] = $department->id;
         $credentialsSecond = [
             'email2' => $credentials['email'],
             'password' => $credentials['password'],
+            'department_id' => $department->id,
         ];
+
         if (Auth::attempt($credentials, $request->has('remember')) || Auth::attempt($credentialsSecond, $request->has('remember'))) {
-            if (auth()->user()->department_id != $this->getDepartment()->id) { #user is not from this department
+            if (auth()->user()->department_id != $department->id) { #user is not from this department
                 auth()->logout();
             } else {
                 Session::flash('success', 'login');

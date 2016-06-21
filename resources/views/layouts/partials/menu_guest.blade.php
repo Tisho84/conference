@@ -9,6 +9,6 @@
     </ul>
 </li>
 @if ($department->url)
-    <li>{!! HTML::link($department->url, trans('static.to-page')) !!}</li>
+    <li>{!! HTML::link($department->url, trans('static.to-page'), ['target' => '_blank']) !!}</li>
 @endif
 <li>{!! HTML::link('http://tu-varna.bg', trans('static.menu-tu-varna'), ['target' => '_blank']) !!}</li>

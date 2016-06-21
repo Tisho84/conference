@@ -43,10 +43,14 @@ class PasswordController extends ConferenceBaseController// implements ShouldQue
 
     public function postEmail(Request $request, TokenRepositoryInterface $token)
     {
-        $this->validate($request, ['email' => 'required|email']);//|exists:users,email,department_id,' . $this->getDepartment()->id]);
+        $department = $this->getDepartment();
+        $this->validate($request, ['email' => 'required|email|exists:users,email,department_id,' . $department->id]);
 
         $template = new Template();
-        $user = User::where('email', $request->get('email'))->first();
+        $user = User::where('email', $request->get('email'))
+            ->where('department_id', $department->id)
+            ->first();
+
         if (!$user) {
             return redirect()->back()->with('error', 'error');
         }
@@ -91,6 +95,7 @@ class PasswordController extends ConferenceBaseController// implements ShouldQue
         $credentials = $request->only(
             'email', 'password', 'password_confirmation', 'token'
         );
+        $credentials['department_id'] = $this->getDepartment()->id;
 
         $response = Password::reset($credentials, function ($user, $password) {
             $this->resetPassword($user, $password);

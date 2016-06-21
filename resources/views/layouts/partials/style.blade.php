@@ -54,5 +54,6 @@
     .pagination > .active > span:focus {
         background-color: {!! $department->theme_background_color  !!};
         border-color: {!! $department->theme_background_color  !!};
+        color: {!! $department->theme_color !!} !important;
     }
 </style>

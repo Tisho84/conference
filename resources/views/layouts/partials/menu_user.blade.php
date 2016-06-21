@@ -11,7 +11,7 @@
     <li {{ setActive('/papers') }}>{!! HTML::link(action('PaperController@index', [$department->keyword]), trans('static.menu-papers')) !!}</li>
 @endif
 @if ($department->url)
-    <li>{!! HTML::link($department->url, trans('static.to-page')) !!}</li>
+    <li>{!! HTML::link($department->url, trans('static.to-page'), ['target' => '_blank']) !!}</li>
 @endif
 <li>{!! HTML::link('http://tu-varna.bg', trans('static.menu-tu-varna'), ['target' => '_blank']) !!}</li>
 <li>{!! HTML::link(route('department::user::logout', [$department->keyword]), trans('static.menu-logout')) !!}</li>

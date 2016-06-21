@@ -20,7 +20,9 @@
                     <div class="col-sm-9">{!! $v->build() !!}</div>
                 </div>
             @endforeach
-            @include('layouts.partials.button', ['button' => trans('static.save') ])
+            @if (count($criteria))
+                @include('layouts.partials.button', ['button' => trans('static.save') ])
+            @endif
         {!! Form::close() !!}
     </div>
 @endsection

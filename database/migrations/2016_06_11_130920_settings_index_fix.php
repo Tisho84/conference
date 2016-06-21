@@ -15,7 +15,7 @@ class SettingsIndexFix extends Migration
         Schema::table('settings', function (Blueprint $table) {
             $table->dropForeign('settings_department_id_foreign');
             $table->foreign('department_id')
-                ->references('id')->on('department')->onDelete('cascade');;
+                ->references('id')->on('department')->onDelete('cascade');
         });
     }
 

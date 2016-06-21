@@ -42,8 +42,31 @@ class UsersController extends ConferenceBaseController
     public function index()
     {
         $users = User::with('type.access');
+        $department = null;
         if (!$this->systemAdmin) {
-            $users->where('department_id', auth()->user()->department_id);
+            $department = auth()->user()->department_id;
+        } else if (request('department_id') && $this->systemAdmin) {
+            $department = request('department_id');
+        }
+
+        if ($department) {
+            $users->where('department_id', (int)$department);
+        }
+
+        if (request('name')) {
+            $users->where('name', 'LIKE', '%' . request('name') . '%');
+        }
+
+        if (request('email')) {
+            $users->where('email', 'LIKE', '%' . request('email') . '%');
+        }
+
+        if (request('user_type_id')) {
+            $users->where('user_type_id', request('user_type_id'));
+        }
+
+        if (request('active')) {
+            $users->where('active', request('active') == 1 ? 0 : 1);
         }
 
         if (session('department_filter_id')) {
@@ -61,7 +84,9 @@ class UsersController extends ConferenceBaseController
         return view('admin.user.index', [
             'title' => trans('admin.users'),
             'url' => action('Admin\UsersController@create'),
-            'users' => $users
+            'users' => $users,
+            'search' => ['name', 'department', 'email', 'type', 'active'],
+            'search_url' => action('Admin\UsersController@index'),
         ]);
     }
 

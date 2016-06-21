@@ -23,17 +23,26 @@ class UsersController extends ConferenceBaseController
             'countries' => $country->getCountries(),
             'categories' => getNomenclatureSelect($this->getCategories()),
         ];
-
+        $settings = $this->getDepartment()->settings()->key('user_data');
+        $disabled = '';
+        if (isset($settings->value) && $settings->value) {
+            $disabled = 'disabled';
+        }
         if (auth()->user()->is_reviewer || systemAccess(2)) {
             $data['reviewer'] = true;
             $data['selectedCategories'] = auth()->user()->categories()->lists('id')->toArray();
-            $data['disabled'] = $this->getDepartment()->settings()->key('user_data')->value == 1 ? 'disabled' : '';
         }
+        $data['disabled'] = $disabled;
+
+        session()->put('warning', 'lock-data');
         return view('conference.profile', $data);
     }
 
     public function postProfile(Requests\ProfileUpdateRequest $request)
     {
+        $settings = $this->getDepartment()->settings()->key('user_data');
+        if (isset($settings->value) && $settings->value)
+
         DB::transaction(function () use ($request) {
             auth()->user()->update($request->all());
             if (auth()->user()->is_reviewer || systemAccess(2)) {

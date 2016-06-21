@@ -28,8 +28,8 @@
             </div>
             <div class="form-group">
                 <div class="text-center">
+                    <button type="reset" class="btn btn-theme">{{ trans('static.clear') }}</button>
                     <button type="submit" class="btn btn-theme">{{ trans('static.menu-login') }}</button>
-                    <button type="reset" class="btn btn-default">{{ trans('static.clear') }}</button>
                 </div>
             </div>
         {!! Form::close() !!}

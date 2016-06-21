@@ -46,13 +46,13 @@
                                 @if (request()->get('requests'))
                                     <a href="{{ action('PaperController@show', [$department->keyword, $paper->id, 'requests' => 1])}}" class="btn btn-xs btn-theme">{{ trans('static.preview') }}</a>
                                 @else
-                                <a href="{{ action('PaperController@show', [$department->keyword, $paper->id])}}" class="btn btn-xs btn-theme">{{ trans('static.preview') }}</a>
+                                    <a href="{{ action('PaperController@show', [$department->keyword, $paper->id])}}" class="btn btn-xs btn-theme">{{ trans('static.preview') }}</a>
                                 @endif
                                 @if ($paper->isAuthor())
-                                    @if ($paper->canInvoice())
+                                    @if ($paper->canInvoice() && !$lock)
                                         <a href="{{ action('PaperController@getInvoice', [$department->keyword, $paper->id])}}" class="btn btn-xs btn-theme">{{ trans('static.invoice') }}</a>
                                     @endif
-                                    @if ($paper->canEdit())
+                                    @if ($paper->canEdit() && !$lock)
                                         <a href="{{ action('PaperController@edit', [$department->keyword, $paper->id])}}" class="btn btn-xs btn-theme">{{ trans('static.edit') }}</a>
                                         {!! Form::submit(trans('static.delete'), ['class' => 'btn btn-theme btn-xs']) !!}
                                     @endif
