@@ -57,7 +57,7 @@ class AuthController extends ConferenceBaseController
         return Validator::make($data, [
             'rank_id' => 'in:' . implode(',', array_keys($rank->getRanks())),
             'name' => 'required|max:255|min:4',
-            'phone' => 'max:30|min:5|regex:' . config('auth.expressions.phone'),
+            'phone' => 'max:15|min:5|regex:' . config('auth.expressions.phone'),
             'address' => 'required|max:255|min:4',
             'institution' => 'required|max:100|min:4',
             'country_id' => 'required|in:' . implode(',', array_keys($country->getCountries())),

@@ -66,6 +66,8 @@
                 @endforeach
                 </tbody>
             </table>
+        @else
+            {{ trans('static.no-papers') }}
         @endif
     </div>
     <div class="centered text-center">

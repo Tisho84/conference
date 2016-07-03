@@ -12,7 +12,7 @@
             @if ($paper->payment_confirmed)
                 <div class="form-group">
                     <label>{{ trans('static.download')}}:</label>
-                    <label class="control-label">{!! HTML::link(asset('papers/' . $department->keyword . '/' . $paper->payment_source), $paper->payment_source) !!}</label>
+                    <label class="control-label">{!! HTML::link('papers/' . $department->keyword . '/' . rawurlencode($paper->payment_source), $paper->payment_source) !!}</label>
                 </div>
             @endif
             <div class="form-group">

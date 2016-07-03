@@ -28,8 +28,8 @@ class PaperRequest extends Request
             'category_id' => 'required|exists:category,id',
             'title'       => 'required|min:3|max:255',
             'description' => 'min:3|max:1000',
-            'paper'       => 'required|max:10000|mimes:pdf,doc,docx',
-            'authors'     => 'required|min:3|max:1000',
+            'paper'       => 'required|max:32000|mimes:pdf,doc,docx',
+            'authors'     => 'required|min:3|max:255',
         ];
 
         if (isAdminPanel()) {

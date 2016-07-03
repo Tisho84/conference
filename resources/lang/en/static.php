@@ -14,7 +14,7 @@ return [
     |
     */
     'app-title' => 'Technical University of Varna - international conference',
-    'footer' => '© International conference "Technical University of Varna" 2015 ',
+    'footer' => '© International conference "Technical University of Varna" 2016 ',
     'select-dept' => 'Select department',
     'menu-home' => 'Home',
     'menu-account' => 'Account',
@@ -131,4 +131,5 @@ return [
     'export' => 'Export',
     'auto' => 'Automatic distribution of reviewers',
     'are-you-sure' => "Are you sure that u want to allocate reviewers automatically (if the reviewers are already allocated, they will be allocated again and the current allocation will be deleted!)?",
+    'no-papers' => 'You have not uploaded papers yet',
 ];

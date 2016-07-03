@@ -26,6 +26,7 @@ class UsersController extends ConferenceBaseController
         $settings = $this->getDepartment()->settings()->key('user_data');
         $disabled = '';
         if (isset($settings->value) && $settings->value) {
+            session()->put('warning', 'lock-data');
             $disabled = 'disabled';
         }
         if (auth()->user()->is_reviewer || systemAccess(2)) {
@@ -34,7 +35,6 @@ class UsersController extends ConferenceBaseController
         }
         $data['disabled'] = $disabled;
 
-        session()->put('warning', 'lock-data');
         return view('conference.profile', $data);
     }
 

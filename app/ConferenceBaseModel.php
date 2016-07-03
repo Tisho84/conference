@@ -32,11 +32,6 @@ class ConferenceBaseModel extends Model
         return Carbon::parse($date)->format('d.m.Y H:i');
     }
 
-//    public function getActiveAttribute($value)
-//    {
-//        return $value ? trans('static.yes') : trans('static.no');
-//    }
-
     public function setSortAttribute($value)
     {
         if (!$value) {

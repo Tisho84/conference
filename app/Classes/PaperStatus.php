@@ -18,10 +18,6 @@ class PaperStatus extends Language implements ILanguage
             'en' => 'Editable',
             'bg' => 'Отключен'
         ],
-//        2 => [
-//            'en' => 'Confirmed',
-//            'bg' => 'Подтвърден',
-//        ],
         2 => [
             'en' => 'Locked',
             'bg' => 'Заключен',

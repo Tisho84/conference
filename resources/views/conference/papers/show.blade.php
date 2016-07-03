@@ -30,8 +30,20 @@
             </div>
             <div class="form-group">
                 <label class="col-sm-3 control-label">{{ trans('static.download')}}:</label>
-                <div class="col-sm-9"><label class="control-label-right">{!! HTML::link(rawurlencode('papers/' . $department->keyword . '/' . $paper->source), $paper->source) !!}</label></div>
+                <div class="col-sm-9"><label class="control-label-right">{!! HTML::link('papers/' . $department->keyword . '/' . rawurlencode($paper->source), $paper->source) !!}</label></div>
             </div>
+            @if ($paper->payment_description)
+                <div class="form-group">
+                    <label class="col-sm-3 control-label">{{ trans('static.invoice-description')}}:</label>
+                    <div class="col-sm-9"><label class="text-left control-label-right">{{ $paper->payment_description }}</label></div>
+                </div>
+            @endif
+            @if ($paper->payment_source)
+                <div class="form-group">
+                    <label class="col-sm-3 control-label">{{ trans('static.invoice')}}:</label>
+                    <div class="col-sm-9"><label class="control-label-right">{!! HTML::link('papers/' . $department->keyword . '/' . rawurlencode($paper->payment_source), $paper->payment_source) !!}</label></div>
+                </div>
+            @endif
             @if ($paper->reviewed_at)
                 <div class="centered text-center">
                     <h3>{{ trans('static.evaluate-info') }}</h3>

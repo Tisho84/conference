@@ -30,7 +30,7 @@
             </div>
             <div class="form-group">
                 <label class="col-sm-2 control-label">{{ trans('static.paper')}}:</label>
-                <div class="col-sm-10"><label class="control-label-right">{!! HTML::link(rawurlencode('archive/' . $archive->name . '/' . $paper->source), $paper->source) !!}</label></div>
+                <div class="col-sm-10"><label class="control-label-right">{!! HTML::link('archive/' . $archive->name . '/' . rawurlencode($paper->source), $paper->source) !!}</label></div>
             </div>
             @if ($paper->payment_description)
                 <div class="form-group">
@@ -41,7 +41,7 @@
             @if ($paper->payment_source)
                 <div class="form-group">
                     <label class="col-sm-2 control-label">{{ trans('static.invoice')}}:</label>
-                    <div class="col-sm-10"><label class="control-label-right">{!! HTML::link(rawurlencode('archive/' . $archive->name . '/' . $paper->payment_source), $paper->payment_source) !!}</label></div>
+                    <div class="col-sm-10"><label class="control-label-right">{!! HTML::link('archive/' . $archive->name . '/' . rawurlencode($paper->payment_source), $paper->payment_source) !!}</label></div>
                 </div>
             @endif
             <div class="form-group">
