@@ -197,7 +197,7 @@ class EmailTemplateController extends ConferenceBaseController
             $emails = array_unique($emails);
             $mailer->send('layouts.partials.email', ['body' => $emailTemplate->body], function ($message) use ($emailTemplate, $emails) {
                 $message->subject($emailTemplate->subject);
-                $message->bcc($emails);
+                $message->to($emails);
             });
         }
 

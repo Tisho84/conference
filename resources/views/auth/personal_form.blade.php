@@ -20,7 +20,7 @@
 </div>
 <div class="form-group">
     <label for="inputCountry">{{ trans('static.country') }}<span class="glyphicon glyphicon-asterisk" aria-hidden="true"></span></label>
-    {!! Form::select('country_id', $countries, old('country_id'), ['class' => 'form-control', isset($disabled) && $disabled ? $disabled : '']) !!}
+    {!! Form::select('country_id', $countries, old('country_id'), ['class' => 'form-control select2', isset($disabled) && $disabled ? $disabled : '']) !!}
 </div>
 @if (request('reviewer') || (isset(auth()->user()->is_reviewer) && auth()->user()->is_reviewer) || (isset($reviewer) && $reviewer))
     <div class="form-group">

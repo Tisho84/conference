@@ -52,7 +52,7 @@ class PaperWasCreatedNotification
 
                 $this->mailer->send('layouts.partials.email', ['body' => $body], function ($message) use ($emailTemplate, $emails) {
                     $message->subject($emailTemplate->subject);
-                    $message->bcc($emails);
+                    $message->to($emails);
                 });
             }
         }

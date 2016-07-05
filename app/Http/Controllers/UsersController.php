@@ -41,7 +41,9 @@ class UsersController extends ConferenceBaseController
     public function postProfile(Requests\ProfileUpdateRequest $request)
     {
         $settings = $this->getDepartment()->settings()->key('user_data');
-        if (isset($settings->value) && $settings->value)
+        if (isset($settings->value) && $settings->value) {
+            return redirect()->back()->with('error', 'access-denied');
+        }
 
         DB::transaction(function () use ($request) {
             auth()->user()->update($request->all());

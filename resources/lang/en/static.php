@@ -131,5 +131,5 @@ return [
     'export' => 'Export',
     'auto' => 'Automatic distribution of reviewers',
     'are-you-sure' => "Are you sure that u want to allocate reviewers automatically (if the reviewers are already allocated, they will be allocated again and the current allocation will be deleted!)?",
-    'no-papers' => 'You have not uploaded papers yet',
+    'no-papers' => 'You have no papers yet',
 ];

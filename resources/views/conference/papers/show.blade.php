@@ -44,7 +44,7 @@
                     <div class="col-sm-9"><label class="control-label-right">{!! HTML::link('papers/' . $department->keyword . '/' . rawurlencode($paper->payment_source), $paper->payment_source) !!}</label></div>
                 </div>
             @endif
-            @if ($paper->reviewed_at)
+            @if ($paper->reviewed_at)`
                 <div class="centered text-center">
                     <h3>{{ trans('static.evaluate-info') }}</h3>
                 </div>
