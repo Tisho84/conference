@@ -110,7 +110,7 @@ return [
         'new-password' => 'new password',
         'password_confirmed' => 'confirm password',
         'sort' => 'sort',
-        'category_id' => 'Category',
+        'category_id' => 'Topic',
         'name_en' => 'Name(English)',
         'name_bg' => 'Name(Български)',
         'title_en' => 'Title(English)',

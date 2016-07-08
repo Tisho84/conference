@@ -20,9 +20,14 @@
                     <div class="col-sm-9">{!! $v->build() !!}</div>
                 </div>
             @endforeach
-            @if (count($criteria))
-                @include('layouts.partials.button', ['button' => trans('static.save') ])
-            @endif
+            <div class="form-group">
+                <div class="text-center">
+                    <a href="{{ action('PaperController@index', [$department->keyword]) }}" class="btn btn-theme">{{ trans('static.menu-back') }}</a>
+                    @if (count($criteria))
+                        <button type="submit" class="btn btn-theme">{{ trans('static.save') }}</button>
+                    @endif
+                </div>
+            </div>
         {!! Form::close() !!}
     </div>
 @endsection

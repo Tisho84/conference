@@ -1,8 +1,8 @@
 <?php
 return [
-    'registered' => 'You are now successfully registered.',
-    'login' => 'Successfully logged in',
-    'logout' => 'Successfully logged out',
+    'registered' => 'You are now successfully registered',
+    'login' => 'You successfully logged in',
+    'logout' => 'You successfully logged out',
     'profile-updated' => 'Information was updated successfully',
     'saved' => 'Record was saved successfully',
     'updated' => 'Record was updated successfully',
@@ -16,7 +16,7 @@ return [
     'upload-file' => 'Uploading new file will delete old one',
     'options' => 'That criteria can\'t have options',
     'department-category' => 'Selected category do not belong to the department',
-    'paper-evaluated' => 'Paper evaluated successfully',
+    'paper-evaluated' => 'Paper was evaluated successfully',
     'admin-delete' => 'System admin can\'t be deleted',
     'error-user-paper' => "The user has papers uploaded or for reviewing and can't be deleted",
     'error-user-type' => "User type can't be deleted because it's used",
@@ -30,4 +30,8 @@ return [
     'reviewer-set' => 'Reviewer set successfully',
     'request-send' => 'Request for reviewer send',
     'auto-success' => 'Automatic reviewers set finished successfully. Emails are send to reviewers.',
+    'paper-saved' => 'Paper was saved successfully',
+    'paper-updated' => 'Paper was updated successfully',
+    'paper-deleted' => 'Paper was deleted successfully',
+    'paper-invoice-saved' => 'Paper invoice was saved successfully',
 ];

@@ -19,7 +19,12 @@
                 <label for="payment_source">{{ trans('static.invoice-source') }}<span class="glyphicon glyphicon-asterisk" aria-hidden="true"></span></label>
                 {!! Form::file("payment_source", null, ['class' => 'form-control', 'id' => 'payment_source', 'placeholder' => trans('static.invoice-source')]) !!}
             </div>
-            @include('layouts.partials.button', ['button' => trans('static.save') ])
+            <div class="form-group">
+                <div class="text-center">
+                    <a href="{{ action('PaperController@index', [$department->keyword]) }}" class="btn btn-theme">{{ trans('static.menu-back') }}</a>
+                    <button type="submit" class="btn btn-theme">{{ trans('static.save') }}</button>
+                </div>
+            </div>
         {!! Form::close() !!}
     </div>
 @endsection

@@ -103,7 +103,7 @@ class PaperController extends ConferenceBaseController
         $this->paper->upload($name);
         event(new PaperWasCreated($paper));
 
-        return redirect()->action('PaperController@index', [$this->department->keyword])->with('success', 'saved');
+        return redirect()->action('PaperController@index', [$this->department->keyword])->with('success', 'paper-saved');
     }
 
     /**
@@ -168,7 +168,7 @@ class PaperController extends ConferenceBaseController
             $paper->update($paperData);
             event(new PaperWasUpdated($paper));
 
-            return redirect()->action('PaperController@index', [$department->keyword])->with('success', 'saved');
+            return redirect()->action('PaperController@index', [$department->keyword])->with('success', 'paper-updated');
         }
         return redirect()->back()->with('error', 'access-denied');
     }
@@ -187,7 +187,7 @@ class PaperController extends ConferenceBaseController
             if (!$this->paper->delete()) {
                 return redirect()->back()->with('error', 'error-delete-paper');
             }
-            return redirect()->action('PaperController@index', [$department->keyword])->with('success', 'deleted');
+            return redirect()->action('PaperController@index', [$department->keyword])->with('success', 'paper-deleted');
         }
         return redirect()->back()->with('error', 'access-denied');
     }
@@ -243,7 +243,7 @@ class PaperController extends ConferenceBaseController
             $paper->update($paperData);
             event(new PaperWasUpdated($paper));
 
-            return redirect()->action('PaperController@index', [$department->keyword])->with('success', 'saved');
+            return redirect()->action('PaperController@index', [$department->keyword])->with('success', 'paper-invoice-saved');
         }
         return redirect()->back()->with('error', 'access-denied');
     }

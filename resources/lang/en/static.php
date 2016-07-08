@@ -59,8 +59,8 @@ return [
     'no' => 'No',
     'uploaded-papers' => 'Uploaded papers',
     'reviewed-papers' => 'Papers for review',
-    'category' => 'Category',
-    'description' => 'Description',
+    'category' => 'Topic',
+    'description' => 'Abstract',
     'title' => 'Title',
     'add-paper' => 'Add paper',
     'action' => 'Action',
@@ -132,4 +132,5 @@ return [
     'auto' => 'Automatic distribution of reviewers',
     'are-you-sure' => "Are you sure that u want to allocate reviewers automatically (if the reviewers are already allocated, they will be allocated again and the current allocation will be deleted!)?",
     'no-papers' => 'You have no papers yet',
+    'separated' => 'separated by comma ,'
 ];

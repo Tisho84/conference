@@ -92,7 +92,7 @@ return [
             'rule-name' => 'custom-message',
         ],
         'category_id' => [
-            'exists' => 'Полето за Категория е задължително.'
+            'exists' => 'Полето за Научен интерес е задължително.'
         ],
         'file' => [
             'required' => 'Файлът е задължителен'
@@ -121,7 +121,7 @@ return [
         'country_id' => 'Държава',
         'institution' => 'Университет/Институция',
         'categories' => 'Научни интереси',
-        'category_id' => 'Категория',
+        'category_id' => 'Научен интерес',
         'new-password' => 'нова парола',
         'password_confirmed' => 'повтори парола',
         'sort' => 'Подредба',
