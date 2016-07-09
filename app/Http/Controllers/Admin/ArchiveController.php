@@ -138,7 +138,8 @@ class ArchiveController extends ConferenceBaseController
             'papers' => $papers,
             'back' => action('Admin\ArchiveController@index'),
             'title' => trans('static.archive') . ': ' . $archive->name . ' ' . trans('static.menu-papers'),
-            'export' => 1
+            'export' => 1,
+            'counter' => count($papers)
         ]);
     }
 

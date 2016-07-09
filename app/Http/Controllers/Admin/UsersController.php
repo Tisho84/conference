@@ -87,6 +87,7 @@ class UsersController extends ConferenceBaseController
             'users' => $users,
             'search' => ['name', 'department', 'email', 'type', 'active'],
             'search_url' => action('Admin\UsersController@index'),
+            'counter' => count($users)
         ]);
     }
 

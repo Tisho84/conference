@@ -78,12 +78,12 @@
                             ].concat($.map(data, function(item) {
                                 return {
                                     cells: [
-                                        { type: String, value: item.{{ trans('static.title') }} },
-                                        { type: String, value: item.{{ trans('static.category') }} },
-                                        { type: String, value: item.{{ trans('static.uploader') }} },
-                                        { type: String, value: item.{{ trans('static.reviewer') }} },
-                                        { type: String, value: item.{{ trans('static.created-at') }} },
-                                        { type: String, value: item.{{ trans('static.status') }} }
+                                        { type: String, value: item["{{ trans('static.title') }}"] },
+                                        { type: String, value: item["{{ trans('static.category') }}"] },
+                                        { type: String, value: item["{{ trans('static.uploader') }}"] },
+                                        { type: String, value: item["{{ trans('static.reviewer') }}"] },
+                                        { type: String, value: item["{{ trans('static.created-at') }}"] },
+                                        { type: String, value: item["{{ trans('static.status') }}"] }
                                     ]
                                 };
                             }))

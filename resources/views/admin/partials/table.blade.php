@@ -9,6 +9,12 @@
         @if(isset($url) && $url)
             <a href="{{ $url }}" class="btn btn-primary btn-xs pull-right">{{ trans('admin.add') }}</a>
         @endif
+        @if(isset($counter))
+            <a href="#" class="btn btn-default btn-xs pull-right disabled">
+                {{ trans('static.count') . ': '}}
+                <b>{{ $counter }}</b>
+            </a>
+        @endif
     </div>
     <div class="panel-body">
         @yield('table')

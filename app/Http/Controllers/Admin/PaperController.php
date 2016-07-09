@@ -113,6 +113,7 @@ class PaperController extends ConferenceBaseController
             'url' => action('Admin\PaperController@create'),
             'search' => ['title', 'department', 'category', 'status', 'date'],
             'search_url' => action('Admin\PaperController@index'),
+            'counter' => count($papers),
             'export' => 1
         ]);
     }
