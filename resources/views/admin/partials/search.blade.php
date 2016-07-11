@@ -71,6 +71,12 @@
             <button type="submit" class="btn btn-default">{{ trans('static.search') }}</button>
         </div>
     </div>
+    @if (request()->get('user_id'))
+        {!! Form::hidden('user_id', request()->get('user_id')) !!}
+    @endif
+    @if (request()->get('reviewer_id'))
+        {!! Form::hidden('reviewer_id', request()->get('reviewer_id')) !!}
+    @endif
 {!! Form::close() !!}
 <script>
     $("#category").remoteChained({
